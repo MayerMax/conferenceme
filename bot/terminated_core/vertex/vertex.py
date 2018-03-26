@@ -1,7 +1,9 @@
 import abc
 
+
 from bot.query import QueryResult
 from bot.statuses import StatusTypes
+
 
 class BaseActionVertex(metaclass=abc.ABCMeta):
     """
@@ -41,13 +43,26 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
         return self.name
 
     @abc.abstractmethod
-    def activation_function(self, user_data, hierarchy, search_source) -> QueryResult:
+    def activation_function(self, user_raw_query, user_data, hierarchy, search_source) -> QueryResult:
         """
         абстрактная функция, возвращающая результат запроса пользователя в соответствии с QueryResult
+        :param user_raw_query: исходный запрос пользователя, ВОЗМОЖНО, лишнее поле, так как в hierarchy хранится
+        информация о предыдущем запросе
         :param user_data: информация о пользователе
         :param hierarchy: объект истории вызовов данного пользователя, нужен для обобщения логики, чтобы построить
         общий контекст
         :param search_source: место, в котором нужно искать данные
         :return: QueryResult
+        """
+        pass
+
+    @abc.abstractmethod
+    def predict_is_suitable_input(self, user_raw_query) -> bool:
+        """
+        абстрактная функция, которая помогает текущему состоянию бота понять, подходит ли пользовательский ввод данных
+        для активационной функции. Необходима для активационных функций, который ожидают ввод в виде имен, названий,
+        естественных запросов и проч. Для детерменированных вершин устанавливать в True
+        :param user_raw_query:
+        :return: True - да, допустим или False - нет, не ожидаемый формат
         """
         pass
