@@ -1,8 +1,11 @@
 import abc
 
-
 from bot.query import QueryResult
 from bot.statuses import StatusTypes
+
+
+class ActionVertexParentExists(Exception):
+    pass
 
 
 class BaseActionVertex(metaclass=abc.ABCMeta):
@@ -24,7 +27,7 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
         self.parent = parent
         self.children = set()
 
-    def add_child(self, child_name):
+    def add_child(self, child_name: str):
         """
         добавляет данному состоянию доченреи состояния
         :param child_name: дочерняя вершина
@@ -32,8 +35,18 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
         """
         self.children.add(child_name)
 
+    def set_parent(self, parent_name: str):
+        """
+        Устанавливает данной вершине родителя
+        :param parent_name: str
+        :return:
+        """
+        if self.parent:
+            raise ActionVertexParentExists('This vertex has already have parent named {}'.format(self.parent))
+        self.parent = parent_name
+
     def __str__(self):
-        return 'Vertex {}, It has children: {}'.format(self.name, ''.join(x.name for x in self.children))
+        return 'Vertex {}, It has children: {}'.format(self.name, ', '.join(x for x in self.children))
 
     def get_unique_name(self) -> str:
         """
@@ -65,4 +78,12 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
         :param user_raw_query:
         :return: True - да, допустим или False - нет, не ожидаемый формат
         """
+        pass
+
+
+class DummyVertex(BaseActionVertex):
+    def predict_is_suitable_input(self, user_raw_query) -> bool:
+        pass
+
+    def activation_function(self, user_raw_query, user_data, hierarchy, search_source) -> QueryResult:
         pass
