@@ -103,7 +103,10 @@ class Alchemy:
 
     @staticmethod
     def get_instance():
+        # TODO: Alchemy and multithreads
         if not Alchemy.db_instance:
+            Alchemy.db_instance = Alchemy.__Alchemy()
+        else:
             Alchemy.db_instance = Alchemy.__Alchemy()
 
         return Alchemy.db_instance
