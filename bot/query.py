@@ -8,7 +8,8 @@ class QueryResult:
     Класс, который формирует ответ, принимаемый интерфейсами для разных мессенджеров, чтобы отдать пользователю
     результат
     """
-    def __init__(self, status: StatusTypes, answer: List[str], attachments: List[str], extra_args:object=None):
+
+    def __init__(self, status: StatusTypes, answer: List[str], attachments: List[str], extra_args: object = None):
         """
         конструктор
         :param status: статус формируемого результата - конец ли это диалога или бот ожидает продолжение
