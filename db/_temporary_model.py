@@ -3,7 +3,7 @@ import os
 import random
 from datetime import datetime
 import timestring
-from db.base import Conference, Speaker, Lecture, Section
+from db._base import Conference, Speaker, Lecture, Section
 
 
 class TempRelationalObject:
