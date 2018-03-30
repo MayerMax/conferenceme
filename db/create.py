@@ -40,6 +40,7 @@ session.add(contact_face)
 session.commit()
 
 conference = Conference(organization_name='Microsoft',
+                        summary='Conference in IT',
                         conference_topics='Students; Imagine Cup; Development',
                         root_path='{}/media/'.format(media_root_directory),
                         name='Imagine Cup 2018',
