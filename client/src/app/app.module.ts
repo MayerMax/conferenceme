@@ -8,6 +8,7 @@ import {MatButtonModule, MatFormFieldModule, MatInputModule} from "@angular/mate
 import { LoginComponent } from './Components/login/login.component';
 import {RouterModule, Routes} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {HttpClientModule} from "@angular/common/http";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent}
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
