@@ -8,7 +8,8 @@ import {MatButtonModule, MatFormFieldModule, MatInputModule} from "@angular/mate
 import { LoginComponent } from './Components/login/login.component';
 import {RouterModule, Routes} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthInterceptorService} from "./services/auth-interceptor.service";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent}
@@ -30,7 +31,11 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
