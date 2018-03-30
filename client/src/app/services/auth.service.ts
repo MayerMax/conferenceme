@@ -12,6 +12,10 @@ export class AuthService {
     return this.http.post(url, {email, password}).do(
       res => this.setSession);
   }
+  signUp(email: string, password: string){
+    let url = `${this.BaseUrl}/signUp`;
+    return this.http.post(url, {email, password});
+  }
   private setSession(authResult) {
     localStorage.setItem('id_token', authResult.idToken);
   }

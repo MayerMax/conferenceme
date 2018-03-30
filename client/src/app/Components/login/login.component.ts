@@ -14,6 +14,13 @@ export class LoginComponent implements OnInit {
   email = new FormControl('',[ Validators.required , Validators.email]);
   constructor(private fb: FormBuilder,private router: Router, private auth: AuthService) {
   }
+  ngOnInit() {
+    this.form = this.fb.group(
+      {
+        password: ['', Validators.required]
+      });
+    this.form.addControl('email', this.email);
+  }
   getErrorMessage (){
     return this.email.hasError('required')? 'Вы должны ввести значение' :
       this.email.hasError('email')? "Недействительный адрес почты" : '';
@@ -30,12 +37,4 @@ export class LoginComponent implements OnInit {
       );
     }
   }
-  ngOnInit() {
-    this.form = this.fb.group(
-      {
-        password: ['', Validators.required]
-      });
-    this.form.addControl('email', this.email);
-  }
-
 }

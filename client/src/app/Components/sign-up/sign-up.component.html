@@ -1,0 +1,19 @@
+<h1>SignUp</h1>
+<form  [formGroup]="form" >
+  <mat-form-field>
+    <input matInput class="form-control" placeholder="Email"  type="text" name="mail"  formControlName="email" required>
+    <mat-error *ngIf="confirmPassword.invalid"> {{getErrorEmailMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Пароль"  type="password" name="password" formControlName="password" required>
+    <mat-error *ngIf="confirmPassword.invalid"> {{getErrorPasswordMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput compareFormControl="password" placeholder="Подтвердите пароль"  type="password" name="confirmPassword" formControlName="confirmPassword" required>
+    <mat-error *ngIf="confirmPassword.invalid"> {{getErrorConfirmMessage()}}</mat-error>
+  </mat-form-field>
+
+  <div class="form-buttons"></div>
+  <button type="button" mat-raised-button class="button button-primary" (click)="signUp()" >отправить</button>
+
+</form>

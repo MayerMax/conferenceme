@@ -10,15 +10,20 @@ import {RouterModule, Routes} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptorService} from "./services/auth-interceptor.service";
+import { SignUpComponent } from './Components/sign-up/sign-up.component';
+import { CompareFormControlDirective } from './directive/compare-form-control.directive';
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent}
+  { path: 'login', component: LoginComponent},
+  { path: 'signUp', component: SignUpComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SignUpComponent,
+    CompareFormControlDirective
   ],
   imports: [
     BrowserModule,
