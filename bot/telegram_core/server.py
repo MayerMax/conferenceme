@@ -1,7 +1,6 @@
 import logging
 
-from bot.intelligence.analyzer import Analyzer
-from bot.service.event_manager import EventManager
+from bot.service.abstract_bot import AbstractBot
 from bot.telegram_core.keys import KEY
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
@@ -12,14 +11,10 @@ updater = Updater(token=KEY)
 dispatcher = updater.dispatcher
 
 
-class Bot:
-    def __init__(self):
-        self.__event_manager = EventManager()
-        self.__auth_by_bot = {}
-        self.__analyzer = Analyzer()
-        self.__replier = None  # будет установлен Telegram replier
+class Bot(AbstractBot):
 
     def start_state(self, bot, update):
+        print(type(update.message.from_user))
         bot.send_message(chat_id=update.message.chat_id, text='Hello, world!')
 
     def launch(self):
