@@ -1,5 +1,3 @@
-import telegram
-
 from db.alchemy import Alchemy
 
 

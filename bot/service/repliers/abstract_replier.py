@@ -6,7 +6,8 @@ from bot.statuses import UserState
 
 
 class AbstractReplier(metaclass=abc.ABCMeta):
-    def __init__(self, root_state_names: List[str], default_state_names: List[str] = None):
+    def __init__(self, root_state_names: List[str]=None, default_state_names: List[str] = None,
+                 state: UserState = UserState.GUEST):
         """
         конструктор абстрактного replier-a
         :param root_state_names: именя вершин со статусом ROOT
@@ -14,7 +15,7 @@ class AbstractReplier(metaclass=abc.ABCMeta):
         """
         self.root_state_names = root_state_names
         self.default_state_names = default_state_names
-        self.user_state = UserState.GUEST
+        self.user_state = state
 
     def set_user_state(self, new_state: UserState):
         self.user_state = UserState
