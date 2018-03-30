@@ -1,0 +1,13 @@
+<h1>Login</h1>
+<form  [formGroup]="form" >
+      <mat-form-field>
+      <input matInput class="form-control" placeholder="Email"  type="text" name="mail"  formControlName="email" required>
+<mat-error *ngIf="email.invalid"> {{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+<mat-input-container>
+      <input matInput placeholder="Пароль"  type="password" name="password" formControlName="password" required>
+</mat-input-container>
+  <div class="form-buttons"></div>
+  <button mat-raised-button class="button button-primary" (click)="login()" >отправить</button>
+
+</form>
