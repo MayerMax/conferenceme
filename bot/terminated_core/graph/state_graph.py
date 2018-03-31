@@ -52,24 +52,3 @@ class StateGraph:
         :return: List[str]
         """
         return list(self.vertices.keys())
-
-
-if __name__ == '__main__':
-    g = StateGraph()
-    g.add_action_vertex(DummyVertex('Schedule', StatusTypes.ROOT))
-    g.add_action_vertex(DummyVertex('WhatSection', StatusTypes.NEIGHBOUR))
-
-    g.add_action_vertex(DummyVertex('WeekSchedule', StatusTypes.LEAF))
-    g.add_action_vertex(DummyVertex('TodaySchedule', StatusTypes.LEAF))
-    g.add_action_vertex(DummyVertex('TomorrowSchedule', StatusTypes.LEAF))
-    g.add_action_vertex(DummyVertex('TimeSchedule', StatusTypes.LEAF))
-
-    g.add_transition_from_parent_to_child_by_names('Schedule', 'WhatSection')
-
-    g.add_transition_from_parent_to_child_by_names('WhatSection', 'WeekSchedule')
-    g.add_transition_from_parent_to_child_by_names('WhatSection', 'TodaySchedule')
-    g.add_transition_from_parent_to_child_by_names('WhatSection', 'TomorrowSchedule')
-    g.add_transition_from_parent_to_child_by_names('WhatSection', 'TimeSchedule')
-
-    print(g.get_vertices_names())
-    print(g.get_action_vertex('WhatSection'))

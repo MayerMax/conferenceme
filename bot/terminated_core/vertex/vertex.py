@@ -1,4 +1,5 @@
 import abc
+from typing import List, Tuple
 
 from bot.query import QueryResult
 from bot.statuses import StatusTypes
@@ -56,7 +57,7 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
         return self.name
 
     @abc.abstractmethod
-    def activation_function(self, user_raw_query, user_data, hierarchy, search_source) -> QueryResult:
+    def activation_function(self, user_raw_query, user_data, hierarchy, search_source) -> Tuple[QueryResult, List[str]]:
         """
         абстрактная функция, возвращающая результат запроса пользователя в соответствии с QueryResult
         :param user_raw_query: исходный запрос пользователя, ВОЗМОЖНО, лишнее поле, так как в hierarchy хранится
@@ -65,7 +66,7 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
         :param hierarchy: объект истории вызовов данного пользователя, нужен для обобщения логики, чтобы построить
         общий контекст
         :param search_source: место, в котором нужно искать данные
-        :return: QueryResult
+        :return: QueryResult и список дочерних вершин
         """
         pass
 
