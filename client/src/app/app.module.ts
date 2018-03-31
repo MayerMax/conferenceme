@@ -12,10 +12,13 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptorService} from "./services/auth-interceptor.service";
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { CompareFormControlDirective } from './directive/compare-form-control.directive';
+import {EnsureAuthenticatedService} from "./services/ensure-authenticated.service";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
-  { path: 'signUp', component: SignUpComponent}
+  { path: 'signUp', component: SignUpComponent},
+  { path: '**', component: LoginComponent}
+
 ];
 
 @NgModule({
@@ -36,7 +39,9 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ {
+  providers: [
+    EnsureAuthenticatedService,
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,
     multi: true
