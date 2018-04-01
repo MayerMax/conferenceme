@@ -113,6 +113,11 @@ class Alchemy:
 
 
 if __name__ == '__main__':
-    s = Alchemy.get_instance()
-    s = s.get_session()
-    print(s.query(Speaker.photo_path).all())
+    a = Alchemy.get_instance()
+    s = a.get_session()
+    conf = a.get_conference_by_id(1)
+    lectures = a.get_conference_lectures(1)
+    print([l.when.day for l in lectures])
+    # conf_key = ConferenceHashes(1, '12345')
+    # s.add(conf_key)
+    # s.commit()
