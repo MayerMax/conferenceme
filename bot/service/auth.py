@@ -10,7 +10,7 @@ class Auth:
         if alchemy:
             self.alchemy = alchemy
         else:
-            self.alchemy = Alchemy('../../db/data.db')
+            self.alchemy = Alchemy.get_instance('../../db/data.db')
         self.__authorized_users = set()
 
     def register_user(self, user_nickname: str, string_password: str) -> bool:

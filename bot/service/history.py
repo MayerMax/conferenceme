@@ -4,18 +4,14 @@ from bot.query import QueryResult
 
 
 class Record:
-    def __init__(self, vertex_name, request, query_result, context_reference: Context, previous=None):
+    def __init__(self, vertex_name, request, query_result, previous=None):
         self.vertex_name = vertex_name
         self.request = request
         self.query_result = query_result
-        self.context_reference = context_reference
         self.previous = previous
 
     def previous(self) -> object:
         return self.previous
-
-    def add_record(self, vertex_name: str, request: str, query_result: QueryResult):
-        self.context_reference.add_record(vertex_name, request, query_result)
 
 
 class Context:
