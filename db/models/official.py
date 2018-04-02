@@ -24,6 +24,7 @@ if you have questions - email us: {},
 Our contacts: {}
         """.format(self.name, self.description, self.email_address, self.external_links)
 
+
 class Sponsor(Base):
     __tablename__ = 'sponsor'
     id = Column(Integer, primary_key=True)
