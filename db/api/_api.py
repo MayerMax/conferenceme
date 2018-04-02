@@ -1,4 +1,5 @@
 """Модуль api базы данных"""
+from typing import List
 from sqlalchemy import and_
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -15,7 +16,7 @@ from db.models.people import Speaker
 class AuthApi:
     @staticmethod
     def create_organization_account(email, name, password):
-        session = db.Alchemy.get_instance()
+        session = db.Alchemy.get_session()
 
         if AuthApi.check_organization_exists(email, name):
             raise OrganizationExistsException()
@@ -30,7 +31,7 @@ class AuthApi:
 
     @staticmethod
     def check_organization_exists(email, name):
-        session = db.Alchemy.get_instance()
+        session = db.Alchemy.get_session()
         try:
             _ = session.query(Organization).filter(and_(Organization.email_address == email,
                                                         Organization.name == name)).one()
@@ -42,17 +43,17 @@ class AuthApi:
 class ConferenceApi:
     @staticmethod
     def get_conference_by_id(conf_id) -> Conference:
-        session = db.Alchemy.get_instance()
+        session = db.Alchemy.get_session()
         return session.query(Conference).filter(Conference.id == conf_id).one_or_none()
 
     @staticmethod
     def get_conference_speakers(conf_id) -> List[Speaker]:
-        session = db.Alchemy.get_instance()
+        session = db.Alchemy.get_session()
         return session.query(Speaker).filter(Speaker.conf_id == conf_id).all()
 
     @staticmethod
     def get_conference_lectures(conf_id) -> List[Lecture]:
-        session = db.Alchemy.get_instance()
+        session = db.Alchemy.get_session()
         return session.query(Lecture).filter(Lecture.conf_id == conf_id).all()
 
     @staticmethod
@@ -62,7 +63,7 @@ class ConferenceApi:
         :param conference_id: id конференции
         :return:
         """
-        session = db.Alchemy.get_instance()
+        session = db.Alchemy.get_session()
         return session.query(Section).filter(Section.conference_id == conference_id).all()
 
     @staticmethod
@@ -76,7 +77,7 @@ class ConferenceApi:
         :param to_date: верхняя граница лекции по дате
         :return:
         """
-        session = db.Alchemy.get_instance()
+        session = db.Alchemy.get_session()
 
         if from_date and to_date:
             return session(Lecture).filter(from_date <= Lecture.date <= to_date).all()
@@ -102,6 +103,6 @@ class ConferenceApi:
         :param key: string
         :return: bool
         """
-        session = db.Alchemy.get_instance()
+        session = db.Alchemy.get_session()
         confhash = session.query(ConferenceHashes).filter(ConferenceHashes.key == key).one_or_none()
         return confhash
