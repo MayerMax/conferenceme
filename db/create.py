@@ -10,12 +10,12 @@ from db.models.official import *
 from db.models.people import *
 
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Time, create_engine
-from sqlalchemy.orm import relationship, sessionmaker
+from sqlalchemy.orm import relationship, sessionmaker, scoped_session
 
 engine = create_engine('sqlite:///data.db')
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine
-DBSession = sessionmaker(bind=engine)
+DBSession = scoped_session(sessionmaker(bind=engine))
 session = DBSession()
 
 media_root_directory = dirname(dirname(abspath(__file__)))

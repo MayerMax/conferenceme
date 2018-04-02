@@ -25,6 +25,7 @@ Dates {} - {},
 Our links: {}
         """.format(self.name, self.conference_topics, self.begin_date, self.end_date, self.external_links)
 
+
 class RestActivity(Base):
     __tablename__ = 'rest'
     id = Column(Integer, primary_key=True)
