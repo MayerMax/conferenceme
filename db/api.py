@@ -1,4 +1,6 @@
 """Модуль api базы данных"""
+from typing import List, Union
+
 from sqlalchemy import and_
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -95,13 +97,15 @@ class ConferenceApi:
         return ConferenceApi.get_lections(conference_id, section_id, date, date)
 
     @staticmethod
-    def is_correct_key(key):
+    def is_correct_key(key) -> Union[int, None]:
         """
         Принимает ключ, проверяет, есть ли какая-то конференция с таким клюом,
-        Если да - возвращает  True: есть доступ, иначе - False
+        Если да - возвращает  ее id: есть доступ, иначе -None
         :param key: string
-        :return: bool
+        :return: int
         """
         session = db.Alchemy.get_instance()
         confhash = session.query(ConferenceHashes).filter(ConferenceHashes.key == key).one_or_none()
-        return confhash
+        if confhash:
+            return confhash.conf_id
+        return None

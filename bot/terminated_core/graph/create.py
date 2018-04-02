@@ -17,4 +17,5 @@ def create_graph() -> StateGraph:
     g.add_transition_from_parent_to_child_by_names('ScheduleSection', 'ScheduleToday')
     g.add_transition_from_parent_to_child_by_names('ScheduleSection', 'ScheduleTomorrow')
 
+    g.set_default_vertices([]) # пока что пуст
     return g

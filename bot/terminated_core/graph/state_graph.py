@@ -1,5 +1,7 @@
 from typing import Union, List
 
+from bot.query import QueryResult, QueryRequest
+from bot.service.history import Context
 from bot.statuses import StatusTypes
 from bot.terminated_core.vertex.vertex import BaseActionVertex, DummyVertex
 
@@ -11,6 +13,7 @@ class NoSuchActionVertexInGraph(Exception):
 class StateGraph:
     def __init__(self):
         self.vertices = {}
+        self.default_vertices = set()
 
     def add_action_vertex(self, vertex: BaseActionVertex) -> None:
         """
@@ -46,9 +49,21 @@ class StateGraph:
         parent_vertex.add_child(child_name)
         child_vertex.set_parent(parent_name)
 
+    def set_default_vertices(self, vertices_names: List[str]):
+        self.default_vertices = set(vertices_names)
+
     def get_vertices_names(self) -> List[str]:
         """
         возвращает имена вершин графа
         :return: List[str]
         """
         return list(self.vertices.keys())
+
+    def activate_vertex(self, vertex_name: str, request: QueryRequest, context: Context) -> QueryResult:
+        vertex = self._vertex_exist_checker(vertex_name)
+        return vertex.activation_function(request, context)
+
+    def _vertex_exist_checker(self, vertex_name: str) -> BaseActionVertex:
+        if vertex_name not in self.vertices:
+            raise NoSuchActionVertexInGraph('vertex with name {} does not exist in the graph'.format(vertex_name))
+        return self.vertices.get(vertex_name)
