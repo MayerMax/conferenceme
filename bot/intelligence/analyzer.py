@@ -1,6 +1,7 @@
-from bot.query import QueryResult
+from bot.query import QueryResult, QueryRequest
 from bot.service.conference_plain_object import ConferencePlainObject
 from bot.service.history import Context
+from bot.statuses import StatusTypes
 from bot.terminated_core.graph.create import create_graph
 
 
@@ -10,24 +11,39 @@ class Analyzer:
         self.__graph = create_graph()
         self.user_context = {}
 
-    def analyze(self, user_raw_query: str, user_data, search_source: ConferencePlainObject) -> QueryResult:
-        if user_data.username not in self.user_context:
-            self.user_context[user_data.username] = Context(user_data.username)
-        user_context = self.user_context.get(user_data.username)
-        if not user_context.peek():
-            return self._begin_analyzer(user_raw_query, user_data, search_source, user_context)
-        return self._transition_state_analyzer(user_raw_query, user_data, search_source, user_context)
+    def analyze(self, request: QueryRequest) -> QueryResult:
+        asked_user = request.who_asked
+        if asked_user.username not in self.user_context:
+            self.user_context[asked_user.username] = Context(asked_user.username)
 
-    def _begin_analyzer(self, user_raw_query: str, user_data, search_source: ConferencePlainObject,
-                        user_context: Context) -> QueryResult:
-        query_result = self.__graph.activate_vertex('Welcome', [user_raw_query, user_data,
-                                                                user_context, search_source])
-        user_context.add_record('Welcome', user_raw_query, query_result)
+        user_context = self.user_context.get(asked_user.username)
+        # if request.question not in self.__graph.get_vertices_names():
+        #     pass  # now no NLP analyzing
+        return self.__analyze(request, user_context)
+
+    def __analyze(self, request: QueryRequest, user_context: Context) -> QueryResult:
+        last_action = user_context.peek()
+        if not last_action:
+            query_result = self.__graph.activate_vertex(request.question, request, user_context)
+            user_context.add_record(request.question, request.question, query_result)
+            return query_result
+
+        last_vertex = self.__graph.get_action_vertex(last_action.vertex_name)
+        print('Last vertex is ', last_vertex)
+        print(last_vertex.get_children_names())
+
+        if last_vertex.status == StatusTypes.LEAF:
+            query_result = self.__graph.activate_vertex('Welcome', request, user_context)
+            user_context.add_record('Welcome', 'once again', query_result)
+            return query_result
+
+        most_probable = self.__graph.test_vertex_activation_against_input_and_return(last_action.vertex_name,
+                                                                                     request, user_context, 0.7)
+        if not most_probable:
+            query_result = self.__graph.activate_vertex('Welcome', request, user_context)
+            user_context.add_record('Welcome', 'Empty', query_result)
+            return query_result  # нужно написать более развернутую ошибку
+
+        query_result = self.__graph.activate_vertex(most_probable, request, user_context)
+        user_context.add_record(most_probable, request.question, query_result)
         return query_result
-
-    def _transition_state_analyzer(self, user_raw_query: str, user_data, search_source: ConferencePlainObject,
-                                   user_context: Context) -> QueryResult:
-        previous_vertex = self.__graph.get_action_vertex(user_context.peek().vertex_name)
-        if user_raw_query in previous_vertex.get_children_names():
-            pass # Test input against predictions
-        return None # Todo

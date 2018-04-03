@@ -21,11 +21,12 @@ class AbstractReplier(metaclass=abc.ABCMeta):
         self.user_state = UserState
 
     @abc.abstractmethod
-    def create_reply(self, query_result: QueryResult) -> object:
+    def create_reply(self, query_result: QueryResult, extra_args: List[object]) -> object:
         """
         абстрактная функция, реализующая поведение replier-а.
         Каждый мессенджер должен реализовывать ее, чтобы подготовить ответ, который может быть отправлен ботом
         :param query_result: результат, который подготовил анализатор, и который должен быть представлен replier-ом
+        :param extra_args: дополнительные параметры, которые могут быть переданы в каждый мессенджер
         :return: объект произвольного типа, который может быть отправлен ботом пользователю
         """
         pass

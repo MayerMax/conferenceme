@@ -1,6 +1,6 @@
 from typing import List
 
-from db.models.content import Lecture
+from db.models.content import Lecture, Section
 from db.models.event import Conference
 from db.models.people import Speaker
 
@@ -24,3 +24,12 @@ class ConferencePlainObject:
 
     def get_conference_summary(self):
         return self.__conference.__repr__()
+
+    def get_lectures(self) -> List[Lecture]:
+        return self.__lectures
+
+    def get_speakers(self) -> List[Speaker]:
+        return self.__speakers
+
+    def get_sections(self) -> List[Section]:
+        return [x.section for x in self.get_lectures()]
