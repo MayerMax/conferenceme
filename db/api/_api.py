@@ -21,13 +21,16 @@ class AuthApi:
         if AuthApi.check_organization_exists(email, name):
             raise OrganizationExistsException()
 
-        try:
-            org = Organization(email=email, name=name, password=password)
-            session.add(org)
-            session.commit()
-            return True
-        except Exception:
-            return False
+        org = Organization(email_address=email, name=name, password=password)
+        session.add(org)
+        session.commit()
+        # try:
+        #     org = Organization(email=email, name=name, password=password)
+        #     session.add(org)
+        #     session.commit()
+        #     return True
+        # except Exception:
+        #     return False
 
     @staticmethod
     def check_organization_exists(email, name):
