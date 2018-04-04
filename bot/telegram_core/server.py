@@ -33,6 +33,10 @@ class Bot(AbstractBot):
 
     def auth_state(self, bot, update):
         current_user = MakeUser.from_telegram(update.message.from_user)
+        if self.auth.is_authorized(current_user.username):
+            bot.send_message(chat_id=update.message.chat_id,
+                             text='Ты уже авторизован, поэтому нет смысла вызывать эту команду ;)')
+            return
         if current_user.username not in self.auth_requested:
             self.auth_requested.add(current_user.username)
         bot.send_message(chat_id=update.message.chat_id,

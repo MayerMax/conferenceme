@@ -18,17 +18,20 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
     функции
     """
 
-    def __init__(self, name: str, status: StatusTypes, parent=None):
+    def __init__(self, name: str, status: StatusTypes, alternative_name: str = None, parent=None):
         """
         конструктор
         :param name: уникальное имя вершины
         :param parent: родительская вершина для данной, объект типа ActionVertex
         :param status: статус вершины, является ли она терминальной или промежуточной
+        :param alternative_name: альтернативное имя вершины, которое используется для того, чтобы replier-ы могли
+        отображть вершину пользователю
         """
         self.name = name
         self.status = status
         self.parent = parent
         self.children = set()
+        self.alternative_name = name if not alternative_name else alternative_name
 
     def add_child(self, child_name: str):
         """

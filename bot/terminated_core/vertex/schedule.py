@@ -6,7 +6,7 @@ from bot.terminated_core.vertex.vertex import BaseActionVertex
 
 class ScheduleSectionVertex(BaseActionVertex):
     def predict_is_suitable_input(self, request: QueryRequest, context: Context) -> float:
-        return 1.0
+        return 1 if request.question == self.alternative_name or request.question == self.name else 0
 
     def activation_function(self, request: QueryRequest, context: Context) -> QueryResult:
         return QueryResult(StatusTypes.NEIGHBOUR, ['класс, теперь уточним секцию'], [None], [])

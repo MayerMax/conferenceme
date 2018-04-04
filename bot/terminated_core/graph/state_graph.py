@@ -14,6 +14,7 @@ class StateGraph:
     def __init__(self):
         self.vertices = {}
         self.default_vertices = set()
+        self.__alternative_vertices_name = {}
 
     def add_action_vertex(self, vertex: BaseActionVertex) -> None:
         """
@@ -22,6 +23,7 @@ class StateGraph:
         :return: None
         """
         self.vertices[vertex.name] = vertex
+        self.__alternative_vertices_name[vertex.alternative_name] = vertex
 
     def get_action_vertex(self, name: str) -> Union[BaseActionVertex, None]:
         """

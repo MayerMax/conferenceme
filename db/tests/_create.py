@@ -210,3 +210,5 @@ def fill_db(session):
         'rest_activities': [rest],
         'conference_hashes': [conf_hash],
     }
+
+create_db()

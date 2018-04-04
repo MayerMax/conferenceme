@@ -9,15 +9,15 @@ from bot.terminated_core.vertex.welcome import WelcomeVertex
 def create_graph() -> StateGraph:
     g = StateGraph()
     g.add_action_vertex(WelcomeVertex('Welcome', StatusTypes.ROOT))
-    g.add_action_vertex(ScheduleSectionVertex('ScheduleSection', StatusTypes.ROOT))
+    g.add_action_vertex(ScheduleSectionVertex('Schedule', StatusTypes.ROOT, 'Расписание'))
     g.add_action_vertex(ScheduleAskVertex('ScheduleAskVertex', StatusTypes.NEIGHBOUR))
 
-    g.add_action_vertex(ScheduleTodayVertex('ScheduleToday', StatusTypes.LEAF))
+    g.add_action_vertex(ScheduleTodayVertex('ScheduleToday', StatusTypes.LEAF, 'Сегодня'))
     g.add_action_vertex(ScheduleTomorrowVertex('ScheduleTomorrow', StatusTypes.LEAF))
-    g.add_action_vertex(ScheduleByDateVertex('ScheduleByDate', StatusTypes.LEAF))
+    g.add_action_vertex(ScheduleByDateVertex('ScheduleByDate', StatusTypes.LEAF, 'По дате'))
 
-    g.add_transition_from_parent_to_child_by_names('Welcome', 'ScheduleSection')
-    g.add_transition_from_parent_to_child_by_names('ScheduleSection', 'ScheduleAskVertex')
+    g.add_transition_from_parent_to_child_by_names('Welcome', 'Schedule')
+    g.add_transition_from_parent_to_child_by_names('Schedule', 'ScheduleAskVertex')
 
     g.add_transition_from_parent_to_child_by_names('ScheduleAskVertex', 'ScheduleToday')
     g.add_transition_from_parent_to_child_by_names('ScheduleAskVertex', 'ScheduleTomorrow')

@@ -31,7 +31,7 @@ class QueryRequest:
     Класс, который формирует запрос, принимаемый интерфейсами для разных мессенджеров, чтобы отдать анализатору
     """
 
-    def __init__(self, who_asked: User, question: str, where_to_search: ConferencePlainObject):
+    def __init__(self, who_asked: User, question: str, where_to_search: ConferencePlainObject = None):
         """
         конструктор
         :param who_asked: пользователь мессенджера

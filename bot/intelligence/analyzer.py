@@ -29,7 +29,6 @@ class Analyzer:
             return query_result
 
         last_vertex = self.__graph.get_action_vertex(last_action.vertex_name)
-        print('Last vertex is ', last_vertex)
         print(last_vertex.get_children_names())
 
         if last_vertex.status == StatusTypes.LEAF:
