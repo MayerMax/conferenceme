@@ -24,25 +24,25 @@ class Analyzer:
     def __analyze(self, request: QueryRequest, user_context: Context) -> QueryResult:
         last_action = user_context.peek()
         if not last_action:
-            query_result = self.__graph.activate_vertex(request.question, request, user_context)
-            user_context.add_record(request.question, request.question, query_result)
-            return query_result
+            return self.__activate_vertex_and_record(request.question, request, user_context)
 
         last_vertex = self.__graph.get_action_vertex(last_action.vertex_name)
         print(last_vertex.get_children_names())
 
         if last_vertex.status == StatusTypes.LEAF:
-            query_result = self.__graph.activate_vertex('Welcome', request, user_context)
-            user_context.add_record('Welcome', 'once again', query_result)
-            return query_result
+            request.question = 'Exit state'
+            return self.__activate_vertex_and_record('Welcome', request, user_context)
 
         most_probable = self.__graph.test_vertex_activation_against_input_and_return(last_action.vertex_name,
                                                                                      request, user_context, 0.7)
         if not most_probable:
-            query_result = self.__graph.activate_vertex('Welcome', request, user_context)
-            user_context.add_record('Welcome', 'Empty', query_result)
-            return query_result  # нужно написать более развернутую ошибку
+            request.question = 'Do not understand'
+            return self.__activate_vertex_and_record('Welcome', request, user_context)
+            # нужно написать более развернутую ошибку
 
-        query_result = self.__graph.activate_vertex(most_probable, request, user_context)
-        user_context.add_record(most_probable, request.question, query_result)
+        return self.__activate_vertex_and_record(most_probable, request, user_context)
+
+    def __activate_vertex_and_record(self, vertex_name:str, request: QueryRequest, user_context: Context) -> QueryResult:
+        query_result = self.__graph.activate_vertex(vertex_name, request, user_context)
+        user_context.add_record(vertex_name, request.question, query_result)
         return query_result
