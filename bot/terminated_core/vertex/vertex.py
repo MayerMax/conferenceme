@@ -33,29 +33,32 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
         self.children = set()
         self.alternative_name = name if not alternative_name else alternative_name
 
-    def add_child(self, child_name: str):
+    def add_child(self, child_vertex):
         """
         добавляет данному состоянию доченреи состояния
-        :param child_name: дочерняя вершина
+        :param child_vertex: дочерняя вершина
         :return: None
         """
-        self.children.add(child_name)
+        self.children.add(child_vertex)
 
-    def set_parent(self, parent_name: str):
+    def set_parent(self, parent_vertex):
         """
         Устанавливает данной вершине родителя
-        :param parent_name: str
+        :param parent_vertex: BaseActionVertex
         :return:
         """
         if self.parent:
             raise ActionVertexParentExists('This vertex has already have parent named {}'.format(self.parent))
-        self.parent = parent_name
+        self.parent = parent_vertex
 
     def __str__(self):
-        return 'Vertex {}, It has children: {}'.format(self.name, ', '.join(x for x in self.children))
+        return 'Vertex {}, It has children: {}'.format(self.name, ', '.join(x.alternative_name for x in self.children))
+
+    def get_children_alternative_names(self) -> List[str]:
+        return [x.alternative_name for x in self.children]
 
     def get_children_names(self) -> List[str]:
-        return [x for x in self.children]
+        return [x.name for x in self.children]
 
     def get_unique_name(self) -> str:
         """
@@ -85,6 +88,12 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
         :return: число от 0 до 1, выражает уверенность в том, что это именно та вершина
         """
         pass
+
+    def __hash__(self):
+        return hash(self.name)
+
+    def __eq__(self, other):
+        return self.__hash__() == other.__hash__()
 
 
 class DummyVertex(BaseActionVertex):

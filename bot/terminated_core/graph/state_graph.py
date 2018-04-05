@@ -35,6 +35,11 @@ class StateGraph:
             return self.vertices[name]
         return None
 
+    def get_action_vertex_via_alternative_name(self, name:str) -> Union[BaseActionVertex, None]:
+        if name in self.__alternative_vertices_name:
+            return self.__alternative_vertices_name[name]
+        return None
+
     def add_transition_from_parent_to_child_by_names(self, parent_name: str, child_name: str):
         """
         создает отношение в графе между родительской вершиной и дочерней. Означает, что из вершины с именем
@@ -48,8 +53,8 @@ class StateGraph:
         if parent_vertex is None or child_vertex is None:
             raise NoSuchActionVertexInGraph('{} or {} does not exist in graph as vertex'.format(parent_name,
                                                                                                 child_name))
-        parent_vertex.add_child(child_name)
-        child_vertex.set_parent(parent_name)
+        parent_vertex.add_child(child_vertex)
+        child_vertex.set_parent(parent_vertex)
 
     def set_default_vertices(self, vertices_names: List[str]):
         self.default_vertices = set(vertices_names)

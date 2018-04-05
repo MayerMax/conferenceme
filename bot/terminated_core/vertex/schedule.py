@@ -22,7 +22,7 @@ class ScheduleAskVertex(BaseActionVertex):
         return 0  # сравнение через ошибки
 
     def activation_function(self, request: QueryRequest, context: Context) -> QueryResult:
-        return QueryResult(StatusTypes.NEIGHBOUR, ['инфа об этой секции'], [None], self.get_children_names())
+        return QueryResult(StatusTypes.NEIGHBOUR, ['инфа об этой секции'], [None], self.get_children_alternative_names())
 
 
 class ScheduleByDateVertex(BaseActionVertex):

@@ -1,5 +1,4 @@
 from bot.query import QueryResult, QueryRequest
-from bot.service.conference_plain_object import ConferencePlainObject
 from bot.service.history import Context
 from bot.statuses import StatusTypes
 from bot.terminated_core.graph.create import create_graph
@@ -17,8 +16,9 @@ class Analyzer:
             self.user_context[asked_user.username] = Context(asked_user.username)
 
         user_context = self.user_context.get(asked_user.username)
-        # if request.question not in self.__graph.get_vertices_names():
+
         #     pass  # now no NLP analyzing
+        request = self.__translate(request)
         return self.__analyze(request, user_context)
 
     def __analyze(self, request: QueryRequest, user_context: Context) -> QueryResult:
@@ -27,7 +27,7 @@ class Analyzer:
             return self.__activate_vertex_and_record(request.question, request, user_context)
 
         last_vertex = self.__graph.get_action_vertex(last_action.vertex_name)
-        print(last_vertex.get_children_names())
+        print(last_vertex.get_children_alternative_names())
 
         if last_vertex.status == StatusTypes.LEAF:
             request.question = 'Exit state'
@@ -41,6 +41,19 @@ class Analyzer:
             # нужно написать более развернутую ошибку
 
         return self.__activate_vertex_and_record(most_probable, request, user_context)
+
+    def __translate(self, request: QueryRequest) -> QueryRequest:
+        """
+        Функция для NLP анализа в общем случае и для конвертирования альтернативных имен вершин графа в настоящием имена
+        в частном случае
+        :param request: запрос пользователя
+        :return: поправленный QueryRequest так, чтобы он мог быть распознан графом
+        """
+        vertex = self.__graph.get_action_vertex_via_alternative_name(request.question)
+        if vertex:
+            request.question = vertex.name
+            return request
+        return request
 
     def __activate_vertex_and_record(self, vertex_name:str, request: QueryRequest, user_context: Context) -> QueryResult:
         query_result = self.__graph.activate_vertex(vertex_name, request, user_context)

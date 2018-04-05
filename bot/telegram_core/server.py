@@ -26,7 +26,8 @@ class Bot(AbstractBot):
             self.user_repliers[current_user.username] = self.replier(state=UserState.AUTHORIZED)
 
         if self.is_authorized(current_user.username):
-            bot.send_message(chat_id=update.message.chat_id, text='Ты авторизован')
+            self.__reply(current_user, bot, update)
+
         else:
             bot.send_message(chat_id=update.message.chat_id, text='Ты не авторизован, вызови /auth, '
                                                                   'чтобы получить инструкции')

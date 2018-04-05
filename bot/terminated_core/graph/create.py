@@ -12,8 +12,8 @@ def create_graph() -> StateGraph:
     g.add_action_vertex(ScheduleSectionVertex('Schedule', StatusTypes.ROOT, 'Расписание'))
     g.add_action_vertex(ScheduleAskVertex('ScheduleAskVertex', StatusTypes.NEIGHBOUR))
 
-    g.add_action_vertex(ScheduleTodayVertex('ScheduleToday', StatusTypes.LEAF, 'Сегодня'))
-    g.add_action_vertex(ScheduleTomorrowVertex('ScheduleTomorrow', StatusTypes.LEAF))
+    g.add_action_vertex(ScheduleTodayVertex('ScheduleToday', StatusTypes.LEAF, 'На Сегодня'))
+    g.add_action_vertex(ScheduleTomorrowVertex('ScheduleTomorrow', StatusTypes.LEAF, 'На завтра'))
     g.add_action_vertex(ScheduleByDateVertex('ScheduleByDate', StatusTypes.LEAF, 'По дате'))
 
     g.add_transition_from_parent_to_child_by_names('Welcome', 'Schedule')
