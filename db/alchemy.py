@@ -19,13 +19,9 @@ class Alchemy:
                 self.__engine = engine
             else:
                 self.__engine = create_engine('sqlite:///{}'.format(path))
+            Base.metadata.create_all(self.__engine)
 
             self.__session = scoped_session(sessionmaker(bind=self.__engine))
-
-            # for mode in [stat.S_IRUSR, stat.S_IWUSR,
-            #              stat.S_IRGRP, stat.S_IWGRP,
-            #              stat.S_IROTH, stat.S_IWOTH]:
-            #     os.chmod(path, mode)
 
         def get_engine(self):
             return self.__engine

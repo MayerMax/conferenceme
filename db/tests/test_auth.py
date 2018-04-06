@@ -7,7 +7,6 @@ from db.alchemy import Alchemy
 
 TEST_PATH = os.path.dirname(os.path.abspath(__file__))
 
-
 # class TestCreateOrganizationAccount(unittest.TestCase):
 #     def setUp(self):
 #         self.db_path = os.path.join(TEST_PATH, 'tmp.db')
@@ -18,10 +17,10 @@ TEST_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
 class TestAuthApi(unittest.TestCase):
-    def setUp(self):
-        self.db_path = os.path.join(TEST_PATH, 'tmp.db')
-        self.data = create_db(self.db_path)
-        Alchemy.get_instance(self.db_path)
+    @classmethod
+    def setUpClass(cls):
+        cls.db_path = os.path.join(TEST_PATH, 'tmp.db')
+        cls.data = create_db(cls.db_path)
 
     def test_check_false(self):
         result = AuthApi.check_organization_exists('nobody@test.ru', 'best_org')
@@ -46,8 +45,9 @@ class TestAuthApi(unittest.TestCase):
         result = AuthApi.check_organization_exists(email, name)
         self.assertEqual(result, True, 'Добавленный организатор должен существовать')
 
-    def tearDown(self):
-        os.remove(self.db_path)
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(cls.db_path)
 
 
 if __name__ == '__main__':

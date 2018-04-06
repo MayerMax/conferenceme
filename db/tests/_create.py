@@ -15,19 +15,8 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 
 
 def create_db(db_path='data.db'):
-    engine = create_engine('sqlite:///%s' % db_path)
-    Base.metadata.create_all(engine)
-    Base.metadata.bind = engine
-
-    # instance = Alchemy.init_with_engine(db_path, engine)
-    # instance.set_engine(engine)
-    # for mode in [stat.S_IRUSR, stat.S_IWUSR,
-    #              stat.S_IRGRP, stat.S_IWGRP,
-    #              stat.S_IROTH, stat.S_IWOTH]:
-    #     os.chmod(db_path, mode)
-    DBSession = scoped_session(sessionmaker(bind=engine))
-    session = DBSession()
-    return fill_db(session)
+    Alchemy.get_instance(db_path)
+    return fill_db(Alchemy.get_session(db_path))
 
 
 def fill_db(session):
