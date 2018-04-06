@@ -33,8 +33,8 @@ class Analyzer:
             request.question = 'Exit state'
             return self.__activate_vertex_and_record('Welcome', request, user_context)
 
-        most_probable = self.__graph.test_vertex_activation_against_input_and_return(last_action.vertex_name,
-                                                                                     request, user_context, 0.7)
+        most_probable = self.__graph.predict_vertex_activation_against_input_and_return(last_action.vertex_name,
+                                                                                        request, user_context)
         if not most_probable:
             request.question = 'Do not understand'
             return self.__activate_vertex_and_record('Welcome', request, user_context)

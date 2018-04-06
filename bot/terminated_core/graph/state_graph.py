@@ -70,18 +70,20 @@ class StateGraph:
         vertex = self._vertex_exist_checker(vertex_name)
         return vertex.activation_function(request, context)
 
-    def test_vertex_activation_against_input_and_return(self, vertex_name: str, request: QueryRequest, context: Context,
-                                                        threshold: float) \
-            -> Union[str, None]:
+    def predict_vertex_activation_against_input_and_return(self, vertex_name: str, request: QueryRequest,
+                                                           context: Context) -> Union[str, None]:
         vertex_children = self.get_action_vertex(vertex_name).get_children_names()
         if not vertex_children:
             return None
 
-        prediction_scores = [self.get_action_vertex(x).predict_is_suitable_input(request, context) for x in vertex_children]
-        maximum = max(prediction_scores)
-        if maximum < threshold:
+        suitable_predictions = [self.get_action_vertex(x).predict_is_suitable_input(request, context)
+                                 for x in vertex_children]
+
+        count_suitable = suitable_predictions.count(True)
+        if count_suitable == 0 or count_suitable > 2:
             return None
-        return vertex_children[prediction_scores.index(maximum)]
+        return vertex_children[suitable_predictions.index(True)]
+
 
     def _vertex_exist_checker(self, vertex_name: str) -> BaseActionVertex:
         if vertex_name not in self.vertices:

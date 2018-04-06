@@ -17,5 +17,5 @@ class WelcomeVertex(BaseActionVertex):
                                [None], self.get_children_alternative_names())
         return QueryResult(StatusTypes.ROOT, ['приветствую еще раз!'], [None], self.get_children_alternative_names())
 
-    def predict_is_suitable_input(self, request: QueryRequest, context: Context) -> float:
-        return 1.0
+    def predict_is_suitable_input(self, request: QueryRequest, context: Context) -> bool:
+        return True

@@ -78,7 +78,7 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def predict_is_suitable_input(self, request: QueryRequest, context: Context) -> float:
+    def predict_is_suitable_input(self, request: QueryRequest, context: Context) -> bool:
         """
         абстрактная функция, которая помогает текущему состоянию бота понять, подходит ли пользовательский ввод данных
         для активационной функции. Необходима для активационных функций, который ожидают ввод в виде имен, названий,
@@ -101,4 +101,4 @@ class DummyVertex(BaseActionVertex):
         pass
 
     def predict_is_suitable_input(self, request: QueryRequest, context: Context) -> float:
-        return 1.0
+        return True
