@@ -1,6 +1,8 @@
-from os.path import dirname, abspath
+import os
 import datetime
+import stat
 
+from db.api import AuthApi
 from db.models import Base
 from db.models.event import Conference, RestActivity
 from db.models.content import Section, Lecture
@@ -29,7 +31,7 @@ def create_db(db_path='data.db'):
 
 
 def fill_db(session):
-    media_root_directory = dirname(dirname(abspath(__file__)))
+    media_root_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     org = Organization(name='Microsoft',
                        email_address='endurancemayer@gmail.com',
                        password=hash('123'),

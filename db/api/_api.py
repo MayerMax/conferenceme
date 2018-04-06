@@ -12,6 +12,8 @@ from db.models.infrastructure import ConferenceHashes
 from db.models.official import Organization
 from db.models.people import Speaker
 
+from db.models import Base
+
 
 class AuthApi:
     @staticmethod
