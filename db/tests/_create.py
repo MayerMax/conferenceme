@@ -7,7 +7,7 @@ from db.models.content import Section, Lecture
 from db.models.infrastructure import ConferenceHashes
 from db.models.official import Organization
 from db.models.people import Contact, Speaker
-
+from db.alchemy import Alchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
@@ -16,9 +16,15 @@ def create_db(db_path='data.db'):
     engine = create_engine('sqlite:///%s' % db_path)
     Base.metadata.create_all(engine)
     Base.metadata.bind = engine
+
+    # instance = Alchemy.init_with_engine(db_path, engine)
+    # instance.set_engine(engine)
+    # for mode in [stat.S_IRUSR, stat.S_IWUSR,
+    #              stat.S_IRGRP, stat.S_IWGRP,
+    #              stat.S_IROTH, stat.S_IWOTH]:
+    #     os.chmod(db_path, mode)
     DBSession = scoped_session(sessionmaker(bind=engine))
     session = DBSession()
-
     return fill_db(session)
 
 
@@ -210,3 +216,20 @@ def fill_db(session):
         'rest_activities': [rest],
         'conference_hashes': [conf_hash],
     }
+
+
+if __name__ == '__main__':
+    create_db('tmp.db')
+    AuthApi.create_organization_account('123', '123', '123')
+    # s = Alchemy.get_session()
+    # org = Organization(name='Microsofast',
+    #                    email_address='endurancemayer@gmail.com',
+    #                    password=hash('123'),
+    #                    description='We’re looking for the next big thing and we know students like you are going to build it! Register today for the Imagine Cup, Microsoft’s foremost global competition for student developers. As a student developer, your team can earn up to $11,000 and 1 of 6 spots to represent the United States at the global finals of Imagine Cup 2018. The top 12-ranked US teams will receive a trip to compete in the National Finals hosted in San Francisco, CA.',
+    #                    logo_path='{}/media/logos/microsoft.jpg'.format(''),
+    #                    external_links='https://imagine.microsoft.com/ru-ru/usa;https://vk.com/imcup',
+    #                    tags='it;community;programming;web',
+    #                    headquarters='Moscow, Microsoft LLC')
+    # s.add(org)
+    # s.commit()
+    os.remove('tmp.db')

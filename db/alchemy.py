@@ -6,7 +6,7 @@ class Alchemy:
     db_instance = None
 
     class __Alchemy:
-        def __init__(self, path):
+        def __init__(self, path, engine=None):
             """Обертка над существующей базой данных
 
             :param path: путь до существующей sqlite-бд
@@ -40,6 +40,11 @@ class Alchemy:
     @staticmethod
     def get_session(path='data.db'):
         return Alchemy.get_instance(path).get_session()
+
+    @staticmethod
+    def init_with_engine(path, engine):
+        Alchemy.db_instance = Alchemy.__Alchemy(path, engine)
+        return Alchemy.db_instance
 
 
 if __name__ == '__main__':
