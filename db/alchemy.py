@@ -18,7 +18,7 @@ class Alchemy:
             if engine:
                 self.__engine = engine
             else:
-                self.__engine = create_engine('sqlite:///{}'.format(path))
+                self.__engine = create_engine('sqlite:///{}?check_same_thread=False'.format(path))
             Base.metadata.create_all(self.__engine)
 
             self.__session = scoped_session(sessionmaker(bind=self.__engine))
