@@ -31,3 +31,12 @@ class UserState(Enum):
     ADMIN = auto()
     AUTHORIZED = auto()
     TALKING = auto()
+
+
+class RequestType(Enum):
+    """
+    Enum для типа пользовательского запроса, чтобы упростить вершинам графа определение того, подходит ли запрос
+    """
+    STRING = auto()
+    AUDIO = auto()
+    PHOTO = auto()

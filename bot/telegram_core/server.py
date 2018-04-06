@@ -6,7 +6,7 @@ from bot.service.auth import Auth
 from bot.service.event_manager import EventManager
 from bot.service.repliers.telegram_replier import TelegramReplier
 from bot.service.users.user import User, MakeUser
-from bot.statuses import UserState
+from bot.statuses import UserState, RequestType
 from bot.telegram_core.keys import KEY
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
@@ -57,6 +57,12 @@ class Bot(AbstractBot):
         else:
             self.__default_process(current_user, bot, update)
 
+    def audio_handler(self, bot, update):
+        pass
+
+    def photo_handler(self, bot, update):
+        pass
+
     def button_callback(self, bot, update):
         query = update.callback_query
         user = MakeUser.from_telegram(query.from_user)
@@ -66,10 +72,14 @@ class Bot(AbstractBot):
         start_handler = CommandHandler('start', self.start_state)
         auth_handler = CommandHandler('auth', self.auth_state)
         reply_handler = MessageHandler(Filters.text, self.reply_handler)
+        audio_handler = MessageHandler(Filters.audio, self.audio_handler)
+        photo_handler = MessageHandler(Filters.photo, self.photo_handler)
 
         dispatcher.add_handler(start_handler)
         dispatcher.add_handler(auth_handler)
         dispatcher.add_handler(reply_handler)
+        dispatcher.add_handler(audio_handler)
+        dispatcher.add_handler(photo_handler)
 
         dispatcher.add_handler(CallbackQueryHandler(self.button_callback))
 
@@ -98,7 +108,7 @@ class Bot(AbstractBot):
         where_to_search = self.get_conference_by_user_name(user.username)
         replier = self.user_repliers[user.username]
 
-        user_request = QueryRequest(user, ready_query, where_to_search)
+        user_request = QueryRequest(user, ready_query, RequestType.STRING, where_to_search)
         analyzer_reply = self.analyzer.analyze(user_request)
 
         replier.create_reply(analyzer_reply, [bot, update])
