@@ -43,3 +43,4 @@ class QueryRequest:
         self.question = question
         self.where_to_search = where_to_search
         self.request_type = request_type
+        self.edition = None
