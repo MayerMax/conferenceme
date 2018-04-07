@@ -1,29 +1,26 @@
-from os.path import dirname, abspath
+import os
 import datetime
+import stat
 
+from db.api import AuthApi
 from db.models import Base
 from db.models.event import Conference, RestActivity
 from db.models.content import Section, Lecture
 from db.models.infrastructure import ConferenceHashes
 from db.models.official import Organization
 from db.models.people import Contact, Speaker
-
+from db.alchemy import Alchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 
 def create_db(db_path='data.db'):
-    engine = create_engine('sqlite:///%s' % db_path)
-    Base.metadata.create_all(engine)
-    Base.metadata.bind = engine
-    DBSession = scoped_session(sessionmaker(bind=engine))
-    session = DBSession()
-
-    return fill_db(session)
+    Alchemy.get_instance(db_path)
+    return fill_db(Alchemy.get_session(db_path))
 
 
 def fill_db(session):
-    media_root_directory = dirname(dirname(abspath(__file__)))
+    media_root_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     org = Organization(name='Microsoft',
                        email_address='endurancemayer@gmail.com',
                        password=hash('123'),
@@ -211,4 +208,19 @@ def fill_db(session):
         'conference_hashes': [conf_hash],
     }
 
-create_db()
+
+if __name__ == '__main__':
+    create_db()
+    # AuthApi.create_organization_account('123', '123', '123')
+    # s = Alchemy.get_session()
+    # org = Organization(name='Microsofast',
+    #                    email_address='endurancemayer@gmail.com',
+    #                    password=hash('123'),
+    #                    description='We’re looking for the next big thing and we know students like you are going to build it! Register today for the Imagine Cup, Microsoft’s foremost global competition for student developers. As a student developer, your team can earn up to $11,000 and 1 of 6 spots to represent the United States at the global finals of Imagine Cup 2018. The top 12-ranked US teams will receive a trip to compete in the National Finals hosted in San Francisco, CA.',
+    #                    logo_path='{}/media/logos/microsoft.jpg'.format(''),
+    #                    external_links='https://imagine.microsoft.com/ru-ru/usa;https://vk.com/imcup',
+    #                    tags='it;community;programming;web',
+    #                    headquarters='Moscow, Microsoft LLC')
+    # s.add(org)
+    # s.commit()
+    # os.remove('tmp.db')

@@ -65,8 +65,10 @@ class Bot(AbstractBot):
 
     def button_callback(self, bot, update):
         query = update.callback_query
+        if query.data == 'NONE':
+            return
         user = MakeUser.from_telegram(query.from_user)
-        self.__create_and_send_back_auth(query.data, user, bot, update)
+        self.__create_and_send_back_auth(query.data, user, bot, query)
 
     def launch(self):
         start_handler = CommandHandler('start', self.start_state)

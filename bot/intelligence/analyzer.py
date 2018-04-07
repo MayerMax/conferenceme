@@ -30,8 +30,7 @@ class Analyzer:
         print(last_vertex.get_children_alternative_names())
 
         if last_vertex.status == StatusTypes.LEAF:
-            request.question = 'Exit state'
-            return self.__activate_vertex_and_record('Welcome', request, user_context)
+            return self.__activate_vertex_and_record(request.question, request, user_context)
 
         most_probable = self.__graph.predict_vertex_activation_against_input_and_return(last_action.vertex_name,
                                                                                         request, user_context)
@@ -57,5 +56,5 @@ class Analyzer:
 
     def __activate_vertex_and_record(self, vertex_name:str, request: QueryRequest, user_context: Context) -> QueryResult:
         query_result = self.__graph.activate_vertex(vertex_name, request, user_context)
-        user_context.add_record(vertex_name, request.question, query_result)
+        user_context.add_record(vertex_name, request.edition, query_result)
         return query_result

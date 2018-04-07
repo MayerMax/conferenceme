@@ -35,7 +35,7 @@ class StateGraph:
             return self.vertices[name]
         return None
 
-    def get_action_vertex_via_alternative_name(self, name:str) -> Union[BaseActionVertex, None]:
+    def get_action_vertex_via_alternative_name(self, name: str) -> Union[BaseActionVertex, None]:
         if name in self.__alternative_vertices_name:
             return self.__alternative_vertices_name[name]
         return None
@@ -57,7 +57,11 @@ class StateGraph:
         child_vertex.set_parent(parent_vertex)
 
     def set_default_vertices(self, vertices_names: List[str]):
-        self.default_vertices = set(vertices_names)
+        alternative_names = []
+        for v in vertices_names:
+            alternative_names.append(self.vertices[v].alternative_name)
+        for v in self.vertices:
+            self.vertices[v].to_roots = alternative_names
 
     def get_vertices_names(self) -> List[str]:
         """
@@ -77,13 +81,12 @@ class StateGraph:
             return None
 
         suitable_predictions = [self.get_action_vertex(x).predict_is_suitable_input(request, context)
-                                 for x in vertex_children]
+                                for x in vertex_children]
 
         count_suitable = suitable_predictions.count(True)
         if count_suitable == 0 or count_suitable > 2:
             return None
         return vertex_children[suitable_predictions.index(True)]
-
 
     def _vertex_exist_checker(self, vertex_name: str) -> BaseActionVertex:
         if vertex_name not in self.vertices:

@@ -30,5 +30,5 @@ def create_graph() -> StateGraph:
     g.add_action_vertex(ContentVertex('Content', StatusTypes.ROOT, 'Контент'))
     g.add_transition_from_parent_to_child_by_names('Welcome', 'Content')
 
-    g.set_default_vertices([])  # пока что пуст
+    g.set_default_vertices(['Content', 'Schedule'])  # пока что пуст
     return g
