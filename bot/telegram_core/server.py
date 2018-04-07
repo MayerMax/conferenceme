@@ -121,6 +121,7 @@ if __name__ == '__main__':
     em = EventManager()
     em.load_conference(1)
     auth = Auth()
+
     b = Bot(em, auth, TelegramReplier)
     b.launch()
     print('LETS RUN')

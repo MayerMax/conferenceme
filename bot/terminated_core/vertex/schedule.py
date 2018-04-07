@@ -1,4 +1,6 @@
 import datetime
+
+import dateparser
 import textdistance
 
 import emoji
@@ -50,12 +52,45 @@ class ScheduleAskVertex(BaseActionVertex):
                            self.get_children_alternative_names())
 
 
-class ScheduleByDateVertex(BaseActionVertex):
+class ScheduleDateAskVertex(BaseActionVertex):
     def predict_is_suitable_input(self, request: QueryRequest, context: Context) -> bool:
-        pass
+        return request.question == self.name or request.question == self.alternative_name
 
     def activation_function(self, request: QueryRequest, context: Context) -> QueryResult:
-        pass
+        return QueryResult(StatusTypes.NEIGHBOUR, [emoji.emojize('Так, понял, на какое число тебе дать расписание?\n'
+                                                                 'Будет лучше, если введешь что-то в '
+                                                                 'таком формате: день-меся-год :clock2:')], [None], [])
+
+
+class ScheduleByDateVertex(BaseActionVertex):
+    def predict_is_suitable_input(self, request: QueryRequest, context: Context) -> bool:
+        parsed_result = dateparser.parse(request.question)
+        if parsed_result:
+            request.edition = parsed_result
+            return True
+        return False
+
+    def activation_function(self, request: QueryRequest, context: Context) -> QueryResult:
+        date = request.edition
+        cpo = request.where_to_search
+        parent_node = context.peek().previous
+        if parent_node.vertex_name != self.parent.parent.name:
+            print('ALERT')
+
+        section = parent_node.request
+        satisfy_condition = cpo.get_section_schedule(date, section)
+        if not satisfy_condition:
+            return QueryResult(StatusTypes.LEAF, [emoji.emojize('{}, прости, на этот день ничего не смог найти '
+                                                                ':tired_face:'.format(
+                request.who_asked.first_name))],
+                               [None], self.to_roots)
+        else:
+            return QueryResult(StatusTypes.LEAF, ['{}, отлично! :stuck_out_tongue:\n Держи расписание '
+                                                  'и короткое описание\n {}'.format(request.who_asked.first_name,
+                                                                                    '\n'.join(
+                                                                                        str(x) for x in
+                                                                                        satisfy_condition))],
+                               [None], self.to_roots)
 
 
 class ScheduleTodayVertex(BaseActionVertex):
@@ -80,7 +115,8 @@ class ScheduleTodayVertex(BaseActionVertex):
             return QueryResult(StatusTypes.LEAF, ['{}, отлично! :stuck_out_tongue:\n Держи расписание '
                                                   'и короткое описание\n {}'.format(request.who_asked.first_name,
                                                                                     '\n'.join(
-                                                                                        str(x) for x in satisfy_condition))],
+                                                                                        str(x) for x in
+                                                                                        satisfy_condition))],
                                [None], self.to_roots)
 
 
@@ -106,5 +142,6 @@ class ScheduleTomorrowVertex(BaseActionVertex):
             return QueryResult(StatusTypes.LEAF, ['{}, отлично! :stuck_out_tongue:\n Держи расписание '
                                                   'и короткое описание\n {}'.format(request.who_asked.first_name,
                                                                                     '\n'.join(
-                                                                                        str(x) for x in satisfy_condition))],
+                                                                                        str(x) for x in
+                                                                                        satisfy_condition))],
                                [None], self.to_roots)
