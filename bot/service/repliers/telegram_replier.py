@@ -17,7 +17,8 @@ class TelegramReplier(AbstractReplier):
             markup = InlineKeyboardMarkup(inline_keyboard=keyboard)
             bot.editMessageReplyMarkup(chat_id=chat_id, message_id=message_id, reply_markup=markup)
 
-        if query_result.status == StatusTypes.ROOT or query_result.status == StatusTypes.LEAF:
+        if query_result.status == StatusTypes.ROOT or (query_result.status == StatusTypes.LEAF and
+                                                           query_result.is_completed):
             markup = ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True,
                                          keyboard=[[x] for x in query_result.extra_args])
         else:

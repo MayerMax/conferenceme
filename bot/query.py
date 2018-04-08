@@ -11,7 +11,8 @@ class QueryResult:
     результат
     """
 
-    def __init__(self, status: StatusTypes, answer: List[str], attachments: List[str], extra_args: object = None):
+    def __init__(self, status: StatusTypes, answer: List[str], attachments: List[str],
+                 extra_args: object = None, is_completed: bool=True):
         """
         конструктор
         :param status: статус формируемого результата - конец ли это диалога или бот ожидает продолжение
@@ -23,6 +24,7 @@ class QueryResult:
         self.status = status
         self.answer = answer
         self.attachments = attachments
+        self.is_completed = is_completed
         self.extra_args = extra_args
 
 

@@ -27,10 +27,12 @@ class Analyzer:
             return self.__activate_vertex_and_record(request.question, request, user_context)
 
         last_vertex = self.__graph.get_action_vertex(last_action.vertex_name)
-        print(last_vertex.get_children_alternative_names())
 
-        if last_vertex.status == StatusTypes.LEAF:
+        if last_vertex.status == StatusTypes.LEAF and last_action.query_result.is_completed:
             return self.__activate_vertex_and_record(request.question, request, user_context)
+
+        if last_vertex.status == StatusTypes.LEAF and not last_action.query_result.is_completed:
+            return self.__graph.activate_vertex(last_vertex.name, request, user_context)
 
         most_probable = self.__graph.predict_vertex_activation_against_input_and_return(last_action.vertex_name,
                                                                                         request, user_context)
