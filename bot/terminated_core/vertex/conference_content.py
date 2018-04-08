@@ -94,4 +94,23 @@ class AskAboutSpeaker(BaseActionVertex):
             )
 
     def __process_image(self, request: QueryRequest, context: Context) -> QueryResult:
-        pass
+        photo_path = request.question
+        cpo = request.where_to_search
+
+        found = cpo.get_speaker_by_photo(photo_path)
+        if not found:
+            return QueryResult(
+                status=StatusTypes.LEAF,
+                answer=['Вот это да, мне не удалось найти знакомых лиц на твоей фотке\n'
+                        'Давай попробуем еще раз?'],
+                attachments=[None],
+                extra_args=[],
+                is_completed=False
+            )
+        return QueryResult(
+                    status=StatusTypes.LEAF,
+                    answer=['супер, я нашел!\n {}'.format(str(found))],
+                    attachments=[found.photo_path],
+                    extra_args=[],
+                    is_completed=True
+                )

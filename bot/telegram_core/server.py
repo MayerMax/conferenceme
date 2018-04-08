@@ -1,4 +1,6 @@
 import logging
+import random
+import string
 
 from bot.query import QueryRequest
 from bot.service.abstract_bot import AbstractBot
@@ -61,7 +63,20 @@ class Bot(AbstractBot):
         pass
 
     def photo_handler(self, bot, update):
-        pass
+        current_user = MakeUser.from_telegram(update.message.from_user)
+        if current_user.username in self.auth_requested:
+            pass # логика для неавторизованных пользователей еще не сделана
+        if self.is_authorized(current_user.username):
+            random_name = ''.join(random.choice(string.ascii_letters) for _ in range(16))
+            path = update.message.photo[1].get_file().download(custom_path='../../db/media/temp/{}.jpg'.format(random_name))
+            user_request = QueryRequest(current_user, path, RequestType.PHOTO,
+                                        self.get_conference_by_user_name(current_user.username))
+
+            analyzer_reply = self.analyzer.analyze(user_request)
+            replier = self.user_repliers[current_user.username]
+            replier.create_reply(analyzer_reply, [bot, update])
+        else:
+            pass # логика для неавторизованных пользователей еще не сделана
 
     def button_callback(self, bot, update):
         query = update.callback_query
