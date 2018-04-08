@@ -1,6 +1,6 @@
 from bot.statuses import StatusTypes
 from bot.terminated_core.graph.state_graph import StateGraph
-from bot.terminated_core.vertex.conference_content import ContentVertex
+from bot.terminated_core.vertex.conference_content import ContentVertex, BeginAskAboutSpeaker, AskAboutSpeaker
 from bot.terminated_core.vertex.schedule import ScheduleTodayVertex, ScheduleTomorrowVertex, ScheduleByDateVertex, \
     ScheduleSectionVertex, ScheduleAskVertex, ScheduleDateAskVertex
 
@@ -32,7 +32,12 @@ def create_graph() -> StateGraph:
 
     # контент
     g.add_action_vertex(ContentVertex('Content', StatusTypes.ROOT, 'Контент'))
+    g.add_action_vertex(BeginAskAboutSpeaker('BeginAskAboutSpeaker', StatusTypes.NEIGHBOUR, 'Узнать о лекторе'))
+    g.add_action_vertex(AskAboutSpeaker('AskAboutSpeaker', StatusTypes.LEAF))
+
     g.add_transition_from_parent_to_child_by_names('Welcome', 'Content')
+    g.add_transition_from_parent_to_child_by_names('Content', 'BeginAskAboutSpeaker')
+    g.add_transition_from_parent_to_child_by_names('BeginAskAboutSpeaker', 'AskAboutSpeaker')
 
     g.set_default_vertices(['Content', 'Schedule'])  # пока что пуст
     return g

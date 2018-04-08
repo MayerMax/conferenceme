@@ -34,7 +34,7 @@ class QueryRequest:
     """
 
     def __init__(self, who_asked: User, question: str, request_type: RequestType=RequestType.STRING,
-                 where_to_search: ConferencePlainObject = None):
+                 where_to_search: ConferencePlainObject = None, need_more=False):
         """
         конструктор
         :param who_asked: пользователь мессенджера
@@ -46,3 +46,4 @@ class QueryRequest:
         self.where_to_search = where_to_search
         self.request_type = request_type
         self.edition = None
+        self.need_more = need_more

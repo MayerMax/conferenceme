@@ -32,7 +32,11 @@ class Analyzer:
             return self.__activate_vertex_and_record(request.question, request, user_context)
 
         if last_vertex.status == StatusTypes.LEAF and not last_action.query_result.is_completed:
-            return self.__graph.activate_vertex(last_vertex.name, request, user_context)
+            last_vertex.predict_is_suitable_input(request, user_context)
+            query_result = self.__graph.activate_vertex(last_vertex.name, request, user_context)
+            if query_result.is_completed:
+                user_context.add_record(last_vertex.name, request.question, query_result)
+            return query_result
 
         most_probable = self.__graph.predict_vertex_activation_against_input_and_return(last_action.vertex_name,
                                                                                         request, user_context)
