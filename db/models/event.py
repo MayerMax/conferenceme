@@ -10,6 +10,7 @@ class Conference(Base):
     organization_name = Column(String, ForeignKey('organization.name'))
     conference_topics = Column(String)
     name = Column(String)
+    summary = Column(String)
     begin_date = Column(DateTime)
     end_date = Column(DateTime)
     logo_path = Column(String)
@@ -20,10 +21,14 @@ class Conference(Base):
     def __repr__(self):
         return """
 You are on the {} conference,
+In short, this is about:
+{}
+
+Now, about the content:
 Topics will be discussed: {}
 Dates {} - {},
 Our links: {}
-        """.format(self.name, self.conference_topics, self.begin_date, self.end_date, self.external_links)
+        """.format(self.name, self.summary, self.conference_topics, self.begin_date, self.end_date, self.external_links)
 
 
 class RestActivity(Base):

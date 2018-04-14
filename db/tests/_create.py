@@ -207,7 +207,7 @@ def fill_db(session):
         'rest_activities': [rest],
         'conference_hashes': [conf_hash],
     }
-
+ 
 
 if __name__ == '__main__':
     create_db()
