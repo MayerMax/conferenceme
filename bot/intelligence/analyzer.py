@@ -61,6 +61,14 @@ class Analyzer:
         return request
 
     def __activate_vertex_and_record(self, vertex_name:str, request: QueryRequest, user_context: Context) -> QueryResult:
+        if vertex_name not in self.__graph.get_vertices_names():
+            return QueryResult(
+                status=StatusTypes.LEAF,
+                answer=['Хмм, не понял, что такое {}'.format(request.question)],
+                attachments=[None],
+                extra_args=[],
+            )
+
         query_result = self.__graph.activate_vertex(vertex_name, request, user_context)
         user_context.add_record(vertex_name, request.edition, query_result)
         return query_result
