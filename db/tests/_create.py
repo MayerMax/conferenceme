@@ -1,29 +1,26 @@
-from os.path import dirname, abspath
+import os
 import datetime
+import stat
 
+from db.api import AuthApi
 from db.models import Base
 from db.models.event import Conference, RestActivity
 from db.models.content import Section, Lecture
 from db.models.infrastructure import ConferenceHashes
 from db.models.official import Organization
 from db.models.people import Contact, Speaker
-
+from db.alchemy import Alchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 
 def create_db(db_path='data.db'):
-    engine = create_engine('sqlite:///%s' % db_path)
-    Base.metadata.create_all(engine)
-    Base.metadata.bind = engine
-    DBSession = scoped_session(sessionmaker(bind=engine))
-    session = DBSession()
-
-    return fill_db(session)
+    Alchemy.get_instance(db_path)
+    return fill_db(Alchemy.get_session(db_path))
 
 
 def fill_db(session):
-    media_root_directory = dirname(dirname(abspath(__file__)))
+    media_root_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     org = Organization(name='Microsoft',
                        email_address='endurancemayer@gmail.com',
                        password=hash('123'),
@@ -210,5 +207,7 @@ def fill_db(session):
         'rest_activities': [rest],
         'conference_hashes': [conf_hash],
     }
+ 
 
-create_db()
+if __name__ == '__main__':
+    create_db()
