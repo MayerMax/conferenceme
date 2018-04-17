@@ -23,7 +23,7 @@ def fill_db(session):
     media_root_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     org = Organization(name='Microsoft',
                        email_address='endurancemayer@gmail.com',
-                       password=hash('123'),
+                       password=123,
                        description='We’re looking for the next big thing and we know students like you are going to build it! Register today for the Imagine Cup, Microsoft’s foremost global competition for student developers. As a student developer, your team can earn up to $11,000 and 1 of 6 spots to represent the United States at the global finals of Imagine Cup 2018. The top 12-ranked US teams will receive a trip to compete in the National Finals hosted in San Francisco, CA.',
                        logo_path='{}/media/logos/microsoft.jpg'.format(media_root_directory),
                        external_links='https://imagine.microsoft.com/ru-ru/usa;https://vk.com/imcup',
@@ -211,17 +211,3 @@ def fill_db(session):
 
 if __name__ == '__main__':
     create_db()
-    # create_db('tmp.db')
-    # AuthApi.create_organization_account('123', '123', '123')
-    # # s = Alchemy.get_session()
-    # # org = Organization(name='Microsofast',
-    # #                    email_address='endurancemayer@gmail.com',
-    # #                    password=hash('123'),
-    # #                    description='We’re looking for the next big thing and we know students like you are going to build it! Register today for the Imagine Cup, Microsoft’s foremost global competition for student developers. As a student developer, your team can earn up to $11,000 and 1 of 6 spots to represent the United States at the global finals of Imagine Cup 2018. The top 12-ranked US teams will receive a trip to compete in the National Finals hosted in San Francisco, CA.',
-    # #                    logo_path='{}/media/logos/microsoft.jpg'.format(''),
-    # #                    external_links='https://imagine.microsoft.com/ru-ru/usa;https://vk.com/imcup',
-    # #                    tags='it;community;programming;web',
-    # #                    headquarters='Moscow, Microsoft LLC')
-    # # s.add(org)
-    # # s.commit()
-    # os.remove('tmp.db')
