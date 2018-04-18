@@ -1,0 +1,233 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Имя организации</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
+    <link rel="stylesheet" href="../css/profile_page_material.css">
+    <link rel="stylesheet" type="text/css" href="../css/material_card.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Главная</span>
+          <div class="mdl-layout-spacer"></div>
+          <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="1">account_box</div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" type="text" id="search">
+              <label class="mdl-textfield__label" for="search">Что найти?</label>
+            </div>
+          </div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+            <i class="material-icons">more_vert</i>
+          </button>
+          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+            <li class="mdl-menu__item">Помощь</li>
+            <li class="mdl-menu__item">Связаться</li>
+            <li class="mdl-menu__item">Выйти</li>
+          </ul>
+        </div>
+      </header>
+      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          <img src="https://apptractor.ru/wp-content/uploads/2017/02/sber.png" class="demo-avatar">
+          <div class="demo-avatar-dropdown">
+            <span>SberTech Россия</span>
+            <div class="mdl-layout-spacer"></div>
+            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+              <i class="material-icons" role="presentation">arrow_drop_down</i>
+              <span class="visuallyhidden">Контакты</span>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+              <li class="mdl-menu__item">sbertech@gmail.com</li>
+              <li class="mdl-menu__item">+7(495)-800-800</li>
+              <li class="mdl-menu__item"><i class="material-icons">add</i>Добавить контакт...</li>
+            </ul>
+          </div>
+        </header>
+        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">class</i>Новости</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">watch_later</i>Наши конференции</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">account_circle</i>О нас</a>
+          <button class="mdl-button mdl-js-button mdl-button--accent">Создать конференцию</button>
+          <div class="mdl-layout-spacer"></div>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
+        </nav>
+      </div>
+
+      <main class="mdl-layout__content mdl-color--grey-100">
+        <div class="mdl-grid demo-content">
+        <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+          <div class="mdl-cell--3-col-desktop" style="margin-left: 10px; margin-right: 10px;">
+            <form action="#">
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="sample1">
+    <label class="mdl-textfield__label" for="sample1">Поиск по спикеру</label>
+  </div>
+</form>
+
+          </div>
+          <div class="mdl-cell--3-col-desktop" style="margin-left: 10px; margin-right: 10px;">
+            <span class="mdl-chip">
+                <span class="mdl-chip__text">Показать Новых</span>
+            </span>
+            <span class="mdl-chip">
+                <span class="mdl-chip__text">Показывать в порядке добавления</span>
+            </span>
+          </div>
+          
+          <div class="mdl-cell--3-col-desktop" style="margin-left: 10px;">
+            <form action="#">
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
+                <label class="mdl-textfield__label" for="sample2">Показывать в интервале</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+              </div>
+            </form>
+          </div>
+          <div class="mdl-cell--2-col-desktop" style="margin-left: 5%">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Новый спикер</button>
+          </div>
+        </div>
+        <div class="mdl-grid">
+          <div class="mdl-cell-4-col-desktop">
+              <div class="card">
+      <div class="card-header" style="background-image: url(https://pp.userapi.com/c637919/v637919333/1018/fPUPb6na2Ls.jpg)">
+            <div class="card-header-bar">
+              <a href="#" class="btn-message"><span class="sr-only">Message</span></a>
+              <a href="#" class="btn-menu"><span class="sr-only">Menu</span></a>
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-top: 65%; margin-left: 85% ">
+                <i class="material-icons">edit</i>
+            </button>           
+      </div>
+
+      <div class="card-body">
+          <h2 class="name">Шапошников Константин</h2>
+          <h4 class="job-title">Инженер</h4>
+          <div class="bio">Работет в Максим Банке. Исполнительный директор и соучредитель. Банкир</div>
+          <div class="social-accounts">
+          </div>
+      </div>
+
+      <div class="card-footer">
+              <div class="stat">
+                <a href="" style="color: black"><span class="value"><i class="fa fa-vk" aria-hidden="true"></i></span></a>
+              </div>
+              <div class="stat">
+                <a href="" style="color: black"><span class="value"><i class="fa fa-linkedin" aria-hidden="true"></i></span></a>
+              </div>
+              <div class="stat">
+                <a href="" style="color: black"><span class="value"><i class="fa fa-user" aria-hidden="true"></i></span></a>
+              </div>
+      </div>
+  </div>
+
+          </div>
+          <div class="mdl-cell-4-col-desktop" style="margin-left: 30px; margin-right: 30px;">
+              <div class="card">
+      <div class="card-header"
+    style="background-image: url(https://pp.userapi.com/c627520/v627520473/23db4/2Gpdq64tqlQ.jpg)"
+      >
+            <div class="card-header-bar">
+              <a href="#" class="btn-message"><span class="sr-only">Message</span></a>
+              <a href="#" class="btn-menu"><span class="sr-only">Menu</span></a>
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-top: 65%; margin-left: 85% ">
+                <i class="material-icons">edit</i>
+            </button> 
+      </div>
+
+      <div class="card-body">
+          <h2 class="name">Шапошников Максим</h2>
+          <h4 class="job-title">Сотрудник Максим Банка</h4>
+          <div class="bio">Возглавляет отдел управления финансовыми рисками с апреля этого года. Опыт работы: отсутствует.</div>
+          <div class="social-accounts">
+          </div>
+      </div>
+
+      <div class="card-footer">
+          <div class="stat">
+              <a href="" style="color: black"><span class="value"><i class="fa fa-vk" aria-hidden="true"></i></span></a>
+          </div>
+          <div class="stat">
+               <a href="" style="color: black"><span class="value"><i class="fa fa-linkedin" aria-hidden="true"></i></span></a>
+          </div>
+          <div class="stat">
+              <a href="" style="color: black"><span class="value"><i class="fa fa-user" aria-hidden="true"></i></span></a>
+           </div>
+      </div>
+  </div>
+
+          </div>
+          <div class="mdl-cell-4-col-desktop">
+              <div class="card">
+      <div class="card-header"
+    style="background-image: url(https://pp.userapi.com/c841231/v841231556/67fa8/xNJ1iYpswOE.jpg)"
+      >
+            <div class="card-header-bar">
+              <a href="#" class="btn-message"><span class="sr-only">Message</span></a>
+              <a href="#" class="btn-menu"><span class="sr-only">Menu</span></a>
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-top: 65%; margin-left: 85% ">
+                <i class="material-icons">edit</i>
+            </button> 
+      </div>
+
+      <div class="card-body">
+          <h2 class="name">Маслов Даниил</h2>
+          <h4 class="job-title">Верстальщик</h4>
+          <div class="bio">Подставное Лицо в Максим Банке. Отмывает деньги в воде</div>
+          <div class="social-accounts">
+          </div>
+      </div>
+
+      <div class="card-footer">
+          <div class="stats">
+              <div class="stat">
+                <a href="" style="color: black"><span class="value"><i class="fa fa-vk" aria-hidden="true"></i></span></a>
+              </div>
+              <div class="stat">
+                <a href="" style="color: black"><span class="value"><i class="fa fa-linkedin" aria-hidden="true"></i></span></a>
+              </div>
+              <div class="stat">
+                <a href="" style="color: black"><span class="value"><i class="fa fa-user" aria-hidden="true"></i></span></a>
+              </div>
+          </div>
+      </div>
+  </div>
+
+          </div>
+      </div>
+    </div>
+  </main>
+</div>
+      
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>
