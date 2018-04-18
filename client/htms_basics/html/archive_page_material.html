@@ -12,7 +12,8 @@
           href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
-    <link rel="stylesheet" href="../css/profile_page_material.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/archive_page_material.css">
     <style>
         #view-source {
             position: fixed;
@@ -22,10 +23,6 @@
             margin-right: 40px;
             margin-bottom: 40px;
             z-index: 900;
-        }
-
-        .pinkbox {
-            background: deepskyblue;
         }
     </style>
 </head>
@@ -96,20 +93,26 @@
                     <!-- Сами табы -->
                     <section class="mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--3dp">
                         <div class="mdl-tabs__tab-bar">
-                            <a href="#tab1-panel" class="mdl-tabs__tab">Прошедшие</a>
-                            <a href="#tab2-panel" class="mdl-tabs__tab is-active">Текущие</a>
-                            <a href="#tab3-panel" class="mdl-tabs__tab">Будущие</a>
+                            <a href="#past" class="mdl-tabs__tab">Прошедшие</a>
+                            <a href="#present" class="mdl-tabs__tab is-active">Текущие</a>
+                            <a href="#future" class="mdl-tabs__tab">Будущие</a>
                         </div>
                     </section>
 
                     <!-- Секция "Прошедшие" -->
-                    <section class="mdl-cell mdl-cell--12-col mdl-color--white mdl-tabs__panel" id="tab1-panel">
-                        <p>Tab 1 Content</p>
+                    <section class="demo-card-wide mdl-tabs__panel" id="past">
+                        <div class="mdl-grid mdl-cell mdl-cell--12-col  ">
+                            <div class="mdl-cell--4-offset"></div>
+                            <div class="mdl-cell mdl-cell--4-col no-plans">
+                                <i class="material-icons material-icon-36">filter_none</i>
+                                <p>Ничего не запланировано</p>
+                            </div>
+                            <div class="mdl-cell--4-offset"></div>
+                        </div>
                     </section>
 
                     <!-- Секция "Текущие" -->
-                    <section class="demo-card-wide mdl-tabs__panel is-active" id="tab2-panel">
-
+                    <section class="demo-card-wide mdl-tabs__panel is-active" id="present">
                         <!-- Карточка 1-->
                         <div class="mdl-card mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--4dp">
                             <div>
@@ -124,8 +127,18 @@
                                         <div class="mdl-cell mdl-cell--12-col">
                                             <p><b>Игровые задачи управления случайными процессами</b></p>
 
-                                            <p>Доклад посвящен стохастическим играм с непрерывным временем, т. е. исследованию случайных процессов, динамика которых определяется решениями двух лиц (называемых игроками), имеющих противоположные интересы. Рассматриваемый в докладе класс задач включает в себя хорошо изученные стохастические дифференциальные игры, детерминированные дифференциальные игры и марковские игры с непрерывным временем (игровые задачи управления, в которых динамика определяется марковской цепью с непрерывным временем). Основной результат работы – аппроксимация
-                                            функции гарантированного результата игрока решением стохастической игры с динамикой, отличной от динамики исходной системы. В качестве приложения рассматривается приближение решения детерминированной дифференциальной игры решением марковской игры.</p>
+                                            <p>Доклад посвящен стохастическим играм с непрерывным временем, т. е.
+                                                исследованию случайных процессов, динамика которых определяется
+                                                решениями двух лиц (называемых игроками), имеющих противоположные
+                                                интересы. Рассматриваемый в докладе класс задач включает в себя хорошо
+                                                изученные стохастические дифференциальные игры, детерминированные
+                                                дифференциальные игры и марковские игры с непрерывным временем (игровые
+                                                задачи управления, в которых динамика определяется марковской цепью с
+                                                непрерывным временем). Основной результат работы – аппроксимация
+                                                функции гарантированного результата игрока решением стохастической игры
+                                                с динамикой, отличной от динамики исходной системы. В качестве
+                                                приложения рассматривается приближение решения детерминированной
+                                                дифференциальной игры решением марковской игры.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -135,7 +148,7 @@
                                     <div class="mdl-cell mdl-cell--4-col mdl-grid">
                                         <div class="mdl-cell--2-offset"></div>
                                         <div class="mdl-cell mdl-cell--8-col">
-                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
                                                 Редактировать
                                             </button>
                                         </div>
@@ -143,7 +156,7 @@
                                     <div class="mdl-cell mdl-cell--8-col mdl-grid">
                                         <p class="mdl-cell--4-offset"></p>
                                         <div class="mdl-cell mdl-cell--6-col">
-                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
                                                 Предпросмотр
                                             </button>
                                         </div>
@@ -166,8 +179,18 @@
                                         <div class="mdl-cell mdl-cell--12-col">
                                             <p><b>Игровые задачи управления случайными процессами</b></p>
 
-                                            <p>Доклад посвящен стохастическим играм с непрерывным временем, т. е. исследованию случайных процессов, динамика которых определяется решениями двух лиц (называемых игроками), имеющих противоположные интересы. Рассматриваемый в докладе класс задач включает в себя хорошо изученные стохастические дифференциальные игры, детерминированные дифференциальные игры и марковские игры с непрерывным временем (игровые задачи управления, в которых динамика определяется марковской цепью с непрерывным временем). Основной результат работы – аппроксимация
-                                                функции гарантированного результата игрока решением стохастической игры с динамикой, отличной от динамики исходной системы. В качестве приложения рассматривается приближение решения детерминированной дифференциальной игры решением марковской игры.</p>
+                                            <p>Доклад посвящен стохастическим играм с непрерывным временем, т. е.
+                                                исследованию случайных процессов, динамика которых определяется
+                                                решениями двух лиц (называемых игроками), имеющих противоположные
+                                                интересы. Рассматриваемый в докладе класс задач включает в себя хорошо
+                                                изученные стохастические дифференциальные игры, детерминированные
+                                                дифференциальные игры и марковские игры с непрерывным временем (игровые
+                                                задачи управления, в которых динамика определяется марковской цепью с
+                                                непрерывным временем). Основной результат работы – аппроксимация
+                                                функции гарантированного результата игрока решением стохастической игры
+                                                с динамикой, отличной от динамики исходной системы. В качестве
+                                                приложения рассматривается приближение решения детерминированной
+                                                дифференциальной игры решением марковской игры.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -177,7 +200,7 @@
                                     <div class="mdl-cell mdl-cell--4-col mdl-grid">
                                         <div class="mdl-cell--2-offset"></div>
                                         <div class="mdl-cell mdl-cell--8-col">
-                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
                                                 Редактировать
                                             </button>
                                         </div>
@@ -185,7 +208,7 @@
                                     <div class="mdl-cell mdl-cell--8-col mdl-grid">
                                         <p class="mdl-cell--4-offset"></p>
                                         <div class="mdl-cell mdl-cell--6-col">
-                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
                                                 Предпросмотр
                                             </button>
                                         </div>
@@ -196,9 +219,15 @@
                     </section>
 
                     <!-- Секция "Будущие" -->
-                    <section class="mdl-cell mdl-cell--12-col mdl-color--white mdl-tabs__panel" id="tab3-panel">
-                        <!-- TODO: красивое оформление отсутствия карточки-->
-                        <p>Пока ничего не запланировано</p>
+                    <section class="demo-card-wide mdl-tabs__panel" id="future">
+                        <div class="mdl-grid mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--4dp">
+                            <div class="mdl-cell--4-offset"></div>
+                            <div class="mdl-cell mdl-cell--4-col no-plans">
+                                <i class="material-icons material-icon-36">filter_none</i>
+                                <p>Ничего не запланировано</p>
+                            </div>
+                            <div class="mdl-cell--4-offset"></div>
+                        </div>
                     </section>
                 </div>
             </div>
