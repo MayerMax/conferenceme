@@ -12,6 +12,7 @@
           href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
+    <!--<link rel="stylesheet" href="../css/mdl.css">-->
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/archive_page_material.css">
     <style>
@@ -23,6 +24,10 @@
             margin-right: 40px;
             margin-bottom: 40px;
             z-index: 900;
+        }
+
+        .colorbox {
+            background: #00BCD4;
         }
     </style>
 </head>
@@ -117,12 +122,15 @@
                         <div class="mdl-card mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--4dp">
                             <div>
                                 <div class="mdl-grid">
+                                    <!-- Лого -->
                                     <div class="mdl-cell mdl-cell--4-col mdl-grid">
                                         <div class="mdl-cell mdl-cell--12-col">
                                             <img src="http://www.uran.ru/gazetanu/2011/01/nu02/p4_f1.jpg"/>
                                         </div>
                                     </div>
-                                    <div class="mdl-cell mdl-cell--8-col mdl-card__supporting-text">
+
+                                    <!-- Описание -->
+                                    <div class="mdl-cell mdl-cell--5-col mdl-card__supporting-text">
                                         <p class="mdl-cell mdl-cell--12-col">Дата: 18 ноября 2012</p>
                                         <div class="mdl-cell mdl-cell--12-col">
                                             <p><b>Игровые задачи управления случайными процессами</b></p>
@@ -131,35 +139,26 @@
                                                 исследованию случайных процессов, динамика которых определяется
                                                 решениями двух лиц (называемых игроками), имеющих противоположные
                                                 интересы. Рассматриваемый в докладе класс задач включает в себя хорошо
-                                                изученные стохастические дифференциальные игры, детерминированные
-                                                дифференциальные игры и марковские игры с непрерывным временем (игровые
-                                                задачи управления, в которых динамика определяется марковской цепью с
-                                                непрерывным временем). Основной результат работы – аппроксимация
-                                                функции гарантированного результата игрока решением стохастической игры
-                                                с динамикой, отличной от динамики исходной системы. В качестве
-                                                приложения рассматривается приближение решения детерминированной
-                                                дифференциальной игры решением марковской игры.</p>
+                                                изученные стохастические дифференциальные игры.</p>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="mdl-card__actions mdl-card--border">
-                                <div class="mdl-grid">
-                                    <div class="mdl-cell mdl-cell--4-col mdl-grid">
-                                        <div class="mdl-cell--2-offset"></div>
-                                        <div class="mdl-cell mdl-cell--8-col">
-                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                                                Редактировать
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--8-col mdl-grid">
-                                        <p class="mdl-cell--4-offset"></p>
-                                        <div class="mdl-cell mdl-cell--6-col">
-                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                                                Предпросмотр
-                                            </button>
-                                        </div>
+
+                                    <!-- Управляющие кнопки -->
+                                    <div class="mdl-cell mdl-cell--3-col">
+                                        <ul class="demo-list-item mdl-list">
+                                            <li class="mdl-list__item">
+                                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                                                    Редактировать
+                                                </button>
+                                            </li>
+                                            <li class="mdl-list__item">
+                                                <span class="mdl-list__item-primary-content">
+                                                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                                                         Предпросмотр
+                                                     </button>
+                                                </span>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +173,7 @@
                                             <img src="http://www.uran.ru/gazetanu/2011/01/nu02/p4_f1.jpg"/>
                                         </div>
                                     </div>
-                                    <div class="mdl-cell mdl-cell--8-col mdl-card__supporting-text">
+                                    <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text">
                                         <p class="mdl-cell mdl-cell--12-col">Дата: 18 ноября 2012</p>
                                         <div class="mdl-cell mdl-cell--12-col">
                                             <p><b>Игровые задачи управления случайными процессами</b></p>
@@ -186,34 +185,19 @@
                                                 изученные стохастические дифференциальные игры, детерминированные
                                                 дифференциальные игры и марковские игры с непрерывным временем (игровые
                                                 задачи управления, в которых динамика определяется марковской цепью с
-                                                непрерывным временем). Основной результат работы – аппроксимация
-                                                функции гарантированного результата игрока решением стохастической игры
-                                                с динамикой, отличной от динамики исходной системы. В качестве
-                                                приложения рассматривается приближение решения детерминированной
-                                                дифференциальной игры решением марковской игры.</p>
+                                                непрерывным временем).</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="mdl-card__actions mdl-card--border">
-                                <div class="mdl-grid">
-                                    <div class="mdl-cell mdl-cell--4-col mdl-grid">
-                                        <div class="mdl-cell--2-offset"></div>
-                                        <div class="mdl-cell mdl-cell--8-col">
-                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                                                Редактировать
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--8-col mdl-grid">
-                                        <p class="mdl-cell--4-offset"></p>
-                                        <div class="mdl-cell mdl-cell--6-col">
-                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                                                Предпросмотр
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="mdl-card__menu">
+                                <button id="menu-speed" class="mdl-button mdl-js-button mdl-button--icon">
+                                    <i class="material-icons">more_vert</i>
+                                </button>
+                                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-speed">
+                                    <li class="mdl-menu__item">Редактировать</li>
+                                    <li class="mdl-menu__item">Предпросмотр</li>
+                                </ul>
                             </div>
                         </div>
                     </section>
