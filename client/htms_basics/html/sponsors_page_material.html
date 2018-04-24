@@ -93,10 +93,8 @@
     <main class="mdl-layout__content mdl-color--grey-100">
         <div class="mdl-grid demo-content">
             <div class="mdl-grid mdl-cell mdl-cell--12-col">
-
-                <!-- Секция "Текущие" -->
-                <section class="demo-card-wide mdl-tabs__panel is-active" id="present">
-                    <!-- Карточка 2-->
+                <div class="demo-card-wide">
+                    <!-- Карточка 1-->
                     <div class="mdl-card mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--4dp">
                         <div>
                             <div class="mdl-grid">
@@ -145,7 +143,7 @@
                                     </button>
                                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                                         for="menu-speed-0">
-                                        <li class="mdl-menu__item">Редактировать</li>
+                                        <li class="mdl-menu__item show-dialog">Редактировать</li>
                                     </ul>
                                 </div>
                             </div>
@@ -163,29 +161,8 @@
                                     </div>
                                 </div>
 
-                                <!-- Ссылки на внешние ресурсы -->
-                                <div class="mdl-cell mdl-cell--4-col mdl-card__supporting-text">
-                                        <p><b>Ссылки на внешние ресурсы</b></p>
-
-                                        <a href="">ООО Кока-кола</a><br>
-                                        <a href="">ААА Недвижимость</a><br>
-                                        <a href="">Самая замечательная ссылка</a><br>
-                                        <a href="">Ссылка 4</a>
-
-                                </div>
-
-                                <!-- Рекламные предложения -->
-                                <div class="mdl-cell mdl-cell--4-col mdl-card__supporting-text">
-                                    <p><b>Рекламные предложения</b></p>
-
-                                    <a href="">ООО Кока-кола</a><br>
-                                    <a href="">ААА Недвижимость</a><br>
-                                    <a href="">Самая замечательная ссылка</a><br>
-                                    <a href="">Ссылка 4</a>
-                                </div>
-
                                 <!-- Описание -->
-                                <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text">
+                                <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text">
 
                                     <div class="mdl-cell mdl-cell--12-col">
                                         <p><b>Описание спонсора</b></p>
@@ -198,13 +175,31 @@
                                     </div>
                                 </div>
 
+                                <div class="mdl-cell mdl-cell--4-col mdl-card__supporting-text">
+                                    <p><b>Ссылки на внешние ресурсы</b></p>
+
+                                    <a href="">ООО Кока-кола</a><br>
+                                    <a href="">ААА Недвижимость</a><br>
+                                    <a href="">Самая замечательная ссылка</a><br>
+                                    <a href="">Ссылка 4</a>
+
+                                </div>
+                                <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text">
+                                    <p><b>Рекламные предложения</b></p>
+
+                                    <a href="">ООО Кока-кола</a><br>
+                                    <a href="">ААА Недвижимость</a><br>
+                                    <a href="">Самая замечательная ссылка</a><br>
+                                    <a href="">Ссылка 4</a>
+                                </div>
+
                                 <div class="mdl-card__menu">
-                                    <button id="menu-speed-1" class="mdl-button mdl-js-button mdl-button--icon">
+                                    <button id="menu-speed-1" class="mdl-button mdl-js-button mdl-button--icon ">
                                         <i class="material-icons">more_vert</i>
                                     </button>
                                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                                         for="menu-speed-1">
-                                        <li class="mdl-menu__item">Редактировать</li>
+                                        <li class="mdl-menu__item show-dialog">Редактировать</li>
                                     </ul>
                                 </div>
                             </div>
@@ -222,29 +217,8 @@
                                     </div>
                                 </div>
 
-                                <!-- Ссылки на внешние ресурсы -->
-                                <div class="mdl-cell mdl-cell--4-col mdl-card__supporting-text">
-                                    <p><b>Ссылки на внешние ресурсы</b></p>
-
-                                    <a href="">ООО Кока-кола</a><br>
-                                    <a href="">ААА Недвижимость</a><br>
-                                    <a href="">Самая замечательная ссылка</a><br>
-                                    <a href="">Ссылка 4</a>
-
-                                </div>
-
-                                <!-- Рекламные предложения -->
-                                <div class="mdl-cell mdl-cell--4-col mdl-card__supporting-text">
-                                    <p><b>Рекламные предложения</b></p>
-
-                                    <a href="">ООО Кока-кола</a><br>
-                                    <a href="">ААА Недвижимость</a><br>
-                                    <a href="">Самая замечательная ссылка</a><br>
-                                    <a href="">Ссылка 4</a>
-                                </div>
-
                                 <!-- Описание -->
-                                <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text">
+                                <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text">
 
                                     <div class="mdl-cell mdl-cell--12-col">
                                         <p><b>Описание спонсора</b></p>
@@ -256,17 +230,68 @@
                                             изученные стохастические дифференциальные игры.</p>
                                     </div>
                                 </div>
-                                <div class="mdl-cell--5-offset"></div>
-                                <div class="mdl-cell mdl-cell--3-col">
-                                    <button class="mdl-button mdl-js-button mdl-button--raised">
-                                        Редактировать
-                                    </button>
+
+                                <div class="mdl-cell mdl-cell--4-col mdl-card__supporting-text">
+                                    <p><b>Ссылки на внешние ресурсы</b></p>
+
+                                    <a href="">ООО Кока-кола</a><br>
+                                    <a href="">ААА Недвижимость</a><br>
+                                    <a href="">Самая замечательная ссылка</a><br>
+                                    <a href="">Ссылка 4</a>
+
                                 </div>
-                                <div class="mdl-cell--4-offset"></div>
+                                <div class="mdl-cell mdl-cell--6-col mdl-card__supporting-text">
+                                    <p><b>Рекламные предложения</b></p>
+
+                                    <a href="">ООО Кока-кола</a><br>
+                                    <a href="">ААА Недвижимость</a><br>
+                                    <a href="">Самая замечательная ссылка</a><br>
+                                    <a href="">Ссылка 4</a>
+                                </div>
+
+                                <div class="mdl-card__menu">
+                                    <button id="menu-speed-2" class="mdl-button mdl-js-button mdl-button--icon">
+                                        <i class="material-icons">more_vert</i>
+                                    </button>
+                                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect "
+                                        for="menu-speed-2">
+                                        <li class="mdl-menu__item show-dialog">Редактировать</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </section>
+
+                    <dialog class="mdl-dialog">
+                        <h4 class="mdl-dialog__title">Редактировать спонсора</h4>
+                        <div class="mdl-dialog__content">
+                            <p>
+                                Allowing us to collect data will let us get you the information you want faster.
+                            </p>
+                        </div>
+                        <div class="mdl-dialog__actions">
+                            <button type="button" class="mdl-button">Agree</button>
+                            <button type="button" class="mdl-button close">Disagree</button>
+                        </div>
+                    </dialog>
+                    <script>
+                        var dialog = document.querySelector('dialog');
+                        var showDialogButtons = document.querySelectorAll('.show-dialog');
+                        if (! dialog.showModal) {
+                            dialogPolyfill.registerDialog(dialog);
+                        }
+
+                        for (var i = 0; i < showDialogButtons.length; i++) {
+
+                            showDialogButtons[i].addEventListener('click', function () {
+                                dialog.showModal();
+                            });
+                        }
+                        dialog.querySelector('.close').addEventListener('click', function() {
+                            dialog.close();
+                        });
+                    </script>
+                </div>
             </div>
         </div>
     </main>
