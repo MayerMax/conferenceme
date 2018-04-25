@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Profile Page</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  	<!-- Custom fonts for this template-->
+  	<link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  	<!-- Custom styles for this template-->
+  	<link href="../css/profile_page.css" rel="stylesheet">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+ <!-- Навигация начало-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="index.html">Имя организации</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Main">
+          <a class="nav-link" href="index.html">
+            <i class="fa fa-fw fa-home"></i>
+            <span class="nav-link-text">Главная</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="News">
+          <a class="nav-link" href="tables.html">
+            <i class="fa fa-fw fa-newspaper-o"></i>
+            <span class="nav-link-text">Новости</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Events">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-wrench"></i>
+            <span class="nav-link-text">Наши конференции</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseComponents">
+            <li>
+              <a href="#">Активные</a>
+            </li>
+            <li>
+              <a href="#"><span class="fa fa-fw fa-arrow-circle-o-up"></span>Скоро</a>
+            </li>
+            <li>
+              <a href="#"><span class="fa fa-fw fa-arrow-circle-o-down"></span>Архив</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="About">
+          <a class="nav-link" href="#">
+            <i class="fa fa-fw fa-user-circle"></i>
+            <span class="nav-link-text">О нас</span>
+          </a>
+        </li>
+
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Create">
+          <a class="nav-link" href="#">
+            <button type="button" class="btn btn-success">Создать Конференцию<span class="fa fa-fw fa-plus"></span></button>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav sidenav-toggler">
+        <li class="nav-item">
+          <a class="nav-link text-center" id="sidenavToggler">
+            <i>Need Help ?</i>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-fw fa-bell"></i>
+            <span class="d-lg-none">Уведомления
+              <span class="badge badge-pill badge-warning">6 Новых</span>
+            </span>
+            <span class="indicator text-warning d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+            <h6 class="dropdown-header">Новые:</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <span class="text-success">
+                <strong>
+                  <i class="fa fa-long-arrow-up fa-fw"></i>Внесено изменение в конференцию {имя}</strong>
+              </span>
+              <span class="small float-right text-muted">11:21 AM</span>
+              <div class="dropdown-message small">Внесено изменение</div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item small" href="#">Посмотреть все</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <form class="form-inline my-2 my-lg-0 mr-lg-2">
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="Поиск...">
+              <span class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+          </form>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-fw fa-sign-out"></i>Выйти</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Навигация конец-->
+
+  <!-- Главная Начало-->
+  <div class="content-wrapper">
+  	<div class="container-fluid">
+  		      <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-primary o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-comments"></i>
+              </div>
+              <div class="mr-5">1513 запросов боту!</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">Детали</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-warning o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-list"></i>
+              </div>
+              <div class="mr-5">123 посещений сайта</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">Детали</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-success o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-shopping-cart"></i>
+              </div>
+              <div class="mr-5">13 купленных билетов через сайт</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">Детали</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-danger o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-support"></i>
+              </div>
+              <div class="mr-5">16 новостей о конференциях</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">Детали</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      	 <div class="mb-0 mt-4">
+            <i class="fa fa-newspaper-o"></i>Новости</div>
+          <hr class="mt-2">
+        <div class="card-columns">
+
+            <!-- Example Social Card-->
+            <div class="card mb-3">
+              <a href="#">
+                <img class="card-img-top img-fluid w-100" src="https://2017.zeronights.org/wp-content/uploads/2017/09/Sberbank_Technologii_eng.png" alt="">
+              </a>
+              <div class="card-body">
+                <h6 class="card-title mb-1"><a href="#">Конференция в Москве</a></h6>
+                <p class="card-text small">Сбербанк проводит глобальную конференцию в Москве в мае
+                </p>
+              </div>
+              <hr class="my-0">
+              <div class="card-footer small text-muted">Posted 32 mins ago</div>
+            </div>
+            <!-- Example Social Card-->
+            <div class="card mb-3">
+              <a href="#">
+                <img class="card-img-top img-fluid w-100" src="http://profit.kz/Content/Images/TelegramMessenger.png" alt="">
+              </a>
+              <div class="card-body">
+                <h6 class="card-title mb-1"><a href="#">Telegram бот очень полезен</a></h6>
+                <p class="card-text small">Новый интерес пользователей к ботам.
+                </p>
+              </div>
+              <hr class="my-0">
+              <div class="card-footer small text-muted">Posted 46 mins ago</div>
+            </div>
+            <!-- Example Social Card-->
+            <div class="card mb-3">
+              <a href="#">
+                <img class="card-img-top img-fluid w-100" src="http://profit.kz/Content/Images/TelegramMessenger.png" alt="">
+              </a>
+              <div class="card-body">
+                <h6 class="card-title mb-1"><a href="#">Telegram бот очень полезен</a></h6>
+                <p class="card-text small">Новый интерес пользователей к ботам.
+                  <a href="#">#telegram</a>
+                </p>
+              </div>
+              <div class="card-footer small text-muted">Posted 1 hr ago</div>
+            </div>
+            <!-- Example Social Card-->
+            <div class="card mb-3">
+              <a href="#">
+                <img class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=185" alt="">
+              </a>
+              <div class="card-body">
+                <h6 class="card-title mb-1"><a href="#">David Miller</a></h6>
+                <p class="card-text small">It's hot, and I might be lost...
+                  <a href="#">#desert</a>
+                  <a href="#">#water</a>
+                  <a href="#">#anyonehavesomewater</a>
+                  <a href="#">#noreally</a>
+                  <a href="#">#thirsty</a>
+                  <a href="#">#dehydration</a>
+                </p>
+              </div>
+              <hr class="my-0">
+              <div class="card-footer small text-muted">Posted yesterday</div>
+            </div>
+          </div>
+  	</div>
+  </div> 
+  <!-- Главная Конец -->
+</body>
+
+
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+
+</html>

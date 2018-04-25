@@ -1,5 +1,7 @@
 from typing import Union, List
 
+from bot.query import QueryResult, QueryRequest
+from bot.service.history import Context
 from bot.statuses import StatusTypes
 from bot.terminated_core.vertex.vertex import BaseActionVertex, DummyVertex
 
@@ -11,6 +13,8 @@ class NoSuchActionVertexInGraph(Exception):
 class StateGraph:
     def __init__(self):
         self.vertices = {}
+        self.default_vertices = set()
+        self.__alternative_vertices_name = {}
 
     def add_action_vertex(self, vertex: BaseActionVertex) -> None:
         """
@@ -19,6 +23,7 @@ class StateGraph:
         :return: None
         """
         self.vertices[vertex.name] = vertex
+        self.__alternative_vertices_name[vertex.alternative_name] = vertex
 
     def get_action_vertex(self, name: str) -> Union[BaseActionVertex, None]:
         """
@@ -28,6 +33,11 @@ class StateGraph:
         """
         if name in self.vertices:
             return self.vertices[name]
+        return None
+
+    def get_action_vertex_via_alternative_name(self, name:str) -> Union[BaseActionVertex, None]:
+        if name in self.__alternative_vertices_name:
+            return self.__alternative_vertices_name[name]
         return None
 
     def add_transition_from_parent_to_child_by_names(self, parent_name: str, child_name: str):
@@ -43,8 +53,11 @@ class StateGraph:
         if parent_vertex is None or child_vertex is None:
             raise NoSuchActionVertexInGraph('{} or {} does not exist in graph as vertex'.format(parent_name,
                                                                                                 child_name))
-        parent_vertex.add_child(child_name)
-        child_vertex.set_parent(parent_name)
+        parent_vertex.add_child(child_vertex)
+        child_vertex.set_parent(parent_vertex)
+
+    def set_default_vertices(self, vertices_names: List[str]):
+        self.default_vertices = set(vertices_names)
 
     def get_vertices_names(self) -> List[str]:
         """
@@ -53,23 +66,26 @@ class StateGraph:
         """
         return list(self.vertices.keys())
 
+    def activate_vertex(self, vertex_name: str, request: QueryRequest, context: Context) -> QueryResult:
+        vertex = self._vertex_exist_checker(vertex_name)
+        return vertex.activation_function(request, context)
 
-if __name__ == '__main__':
-    g = StateGraph()
-    g.add_action_vertex(DummyVertex('Schedule', StatusTypes.ROOT))
-    g.add_action_vertex(DummyVertex('WhatSection', StatusTypes.NEIGHBOUR))
+    def predict_vertex_activation_against_input_and_return(self, vertex_name: str, request: QueryRequest,
+                                                           context: Context) -> Union[str, None]:
+        vertex_children = self.get_action_vertex(vertex_name).get_children_names()
+        if not vertex_children:
+            return None
 
-    g.add_action_vertex(DummyVertex('WeekSchedule', StatusTypes.LEAF))
-    g.add_action_vertex(DummyVertex('TodaySchedule', StatusTypes.LEAF))
-    g.add_action_vertex(DummyVertex('TomorrowSchedule', StatusTypes.LEAF))
-    g.add_action_vertex(DummyVertex('TimeSchedule', StatusTypes.LEAF))
+        suitable_predictions = [self.get_action_vertex(x).predict_is_suitable_input(request, context)
+                                 for x in vertex_children]
 
-    g.add_transition_from_parent_to_child_by_names('Schedule', 'WhatSection')
+        count_suitable = suitable_predictions.count(True)
+        if count_suitable == 0 or count_suitable > 2:
+            return None
+        return vertex_children[suitable_predictions.index(True)]
 
-    g.add_transition_from_parent_to_child_by_names('WhatSection', 'WeekSchedule')
-    g.add_transition_from_parent_to_child_by_names('WhatSection', 'TodaySchedule')
-    g.add_transition_from_parent_to_child_by_names('WhatSection', 'TomorrowSchedule')
-    g.add_transition_from_parent_to_child_by_names('WhatSection', 'TimeSchedule')
 
-    print(g.get_vertices_names())
-    print(g.get_action_vertex('WhatSection'))
+    def _vertex_exist_checker(self, vertex_name: str) -> BaseActionVertex:
+        if vertex_name not in self.vertices:
+            raise NoSuchActionVertexInGraph('vertex with name {} does not exist in the graph'.format(vertex_name))
+        return self.vertices.get(vertex_name)

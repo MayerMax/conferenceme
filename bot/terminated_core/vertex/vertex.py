@@ -1,6 +1,9 @@
 import abc
+from typing import List, Tuple
 
-from bot.query import QueryResult
+from bot.query import QueryResult, QueryRequest
+from bot.service.conference_plain_object import ConferencePlainObject
+from bot.service.history import Context
 from bot.statuses import StatusTypes
 
 
@@ -15,38 +18,47 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
     функции
     """
 
-    def __init__(self, name: str, status: StatusTypes, parent=None):
+    def __init__(self, name: str, status: StatusTypes, alternative_name: str = None, parent=None):
         """
         конструктор
         :param name: уникальное имя вершины
         :param parent: родительская вершина для данной, объект типа ActionVertex
         :param status: статус вершины, является ли она терминальной или промежуточной
+        :param alternative_name: альтернативное имя вершины, которое используется для того, чтобы replier-ы могли
+        отображть вершину пользователю
         """
         self.name = name
         self.status = status
         self.parent = parent
         self.children = set()
+        self.alternative_name = name if not alternative_name else alternative_name
 
-    def add_child(self, child_name: str):
+    def add_child(self, child_vertex):
         """
         добавляет данному состоянию доченреи состояния
-        :param child_name: дочерняя вершина
+        :param child_vertex: дочерняя вершина
         :return: None
         """
-        self.children.add(child_name)
+        self.children.add(child_vertex)
 
-    def set_parent(self, parent_name: str):
+    def set_parent(self, parent_vertex):
         """
         Устанавливает данной вершине родителя
-        :param parent_name: str
+        :param parent_vertex: BaseActionVertex
         :return:
         """
         if self.parent:
             raise ActionVertexParentExists('This vertex has already have parent named {}'.format(self.parent))
-        self.parent = parent_name
+        self.parent = parent_vertex
 
     def __str__(self):
-        return 'Vertex {}, It has children: {}'.format(self.name, ', '.join(x for x in self.children))
+        return 'Vertex {}, It has children: {}'.format(self.name, ', '.join(x.alternative_name for x in self.children))
+
+    def get_children_alternative_names(self) -> List[str]:
+        return [x.alternative_name for x in self.children]
+
+    def get_children_names(self) -> List[str]:
+        return [x.name for x in self.children]
 
     def get_unique_name(self) -> str:
         """
@@ -56,34 +68,37 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
         return self.name
 
     @abc.abstractmethod
-    def activation_function(self, user_raw_query, user_data, hierarchy, search_source) -> QueryResult:
+    def activation_function(self, request: QueryRequest, context: Context) -> QueryResult:
         """
         абстрактная функция, возвращающая результат запроса пользователя в соответствии с QueryResult
-        :param user_raw_query: исходный запрос пользователя, ВОЗМОЖНО, лишнее поле, так как в hierarchy хранится
-        информация о предыдущем запросе
-        :param user_data: информация о пользователе
-        :param hierarchy: объект истории вызовов данного пользователя, нужен для обобщения логики, чтобы построить
-        общий контекст
-        :param search_source: место, в котором нужно искать данные
-        :return: QueryResult
+        :param request: запрос пользователя
+        :param context: история пользователя
+        :return: QueryResult и список дочерних вершин
         """
         pass
 
     @abc.abstractmethod
-    def predict_is_suitable_input(self, user_raw_query) -> bool:
+    def predict_is_suitable_input(self, request: QueryRequest, context: Context) -> bool:
         """
         абстрактная функция, которая помогает текущему состоянию бота понять, подходит ли пользовательский ввод данных
         для активационной функции. Необходима для активационных функций, который ожидают ввод в виде имен, названий,
         естественных запросов и проч. Для детерменированных вершин устанавливать в True
-        :param user_raw_query:
-        :return: True - да, допустим или False - нет, не ожидаемый формат
+        :param request:
+        :param context: контекст пользователя
+        :return: число от 0 до 1, выражает уверенность в том, что это именно та вершина
         """
         pass
 
+    def __hash__(self):
+        return hash(self.name)
+
+    def __eq__(self, other):
+        return self.__hash__() == other.__hash__()
+
 
 class DummyVertex(BaseActionVertex):
-    def predict_is_suitable_input(self, user_raw_query) -> bool:
+    def activation_function(self, request: QueryRequest, context: Context) -> QueryResult:
         pass
 
-    def activation_function(self, user_raw_query, user_data, hierarchy, search_source) -> QueryResult:
-        pass
+    def predict_is_suitable_input(self, request: QueryRequest, context: Context) -> float:
+        return True
