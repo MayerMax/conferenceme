@@ -1,6 +1,5 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-.mat-calendar{
-  width: 200px !important;
-  height: 250px !important;
-}
+/*@import "bootstrap.min.css";*/
+@import "~material-design-lite/dist/material.cyan-light_blue.min.css";
+@import "~material-design-lite/material.min.css";
 /* You can add global styles to this file, and also import other style files */

@@ -14,6 +14,9 @@ import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { CompareFormControlDirective } from './directive/compare-form-control.directive';
 import {EnsureAuthenticatedService} from "./services/ensure-authenticated.service";
 import {NavBarModule} from "./nav-bar/nav-bar.module";
+import { MainComponent } from './Components/main/main.component';
+import { HomeComponent } from './Components/home/home.component';
+import {AppRoutingModule} from "./app-routing.module";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -27,7 +30,9 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    CompareFormControlDirective
+    CompareFormControlDirective,
+    MainComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,7 @@ const appRoutes: Routes = [
     MatInputModule,
     HttpClientModule,
     NavBarModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [
     EnsureAuthenticatedService,
