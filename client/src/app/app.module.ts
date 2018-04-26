@@ -13,6 +13,7 @@ import {AuthInterceptorService} from "./services/auth-interceptor.service";
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { CompareFormControlDirective } from './directive/compare-form-control.directive';
 import {EnsureAuthenticatedService} from "./services/ensure-authenticated.service";
+import {NavBarModule} from "./nav-bar/nav-bar.module";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -37,6 +38,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     MatInputModule,
     HttpClientModule,
+    NavBarModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

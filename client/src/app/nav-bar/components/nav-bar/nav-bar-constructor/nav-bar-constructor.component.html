@@ -1,0 +1,6 @@
+<div *ngFor="let  menuItem of menuItemsHome" >
+  <button   (click)="navigate(menuItem)"  class="mdl-button mdl-js-button mdl-button--accent"  >
+    <i class="mdl-color-text--blue-grey-400 material-icons" >{{menuItem.icon}}</i>
+    {{menuItem.name}}
+  </button>
+</div>
