@@ -1,0 +1,113 @@
+<div class="mdl-layout mdl-js-layout headerDialog" >
+  <header class="mdl-layout__header mdl-typography--headline titleDialog" >
+    <div>Редактировать спикера</div>
+  </header>
+
+  <div class="mdl_layout__content">
+    <form class="form-group" #f="ngForm" novalidate >
+      <div class="mdl-grid mdl-grid--no-spacing  mdl-shadow--2dp">
+        <!--<div class ='mdl-shadow&#45;&#45;2dp mdl-cell&#45;&#45;12-col-tabletmdl-cell&#45;&#45;12-col-desktop'>-->
+        <div class="title mdl-cell--4-col-desktop mdl-cell--12-col-tablet mdl-typography--title ">Персональные данные </div>
+        <div class="title mdl-cell--4-col-desktop mdl-typography--title  onlyDesktop">Краткая Информация </div>
+        <div class="title mdl-cell--4-col-desktop mdl-typography--title  onlyDesktop"> Фото </div>
+        <div class=" mdl-cell--4-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet personalData">
+          <mat-input-container class="  ">
+            <input matInput type="text" placeholder="Имя" class="form-control" name="name" [(ngModel)]="model.name"
+                   #name='ngModel'>
+          </mat-input-container>
+          <mat-input-container class="">
+            <input matInput type="text" class="form-control" name="surName" placeholder='фамилия' [(ngModel)]="model.surName"
+                   #surName='ngModel'>
+          </mat-input-container>
+          <mat-input-container class=" ">
+            <input matInput type="text"  placeholder="Отчество" class="form-control" name="otchestvo" [(ngModel)]="model.otchestvo"
+                   #otchestvo='ngModel'>
+          </mat-input-container>
+        </div>
+        <div class="title mdl-cell--12-col-phone mdl-cell--12-col-tablet  mdl-typography--title  onlyTabletOrPhone">Краткая Информация </div>
+        <mat-form-field class=" mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell mdl-cell--4-col-desktop ">
+          <mat-placeholder>Краткая информация</mat-placeholder>
+          <textarea  matInput type="text" class="PaddingCellInput form-control" name="shortInformation"
+                     [(ngModel)]="model.shortInformation" matTextareaAutosize   matAutosizeMinRows="8" matAutosizeMaxRows="8"
+                     #informationSpeaker='ngModel'>
+  </textarea>
+        </mat-form-field>
+        <div class="title mdl-cell--4-col-desktop mdl-typography--title mdl-cell--12-col-tablet  mdl-cell--12-col-phone  onlyTabletOrPhone"> Фото </div>
+        <div class=" mdl-typography--title mdl-cell mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--4-col-desktop conteinerAvatar " >
+  <span  ng2FileDrop
+         [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+         (fileOver)="fileOverBase($event)"
+         [uploader]="uploader"
+         class="my-drop-zone z-index">
+  <span class=" z-index mdl-color-text--grey-600">  Перетащите фото
+    </span>
+
+    <img appImagePreview class="avatarSpeaker" src="" [media]="file" [type]="type">
+ </span>
+        </div>
+
+        <div class="mdl-typography--title mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell mdl-cell--6-col-desktop " >
+          Общая информация
+        </div>
+        <div class="mdl-typography--title mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell mdl-cell--6-col-desktop " >
+          Сылки и теги
+        </div>
+        <mat-form-field class="mdl-cell mdl-cell--6-col-desktop PaddingCellInput ">
+  <textarea style="padding: 10px" matInput placeholder="Общая информация" type="text" class=" form-control" name="informationSpeaker"
+            [(ngModel)]="model.info" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="10"
+            #informationSpeaker='ngModel'>
+  </textarea>
+        </mat-form-field>
+        <div class="mdl-cell mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--6-col-desktop PaddingCellInput ">
+          <!--<mat-form-field class=" ">-->
+          <!--<textarea matInput placeholder="Краткая Информация " type="text" class="form-control" name="informationSpeaker"-->
+          <!--[(ngModel)]="model.shortInformation" matTextareaAutosize matAutosizeMinRows="10" matAutosizeMaxRows=""-->
+          <!--#informationSpeaker='ngModel'>-->
+          <!--</textarea>-->
+          <!--</mat-form-field>-->
+          <div >
+            <mat-form-field class="   demo-chip-list">
+              <mat-chip-list #chipList1>
+                <mat-chip *ngFor="let tag of model.tagsSpeaker" [selectable]="selectable"
+                          [removable]="removable" (remove)="removeTag(tag)">
+                  {{tag}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="New tags..."
+                       [matChipInputFor]="chipList1"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="addTag($event)" />
+              </mat-chip-list>
+            </mat-form-field>
+
+            <mat-form-field class=" miniInput flex_1   demo-chip-list">
+              <mat-chip-list #chipList2>
+                <mat-chip *ngFor="let link of model.link" [selectable]="selectable"
+                          [removable]="removable" (remove)="removeLink(link)">
+                  {{link}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="New Link..."
+                       [matChipInputFor]="chipList2"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="addLink($event)" />
+              </mat-chip-list>
+            </mat-form-field>
+          </div>
+        </div>
+        <!--</div>-->
+      </div>
+      <div mat-dialog-actions class="actionsDialog " >
+        <div class="">
+          <button mat-raised-button style="margin: 5px" routerLinkActive="active"  (click)="onSubmit()" color="primary"  >send
+          </button>
+          <button mat-button  (click)="onNoClick()">Назад</button>
+          <button mat-button  [mat-dialog-close]="data.speaker.nameLectures" cdkFocusInitial>Send</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

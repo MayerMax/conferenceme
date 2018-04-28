@@ -1,0 +1,32 @@
+
+<div class="card">
+  <div class="card-header"  [style.background-size]="'cover'" [style.background-position]="'center'"
+       [ngStyle]="{background:' url('+speaker.photoSrc +')'}">
+    <div class="card-header-bar">
+      <a href="#" class="btn-message"><span class="sr-only">Message</span></a>
+      <a href="#" class="btn-menu"><span class="sr-only">Menu</span></a>
+    </div>
+    <button mat-mini-fab (click)="openDialog()"  class="buttonEdit">
+      <mat-icon><i class="material-icons">edit</i></mat-icon>
+    </button>
+  </div>
+
+  <div class="card-body">
+    <h2 class="name">{{speaker.name}} {{speaker.surName}}</h2>
+    <h4 class="job-title">{{speaker.profession}}</h4>
+    <div class="shortInf">{{speaker.shortInformation}}</div>
+  </div>
+
+
+  <div class="card-footer">
+    <div class="stat">
+      <a href="" style="color: black"><span class="value"><i class="fa fa-vk" aria-hidden="true"></i></span></a>
+    </div>
+    <div class="stat">
+      <a href="" style="color: black"><span class="value"><i class="fa fa-linkedin" aria-hidden="true"></i></span></a>
+    </div>
+    <div class="stat">
+      <a href="" style="color: black"><span class="value"><i class="fa fa-user" aria-hidden="true"></i></span></a>
+    </div>
+  </div>
+</div>

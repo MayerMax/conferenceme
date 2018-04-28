@@ -3,3 +3,78 @@
 @import "~material-design-lite/dist/material.cyan-light_blue.min.css";
 @import "~material-design-lite/material.min.css";
 /* You can add global styles to this file, and also import other style files */
+.flex_1{
+  flex: 1;
+}
+.flex{
+  display: flex;
+}
+.centering{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+body{
+  margin: 0px;
+}
+html,body{
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+.dialog-no-padding-panel .mat-dialog-container{
+  width: 70vw;
+  height: 89vh;
+  padding: 0;
+  border-radius: 30px 30px 0 0  ;
+}
+@media all and (max-width: 840px){
+  .onlyDesktop{
+    display: none;
+  }
+}
+.onlyTabletOrPhone{
+  display: none;
+}
+@media all and (max-width: 840px){
+}
+@media (max-width: 479px) {
+  .mat-horizontal-stepper-header .mat-step-icon, .mat-horizontal-stepper-header .mat-step-icon-not-touched {
+    margin-right: 0 !important;
+  }
+  .mat-step-label {
+    display: none !important;
+  }
+}
+
+@media all and (max-width: 840px ) {
+  .mat-horizontal-stepper-header {
+    flex-direction: column;
+    flex: 1;
+    height: 104px !important;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mat-horizontal-stepper-header .mat-step-icon,
+  .mat-horizontal-stepper-header .mat-step-icon-not-touched {
+    margin-top: 24px;
+  }
+
+  .mat-step-label {
+    margin-top: 16px;
+    width: 100%;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .mat-step-text-label {
+    text-align: center;
+  }
+
+  .mat-stepper-horizontal-line {
+    margin-top: -32px !important;
+    max-width: 32px;
+  }
+}

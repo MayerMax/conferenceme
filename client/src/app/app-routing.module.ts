@@ -7,15 +7,15 @@ import {NavBarConstructorComponent} from "./nav-bar/components/nav-bar/nav-bar-c
 import {HomeComponent} from "./Components/home/home.component";
 
 const appRoutes: Routes = [
-  // {
-  //   path: 'constructor',
-  //   loadChildren: 'app/constructor/constructor.module#ConstructorModule'
-  // },
-  // {
-  //   path: 'constructor',
-  //   outlet: 'sidemenu',
-  //   component: NavBarConstructorComponent
-  // },
+  {
+    path: 'constructor',
+    loadChildren: 'app/constructor/constructor.module#ConstructorModule'
+  },
+  {
+    path: 'constructor',
+    outlet: 'sidemenu',
+    component: NavBarConstructorComponent
+  },
   {
     path: '',
     redirectTo: '/home',

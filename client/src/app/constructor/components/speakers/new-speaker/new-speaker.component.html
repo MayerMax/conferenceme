@@ -1,0 +1,113 @@
+<div class="mdl-layout mdl-js-layout headerDialog" >
+  <header class="mdl-layout__header mdl-typography--headline titleDialog" >
+    <div>Создать спикера</div>
+  </header>
+
+  <div  class="mdl_layout__content fullHeightAndWidth">
+    <form class="form-group StepperContent  " #f="ngForm" novalidate >
+      <mat-horizontal-stepper  class="StepperContent" >
+        <mat-step>
+          <ng-template matStepLabel>Персональные данные</ng-template>
+          <div class="miniMargin centerting mdl-grid mdl-shadow--2dp">
+            <div class="title mdl-cell mdl-cell--5-col-desktop mdl-typography--title ">Персональные данные </div>
+            <div class="title mdl-cell mdl-cell--5-col-desktop mdl-typography--title  onlyDesktop"> Фото </div>
+            <div class= "mdl-cell mdl-cell--5-col-desktop personalData">
+              <mat-input-container class="  ">
+                <input matInput type="text" placeholder="Имя" class="form-control" name="name" [(ngModel)]="model.name"
+                       #name='ngModel'>
+              </mat-input-container>
+              <mat-input-container class="">
+                <input matInput type="text" class="form-control" name="surName" placeholder='фамилия' [(ngModel)]="model.surName"
+                       #surName='ngModel'>
+              </mat-input-container>
+              <mat-input-container class=" ">
+                <input matInput type="text"  placeholder="Отчество" class="form-control" name="otchestvo" [(ngModel)]="model.otchestvo"
+                       #otchestvo='ngModel'>
+              </mat-input-container>
+            </div>
+            <div  class=" mdl-typography--title mdl-cell mdl-cell--5-col-desktop conteinerAvatar " >
+            <span  ng2FileDrop
+                   [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                   (fileOver)="fileOverBase($event)"
+                   [uploader]="uploader"
+                   class="my-drop-zone z-index">
+              <span class=" z-index mdl-color-text--grey-600">  Перетащите фото
+              </span>
+              <img appImagePreview class="avatarSpeaker" src="" [media]="file" [type]="type">
+            </span>
+            </div>
+          </div>
+          <button mat-raised-button class="miniMargin" color="primary"  matStepperNext>Next</button>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Сылки и теги</ng-template>
+          <div class="miniMargin centerting mdl-grid mdl-shadow--2dp">
+            <div class="title mdl-cell mdl-cell--12-col-desktop mdl-typography--title ">Теги </div>
+            <mat-form-field class="mdl-cell mdl-cell--12-col-desktop PaddingCellInput   demo-chip-list">
+              <mat-chip-list #chipList1>
+                <mat-chip *ngFor="let tag of model.tagsSpeaker" [selectable]="selectable"
+                          [removable]="removable" (remove)="removeTag(tag)">
+                  {{tag}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="New tags..."
+                       [matChipInputFor]="chipList1"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="addTag($event)" />
+              </mat-chip-list>
+            </mat-form-field>
+            <div class="title mdl-cell mdl-cell--12-col-desktop mdl-typography--title ">Сылки </div>
+            <mat-form-field class=" mdl-cell mdl-cell--12-col-desktop PaddingCellInput    demo-chip-list">
+              <mat-chip-list #chipList2>
+                <mat-chip *ngFor="let link of model.link" [selectable]="selectable"
+                          [removable]="removable" (remove)="removeLink(link)">
+                  {{link}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="New Link..."
+                       [matChipInputFor]="chipList2"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="addLink($event)" />
+              </mat-chip-list>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button class="miniMargin" color="primary"  matStepperPrevious>Back</button>
+          <button mat-raised-button class="miniMargin" color="primary"  matStepperNext>Next</button>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Информация</ng-template>
+          <div class="miniMargin centerting mdl-grid mdl-shadow--2dp">
+            <div class="title mdl-cell mdl-cell--9-col-desktop mdl-typography--title ">Общая Информация </div>
+            <div class="title mdl-cell mdl-cell--3-col-desktop mdl-typography--title  onlyDesktop"> Краткая Информация </div>
+            <mat-form-field class="mdl-cell mdl-cell--12-col-phone PaddingCellInput mdl-cell--12-col-tablet mdl-cell--9-col-desktop  ">
+  <textarea  matInput placeholder="Общая информация" type="text" class=" form-control" name="informationSpeaker"
+             [(ngModel)]="model.info" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="10"
+             #informationSpeaker='ngModel'>
+  </textarea>
+            </mat-form-field>
+            <mat-form-field class=" mdl-cell--12-col-phone PaddingCellInput mdl-cell--12-col-tablet mdl-cell mdl-cell--3-col-desktop ">
+  <textarea  matInput placeholder="Краткая Информация " type="text" class="form-control" name="shortInformation"
+             [(ngModel)]="model.shortInformation" matTextareaAutosize   matAutosizeMinRows="4" matAutosizeMaxRows="10"
+             #informationSpeaker='ngModel'>
+  </textarea>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button class="miniMargin" color="primary"  matStepperPrevious>Back</button>
+          <button mat-raised-button class="miniMargin" color="primary"  matStepperNext>Next</button>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          Вы завершили создание Спикера
+          <div>
+            <button mat-raised-button class="miniMargin" color="primary"  matStepperPrevious>Back</button>
+            <button mat-raised-button class="miniMargin" color="primary"  (click)="onSubmit()">Сохранить</button>
+            <button mat-button (click)="onReset()">Очистить все</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+.mat-select-menu-container {
+  z-index: 99999 !important;
+}
+.my-drop-zone {
+  border: dotted 3px lightgray;
+  position: relative;
+}
+.miniInput{
+}
+.flex{
+  display: flex;
+}
+.flex > div
+{
+  flex: 1;
+}
+.actionsDialog{
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.headerDialog{
+  border-radius: 30px 30px 0 0  ;
+}
+.titleDialog{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.z-index{
+  z-index: 3
+}
+.dialog-no-padding-panel .mat-dialog-container{
+  padding: 0;
+}
+.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+.another-file-over-class { border: dotted 3px green; }
+
+html, body { height: 100%; }
+mat-form-field{
+  display: block;
+}
+.my-drop-zone{
+  width: calc(100% - 4px) ;
+  height: calc(100%  - 1.25em + 3px);
+  display: inline-block;
+  position: relative;
+}
+.conteinerAvatar{
+
+}
+.avatarSpeaker{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width:  100% ;
+  height: 100%;
+}
+.personalData{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px 10px 0px 0;
+}
+.PaddingCellInput{
+  padding: 10px 10px 0px 0;
+}
+.personalData >*{
+
+}
+img{
+  display: inline-block;
+}
+.active{
+  background: darkblue;
+}
+
+.form-group{
+  padding: 24px 24px 0px 24px;
+}
+@media all and (max-width: 840px){
+  .onlyDesktop{
+    display: none;
+  }
+}
+.onlyTabletOrPhone{
+  display: none;
+}
+@media all and (max-width: 840px){
+  .my-drop-zone {
+    width: 200px;
+    min-height: 200px;
+  }
+  .onlyTabletOrPhone{
+    display: block;
+  }
+}

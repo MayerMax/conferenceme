@@ -1,0 +1,15 @@
+<div  class="Wrapper mdl-shadow--2dp" >
+  <app-toolbar-constructor [titleToolbar]="'Спикер'"></app-toolbar-constructor>
+  <div class="mdl-grid"  >
+    <div *ngFor="let speaker of speakers.speakers"  class="mdl-cell mdl-cell-4-col-desktop "  >
+      <app-speaker-card class="speakerCard" [speaker]="speaker"></app-speaker-card>
+    </div>
+  </div>
+  <div class="paginator flex">
+    <span class="flex_1" ></span>
+    <div class=""></div>
+    <mat-paginator class="flex_1" style=" background-color:#f5f5f5" [length]="100"
+                   [pageSize]="6">
+    </mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<mat-toolbar   class="mdl-shadow--2dp">
+  <button  mat-raised-button (click)="openDialog()" color="primary">
+    <mat-icon>add</mat-icon>
+    <span>Создать {{titleToolbar}}а</span>
+  </button>
+  <span class="flex_1" ></span>
+  <h2 class="flex_1"> {{titleToolbar}}ы</h2>
+  <button style="margin: 5px" *ngIf="!sort && !search" mat-raised-button (click)="showSearchBar()" color="primary">
+    <mat-icon>search</mat-icon>
+    <span>Search</span>
+  </button>
+  <mat-input-container style="margin: 5px" *ngIf="search">
+    <input matInput placeholder="Поиск {{titleToolbar}}а">
+  </mat-input-container>
+  <button *ngIf="!sort && !search " mat-raised-button (click)="showSort()" color="primary">
+    <mat-icon>sort</mat-icon>
+    <span>Sort</span>
+  </button>
+  <button style="margin: 5px" *ngIf="sort" mat-raised-button  color="primary">
+    <svg xmlns="http://www.w3.org/2000/svg"  fill="rgb(255, 255, 255)" width="24" height="24" viewBox="0 0 24 24"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg>
+    <span>Сортировать по дате</span>
+  </button>
+  <button *ngIf="sort" mat-raised-button  color="primary">
+    <svg  xmlns="http://www.w3.org/2000/svg" fill="rgb(255, 255, 255)" width="24" height="24" viewBox="0 0 24 24" ><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg>
+    <span>Сортировать по алфовиту</span>
+  </button>
+  <button *ngIf="sort || search" mat-icon-button (click)="close()" >
+    <mat-icon>close</mat-icon>
+  </button>
+
+</mat-toolbar>

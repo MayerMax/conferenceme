@@ -1,0 +1,22 @@
+.Wrapper{
+  min-height: 87.9vh;
+}
+.example-header-image {
+  background-image: url('https://png.icons8.com/color/1600/person-male.png');
+  background-size: cover;
+}
+.addButton{
+  background-color: #f6f6f6 !important;
+  color: rgb(102, 102, 102);
+
+}
+.addButton *{
+  fill: rgb(102, 102, 102);
+}
+.speakerCard{
+  width: 80%;
+  height: 90%;
+}
+
+.paginator{
+}
