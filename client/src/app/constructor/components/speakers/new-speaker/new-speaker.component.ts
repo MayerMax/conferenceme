@@ -8,11 +8,13 @@ import {
 } from "@angular/material";
 import {Router} from "@angular/router";
 import {Speaker} from "../../../models/speaker";
+import {PostDataService} from "../../../../services/post-data.service";
 const URL = 'http://localhost';
 @Component({
   selector: 'app-new-speaker',
   templateUrl: './new-speaker.component.html',
-  styleUrls: ['./new-speaker.component.css']
+  styleUrls: ['./new-speaker.component.css'],
+
 })
 export class NewSpeakerComponent implements OnInit {
 
@@ -38,7 +40,7 @@ export class NewSpeakerComponent implements OnInit {
   }
   constructor(
     public dialogRef: MatDialogRef<NewSpeakerComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, public dialog: MatDialog) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, public dialog: MatDialog, private postService: PostDataService) {
   }
 
   onNoClick(): void {
@@ -48,13 +50,9 @@ export class NewSpeakerComponent implements OnInit {
     this.model = new Speaker();
   }
   onSubmit() {
-    console.log(this.uploader.queue[0]._file);
-    let ar = this.uploader.queue;
     this.uploader.uploadAll();
     this.form.reset();
-    console.log(this.model);
-    this.router.navigateByUrl('lecture');
-
+    this.postService.postData(this.model);
   }
   // canDeactivate() {
   //   console.log(this.form.dirty);

@@ -11,7 +11,7 @@
           <div class="miniMargin centerting mdl-grid mdl-shadow--2dp">
             <div class="title mdl-cell mdl-cell--5-col-desktop mdl-typography--title ">Персональные данные </div>
             <div class="title mdl-cell mdl-cell--5-col-desktop mdl-typography--title  onlyDesktop"> Фото </div>
-            <div class= "mdl-cell mdl-cell--5-col-desktop personalData">
+            <div class= "mdl-cell mdl-cell--5-col-desktop mdl-cell--11-col-phone mdl-cell--11-col-tablet personalData">
               <mat-input-container class="  ">
                 <input matInput type="text" placeholder="Имя" class="form-control" name="name" [(ngModel)]="model.name"
                        #name='ngModel'>
@@ -25,16 +25,19 @@
                        #otchestvo='ngModel'>
               </mat-input-container>
             </div>
-            <div  class=" mdl-typography--title mdl-cell mdl-cell--5-col-desktop conteinerAvatar " >
-            <span  ng2FileDrop
+            <div
+              class=" mdl-typography--title mdl-cell mdl-cell--5-col-desktop mdl-cell--11-col-phone mdl-cell--11-col-tablet conteinerAvatar " >
+           <div class="my-drop-zone" >
+             <span  ng2FileDrop
                    [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
                    (fileOver)="fileOverBase($event)"
                    [uploader]="uploader"
-                   class="my-drop-zone z-index">
+                   class=" z-index">
               <span class=" z-index mdl-color-text--grey-600">  Перетащите фото
               </span>
-              <img appImagePreview class="avatarSpeaker" src="" [media]="file" [type]="type">
+              <img appImagePreview class="avatarSpeaker" src="" alt="" [media]="file" [type]="type">
             </span>
+           </div>
             </div>
           </div>
           <button mat-raised-button class="miniMargin" color="primary"  matStepperNext>Next</button>

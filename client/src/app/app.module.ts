@@ -17,6 +17,9 @@ import {NavBarModule} from "./nav-bar/nav-bar.module";
 import { MainComponent } from './Components/main/main.component';
 import { HomeComponent } from './Components/home/home.component';
 import {AppRoutingModule} from "./app-routing.module";
+import {GetDataService} from "./services/get-data.service";
+import {MockGetDataService} from "./services/mock-get-data.service";
+import {PostDataService} from "./services/post-data.service";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -48,6 +51,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     EnsureAuthenticatedService,
+    PostDataService,
     {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,

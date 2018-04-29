@@ -11,7 +11,8 @@ import {
   MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
-  MatInputModule, MatListModule, MatNativeDateModule, MatOptionModule, MatPaginatorModule, MatSelectModule,
+  MatInputModule, MatListModule, MatNativeDateModule, MatOptionModule, MatPaginatorIntl, MatPaginatorModule,
+  MatSelectModule,
   MatSidenavModule, MatStepperIntl, MatStepperModule,
   MatToolbarModule
 } from "@angular/material";
@@ -39,6 +40,9 @@ import { EditSpeakerComponent } from './components/speakers/edit-speaker/edit-sp
 import { ImagePreviewDirective } from './directive/image-preview.directive';
 import { LectureCardComponent } from './components/lectures/lecture-card/lecture-card.component';
 import { EditLectureComponent } from './components/lectures/lecture-card/edit-lecture/edit-lecture.component';
+import {MyMatPaginatorIntl} from "./Intl/MyMatPaginatorIntl";
+import {GetDataService} from "../services/get-data.service";
+import {MockGetDataService} from "../services/mock-get-data.service";
 // import { SpeakerCardComponent } from './conference/speakers/speaker-card/speaker-card.component';
 // import { ToolbarConferencesComponent } from './conference/toolbar-conferences/toolbar-conferences.component';
 // import { LecturesComponent } from './conference/lectures/lectures.component';
@@ -81,6 +85,7 @@ import { EditLectureComponent } from './components/lectures/lecture-card/edit-le
     MatStepperModule
   ],
   entryComponents: [EditSpeakerComponent, NewSpeakerComponent, EditLectureComponent],
+  providers: [{provide: GetDataService, useClass: MockGetDataService}],
   declarations: [ConferenceComponent, ConstructorComponent, SpeakersComponent, LecturesComponent, SpeakerCardComponent, NewSpeakerComponent, ToolbarConstructorComponent, EditSpeakerComponent, ImagePreviewDirective, LectureCardComponent, EditLectureComponent]
 })
 export class ConstructorModule { }
