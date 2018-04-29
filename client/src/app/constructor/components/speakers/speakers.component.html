@@ -1,5 +1,5 @@
 <div  class="Wrapper mdl-shadow--2dp" >
-  <app-toolbar-constructor [titleToolbar]="'Спикер'"></app-toolbar-constructor>
+  <app-toolbar-constructor [dialogComponent]="newSpeakerComponent" [titleButtonCreate]="'Спикера'" [titleToolbar]="'Спикеры'"></app-toolbar-constructor>
   <div class="mdl-grid"  >
     <div *ngFor="let speaker of speakers.speakers"  class="mdl-cell mdl-cell-4-col-desktop "  >
       <app-speaker-card class="speakerCard" [speaker]="speaker"></app-speaker-card>

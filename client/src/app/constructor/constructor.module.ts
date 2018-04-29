@@ -37,6 +37,8 @@ import { NewSpeakerComponent } from './components/speakers/new-speaker/new-speak
 import { ToolbarConstructorComponent } from './components/toolbar-constructor/toolbar-constructor.component';
 import { EditSpeakerComponent } from './components/speakers/edit-speaker/edit-speaker.component';
 import { ImagePreviewDirective } from './directive/image-preview.directive';
+import { LectureCardComponent } from './components/lectures/lecture-card/lecture-card.component';
+import { EditLectureComponent } from './components/lectures/lecture-card/edit-lecture/edit-lecture.component';
 // import { SpeakerCardComponent } from './conference/speakers/speaker-card/speaker-card.component';
 // import { ToolbarConferencesComponent } from './conference/toolbar-conferences/toolbar-conferences.component';
 // import { LecturesComponent } from './conference/lectures/lectures.component';
@@ -78,7 +80,7 @@ import { ImagePreviewDirective } from './directive/image-preview.directive';
     NavBarModule,
     MatStepperModule
   ],
-  entryComponents: [EditSpeakerComponent, NewSpeakerComponent],
-  declarations: [ConferenceComponent, ConstructorComponent, SpeakersComponent, LecturesComponent, SpeakerCardComponent, NewSpeakerComponent, ToolbarConstructorComponent, EditSpeakerComponent, ImagePreviewDirective]
+  entryComponents: [EditSpeakerComponent, NewSpeakerComponent, EditLectureComponent],
+  declarations: [ConferenceComponent, ConstructorComponent, SpeakersComponent, LecturesComponent, SpeakerCardComponent, NewSpeakerComponent, ToolbarConstructorComponent, EditSpeakerComponent, ImagePreviewDirective, LectureCardComponent, EditLectureComponent]
 })
 export class ConstructorModule { }

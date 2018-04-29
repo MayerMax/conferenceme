@@ -1,0 +1,118 @@
+<div class="mdl-layout mdl-js-layout headerDialog" >
+  <header class="mdl-layout__header mdl-typography--headline titleDialog" >
+    <div >Редактировать лекцию</div>
+  </header>
+
+  <div class="mdl_layout__content">
+    <form class="form-group mdl-grid mdl-grid--no-spacing " #f="ngForm" novalidate >
+      <div class="title mdl-cell--4-col-desktop mdl-typography--title ">Данные </div>
+      <div class="title mdl-cell--4-col-desktop mdl-typography--title  ">Краткая Информация </div>
+      <div class="title mdl-cell--4-col-desktop mdl-typography--title  "> Фото </div>
+      <div class=" mdl-cell--4-col-desktop  personalData">
+        <mat-input-container>
+          <input matInput placeholder="Тема Лекции"  type="text" class="form-control" name="topicLecture"
+                 [(ngModel)]="model.topic"   #topicLecture='ngModel'>
+        </mat-input-container>
+        <mat-input-container>
+          <input matInput placeholder="Кабинет лекции" type="text" class="form-control" name="hallLecture" [(ngModel)]="model.hallLecture"
+                 #hallLecture='ngModel'>
+        </mat-input-container>
+
+      </div>
+      <mat-form-field class=" mdl-cell mdl-cell--4-col-desktop PaddingCellInput">
+  <textarea  matInput placeholder="Краткая Информация о лекции" type="text" class="PaddingCellInput form-control" name="shortInformation"
+             [(ngModel)]="model.shortInfAboutLecture" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="4"
+             #informationSpeaker='ngModel'>
+  </textarea>
+      </mat-form-field>
+      <div class=" mdl-typography--title mdl-cell mdl-cell--4-col-desktop conteinerAvatar " >
+  <span  ng2FileDrop
+         [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+         (fileOver)="fileOverBase($event)"
+         [uploader]="uploaderPhoto"
+         class="my-drop-zone z-index">
+  <span class=" z-index mdl-color-text--grey-600">  Перетащите фото
+    </span>
+
+    <img appImagePreview class="avatarSpeaker" src="" [media]="file" [type]="type">
+ </span>
+      </div>
+
+      <div class="mdl-typography--title mdl-cell mdl-cell--6-col-desktop " >
+        Тэги
+      </div>
+      <div class="mdl-typography--title mdl-cell mdl-cell--6-col-desktop " >
+        Дата и время
+      </div>
+      <!--<mat-form-field class="mdl-cell mdl-cell&#45;&#45;6-col-desktop PaddingCellInput ">-->
+      <!--<textarea style="padding: 10px" matInput placeholder="Общая информация" type="text" class=" form-control" name="informationSpeaker"-->
+      <!--[(ngModel)]="model.about" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="10"-->
+      <!--#informationSpeaker='ngModel'>-->
+      <!--</textarea>-->
+      <!--</mat-form-field>-->
+
+      <!--<mat-form-field class=" ">-->
+      <!--<textarea matInput placeholder="Краткая Информация " type="text" class="form-control" name="informationSpeaker"-->
+      <!--[(ngModel)]="model.shortInformation" matTextareaAutosize matAutosizeMinRows="10" matAutosizeMaxRows=""-->
+      <!--#informationSpeaker='ngModel'>-->
+      <!--</textarea>-->
+      <!--</mat-form-field>-->
+      <div class="mdl-cell mdl-cell--6-col-desktop PaddingCellInput ">
+        <mat-form-field class="   demo-chip-list">
+          <mat-chip-list #chipList1>
+            <mat-chip *ngFor="let tag of model.tagsLecture" [selectable]="selectable"
+                      [removable]="removable" (remove)="removeTag(tag)">
+              {{tag}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="New tags..."
+                   [matChipInputFor]="chipList1"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="addTag($event)" />
+          </mat-chip-list>
+        </mat-form-field>
+      </div>
+      <mat-form-field  class="mdl-cell mdl-cell--3-col-desktop PaddingCellInput" >
+        <input matInput  [(ngModel)]="model.date" name="dateLecture" [matDatepicker]="picker" placeholder="Choose a date Lecture">
+        <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-input-container class="mdl-cell mdl-cell--3-col-desktop PaddingCellInput">
+        <input matInput type="text" placeholder="Длительность лекции" class="form-control" name="durationLecture" [(ngModel)]="model.duration"
+               #durationLecture='ngModel'>
+      </mat-input-container>
+      <div class=" mdl-cell mdl-cell--12-col-desktop ">
+        <button mat-raised-button  color="" (click)="fileInput.click()">
+          Прикрепить материалы <mat-icon >get_app</mat-icon></button>
+        <span style="visibility: hidden; position: absolute; overflow: hidden; width: 0px; height:0px;border:none;margin:0; padding:0">
+     <input type="file" #fileInput  ng2FileSelect [uploader]="uploaderFile" multiple />
+</span>
+        <div class="mdl-list">
+        <span *ngFor="let item of uploaderFile.queue">
+          <mat-chip type="button" class="btn btn-danger btn-xs"
+                    (click)="item.remove()">
+            {{ item?.file?.name }}
+            <mat-icon matChipRemove >cancel</mat-icon>
+          </mat-chip>
+        </span>
+        </div>
+      </div>
+      <mat-form-field class="mdl-cell mdl-cell--12-col-desktop PaddingCellInput ">
+  <textarea  matInput placeholder="Общая информация" type="text" class=" form-control" name="informationSpeaker"
+             [(ngModel)]="model.about" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="8"
+             #informationSpeaker='ngModel'>
+  </textarea>
+      </mat-form-field>
+
+      <div mat-dialog-actions class="actionsDialog">
+        <button mat-raised-button routerLinkActive="active"  color="primary" (click)="onSubmit()">send
+        </button>
+        <button mat-button (click)="onNoClick()">Назад</button>
+        <button mat-button [mat-dialog-close]="data.lecture.nameSection" cdkFocusInitial>Send</button>
+
+      </div>
+    </form>
+
+  </div>
+</div>

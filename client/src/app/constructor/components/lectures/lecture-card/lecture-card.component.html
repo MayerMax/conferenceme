@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-header"  [style.background-size]="'cover'" [style.background-position]="'center'"
+       [ngStyle]="{background:' url('+lecture.photo.src +')'}">
+    <button mat-mini-fab (click)="openDialog()"  class="buttonEdit">
+      <mat-icon><i class="material-icons">edit</i></mat-icon>
+    </button>
+    <div class="card-header-bar">
+      <a href="#" class="btn-message"><span class="sr-only">Message</span></a>
+      <a href="#" class="btn-menu"><span class="sr-only">Menu</span></a>
+    </div>
+  </div>
+  <div class="card-body">
+    <h2 class="name">Лекция о {{lecture.topic}}</h2>
+    <h4 class="job-title"></h4>
+    <div class="shortInf">{{lecture.shortInfAboutLecture}} </div>
+    <footer class=" card-body-footer flex">
+      <div class="flex_1 mdl-color-text--grey-600">Дата Лекции: {{lecture.date.toLocaleDateString()}}
+        <br>
+        Начало в {{lecture.date.getHours()}}:{{lecture.date.getMinutes()}}
+      </div>
+      <div class="flex_1 mdl-color-text--grey-600">Продолжительность:
+        {{lecture.duration}}
+      </div>
+
+    </footer>
+  </div>
+  <div class="card-footer">
+    <div class="stat">
+      <a href="" style="color: black"><span class="value"><i class="fa fa-vk" aria-hidden="true"></i></span></a>
+    </div>
+    <div class="stat">
+      <a href="" style="color: black"><span class="value"><i class="fa fa-linkedin" aria-hidden="true"></i></span></a>
+    </div>
+    <div class="stat">
+      <button mat-raised-button routerLink="/constructor/conference/1/speakers" >Спикеры <mat-icon><i class="fa fa-user" aria-hidden="true"></i></mat-icon></button>
+    </div>
+  </div>
+</div>

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Speakers} from "../../models/Speakers";
+import {NewSpeakerComponent} from "./new-speaker/new-speaker.component";
 @Component({
   selector: 'app-speakers',
   templateUrl: './speakers.component.html',
   styleUrls: ['./speakers.component.css']
 })
 export class SpeakersComponent implements OnInit {
-
+  newSpeakerComponent: any;
   speakers: Speakers;
 
   constructor(private  route: ActivatedRoute, private router: Router) { }
@@ -19,6 +20,7 @@ export class SpeakersComponent implements OnInit {
 
   ngOnInit() {
     this.speakers = new Speakers();
+    this.newSpeakerComponent = NewSpeakerComponent;
   }
 
 }

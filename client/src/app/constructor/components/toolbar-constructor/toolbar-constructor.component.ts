@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Type} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {MatDialog, MatDialogConfig} from "@angular/material";
+import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material";
 import {NewSpeakerComponent} from "../speakers/new-speaker/new-speaker.component";
 
 @Component({
@@ -13,6 +13,8 @@ export class ToolbarConstructorComponent implements OnInit {
   search: boolean = false;
   sort: boolean = false;
   @Input() titleToolbar: string;
+  @Input() titleButtonCreate: string;
+  @Input() dialogComponent: any;
   constructor(route: ActivatedRoute, private router: Router, public dialog: MatDialog) {
   }
   showSearchBar() {
@@ -26,7 +28,7 @@ export class ToolbarConstructorComponent implements OnInit {
     this.search = false;
   }
   openDialog() {
-    let dialogRef = this.dialog.open(NewSpeakerComponent, {
+    let dialogRef = this.dialog.open(this.dialogComponent, {
       width: '70vw',
       height: '89vh',
       data: {
