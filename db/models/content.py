@@ -12,7 +12,7 @@ class Section(Base):
     tags = Column(String)
     external_links = Column(String)
     description = Column(String)
-    logo_path = Column(String)
+    logo = Column(String)
     conference = relationship('Conference', backref='sections')
 
 
@@ -28,6 +28,7 @@ class Lecture(Base):
     keywords = Column(String)
     when = Column(DateTime)
     duration = Column(String)  # ?
+    photo = Column(String)
 
     section = relationship('Section', backref='lectures')
 

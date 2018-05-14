@@ -1,17 +1,13 @@
 import os
 import datetime
-import stat
 
-from db.api import AuthApi
-from db.models import Base
+import db.tests.stubs as stubs
 from db.models.event import Conference, RestActivity
 from db.models.content import Section, Lecture
 from db.models.infrastructure import ConferenceHashes
 from db.models.official import Organization
 from db.models.people import Contact, Speaker
 from db.alchemy import Alchemy
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
 
 
 def create_db(db_path='data.db'):
@@ -23,9 +19,9 @@ def fill_db(session):
     media_root_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     org = Organization(name='Microsoft',
                        email_address='endurancemayer@gmail.com',
-                       password=hash('123'),
+                       password=123,
                        description='We’re looking for the next big thing and we know students like you are going to build it! Register today for the Imagine Cup, Microsoft’s foremost global competition for student developers. As a student developer, your team can earn up to $11,000 and 1 of 6 spots to represent the United States at the global finals of Imagine Cup 2018. The top 12-ranked US teams will receive a trip to compete in the National Finals hosted in San Francisco, CA.',
-                       logo_path='{}/media/logos/microsoft.jpg'.format(media_root_directory),
+                       logo=stubs.ORG_LOGO,
                        external_links='https://imagine.microsoft.com/ru-ru/usa;https://vk.com/imcup',
                        tags='it;community;programming;web',
                        headquarters='Moscow, Microsoft LLC')
@@ -36,7 +32,7 @@ def fill_db(session):
                            name='Alexander Popovkin',
                            email='popovkin@mail.ru',
                            duty='Microsoft Student Partners Lead, Student Program Coordinator at MSFT',
-                           photo_path='{}/media/faces/alexander.png')
+                           photo=stubs.PERSON_LOGO)
 
     session.add(contact_face)
     session.commit()
@@ -47,7 +43,7 @@ def fill_db(session):
                             name='Imagine Cup 2018',
                             begin_date=datetime.datetime.now(),
                             end_date=datetime.datetime.now() + datetime.timedelta(days=23),
-                            logo_path='{}/media/logos/cup-logo.png'.format(media_root_directory),
+                            logo=stubs.CONF_LOGO,
                             external_links='https://imagine.microsoft.com/ru-ru/usa;https://vk.com/imcup')
     session.add(conference)
     session.commit()
@@ -56,14 +52,14 @@ def fill_db(session):
                           name='It in modern life',
                           tags='science;it; ML',
                           description='Our world is ever changing, from politics to the environment, it is safe to say that if our ancestors were alive, they would be seeing a very strange and different world. One aspect of society that is constantly advancing is technology. ',
-                          logo_path='{}/media/logos/it.jpg'.format(media_root_directory)
+                          logo=stubs.SECTION_LOGO
                           )
 
     section_two = Section(conf_id=conference.id,
                           name='Bitcoin in 2018',
                           tags='bitcoin;economics',
                           description='Bitcoin Cash brings sound money to the world, fulfilling the original promise of Bitcoin as "Peer-to-Peer Electronic Cash". Merchants and users are empowered with low fees and reliable confirmations. The future shines brightly with unrestricted growth, global adoption, permissionless innovation, and decentralized development.',
-                          logo_path='{}/media/logos/bitcoin.png'.format(media_root_directory)
+                          logo=stubs.SECTION_LOGO
                           )
 
     session.add(section_one)
@@ -79,7 +75,8 @@ def fill_db(session):
                       tags='IT; data science; Bots',
                       keywords='microsoft; azure; botframework; telegram; development',
                       when=datetime.datetime.now() + datetime.timedelta(days=1),
-                      duration='1h 30 minutes')
+                      duration='1h 30 minutes',
+                      photo=stubs.LECTURE_LOGO)
 
     lecture2 = Lecture(section_id=section_one.id, conf_id=conference.id,
                        topic='Azure today',
@@ -88,7 +85,8 @@ def fill_db(session):
                        tags='IT; data science; Bots',
                        keywords='microsoft; azure; botframework; telegram; development',
                        when=datetime.datetime.now() + datetime.timedelta(days=1, hours=2),
-                       duration='1h 20 minutes')
+                       duration='1h 20 minutes',
+                       photo=stubs.LECTURE_LOGO)
 
     lecture3 = Lecture(section_id=section_one.id, conf_id=conference.id,
                        topic='LUIS and how it works',
@@ -97,7 +95,8 @@ def fill_db(session):
                        tags='IT; data science; Bots',
                        keywords='azure;development, LUIS; ML',
                        when=datetime.datetime.now() + datetime.timedelta(days=1, hours=4),
-                       duration='1h 15 minutes')
+                       duration='1h 15 minutes',
+                       photo=stubs.LECTURE_LOGO)
 
     session.add(lecture)
     session.add(lecture2)
@@ -111,7 +110,8 @@ def fill_db(session):
                        tags='Bitcoin; Money; BlockChain;',
                        keywords='economics; analysis; currency',
                        when=datetime.datetime.now() + datetime.timedelta(days=2, hours=1),
-                       duration='1h 30 minutes')
+                       duration='1h 30 minutes',
+                       photo=stubs.LECTURE_LOGO)
 
     lecture5 = Lecture(section_id=section_two.id, conf_id=conference.id,
                        topic='BlockChain',
@@ -120,7 +120,8 @@ def fill_db(session):
                        tags='Bitcoin; Money; BlockChain;',
                        keywords='economics; analysis; currency',
                        when=datetime.datetime.now() + datetime.timedelta(days=2, hours=2),
-                       duration='1h 30 minutes')
+                       duration='1h 30 minutes',
+                       photo=stubs.LECTURE_LOGO)
 
     lecture6 = Lecture(section_id=section_two.id, conf_id=conference.id,
                        topic='Python in Finance',
@@ -129,7 +130,8 @@ def fill_db(session):
                        tags='Bitcoin; Money; BlockChain;',
                        keywords='economics; analysis; currency',
                        when=datetime.datetime.now() + datetime.timedelta(days=2, hours=6),
-                       duration='1h 30 minutes')
+                       duration='1h 30 minutes',
+                       photo=stubs.LECTURE_LOGO)
 
     session.add(lecture4)
     session.add(lecture5)
@@ -137,50 +139,62 @@ def fill_db(session):
     session.commit()
 
     speaker1 = Speaker(lecture_id=lecture.id, conf_id=conference.id,
-                       name='Shaposhnikov Maxim',
+                       first_name='Максим',
+                       middle_name='Владимирович',
+                       surname='Шапошников',
                        description='Working at Press Index, Yekaterinburg, Junior developer in ML and Django',
                        tags='science; banking; bots',
                        external_links='https://vk.com/blue_bird_simply',
                        science_degree='bachelor at Ural Federal University',
-                       photo_path='{}/media/speakers/maxim.jpg'.format(media_root_directory))
+                       photo=stubs.PERSON_LOGO)
 
     speaker2 = Speaker(lecture_id=lecture2.id, conf_id=conference.id,
-                       name='Elena Arslanova',
+                       first_name='Елена',
+                       middle_name='',
+                       surname='Арсланова',
                        description='Working at Yandex, backend in Schedule team',
                        tags='science; banking; bots',
                        external_links='https://vk.com/contl',
                        science_degree='bachelor at Ural Federal University',
-                       photo_path='{}/media/speakers/elena.jpg'.format(media_root_directory))
+                       photo=stubs.PERSON_LOGO)
     speaker3 = Speaker(lecture_id=lecture3.id, conf_id=conference.id,
-                       name='Shaposhnikov Konstantin',
+                       first_name='Константин',
+                       middle_name='Владимирович',
+                       surname='Шапошников',
                        description='Working in Шанхай, at turbines company',
                        tags='science; banking; bots',
                        external_links='https://vk.com/id3601333',
                        science_degree='phd in Beijing university',
-                       photo_path='{}/media/speakers/konstantin.jpg'.format(media_root_directory))
+                       photo=stubs.PERSON_LOGO)
     speaker4 = Speaker(lecture_id=lecture4.id, conf_id=conference.id,
-                       name='Maslov Daniil',
+                       first_name='Даниил',
+                       middle_name='',
+                       surname='Маслов',
                        description='Working at Kontur, frontend',
                        tags='science; banking; bots',
                        external_links='https://vk.com/id48089738',
                        science_degree='bachelor at Ural Federal University',
-                       photo_path='{}/media/speakers/maslov.jpg'.format(media_root_directory))
+                       photo=stubs.PERSON_LOGO)
 
     speaker5 = Speaker(lecture_id=lecture5.id, conf_id=conference.id,
-                       name='Sviridov Sergei',
+                       first_name='Сергей',
+                       middle_name='Владимирович',
+                       surname='Свиридов',
                        description='working at Microsoft, Yekaterinburg',
                        tags='science; banking; bots',
                        external_links='https://vk.com/xxx',
                        science_degree='master degree at Ural Federal University',
-                       photo_path='{}/media/speakers/sviridov.jpg'.format(media_root_directory))
+                       photo=stubs.PERSON_LOGO)
 
     speaker6 = Speaker(lecture_id=lecture6.id, conf_id=conference.id,
-                       name='Egorov Pavel',
+                       first_name='Павел',
+                       middle_name='',
+                       surname='Егоров',
                        description='Working at Kontur, java developer',
                        tags='science; banking; bots',
                        external_links='https://vk.com/pe.xoposhiy',
                        science_degree='master degree at Ural Federal University',
-                       photo_path='{}/media/speakers/egorov.jpg'.format(media_root_directory))
+                       photo=stubs.PERSON_LOGO)
     session.add_all([speaker1, speaker2, speaker3, speaker4, speaker5, speaker6])
     session.commit()
 
@@ -211,17 +225,3 @@ def fill_db(session):
 
 if __name__ == '__main__':
     create_db()
-    # create_db('tmp.db')
-    # AuthApi.create_organization_account('123', '123', '123')
-    # # s = Alchemy.get_session()
-    # # org = Organization(name='Microsofast',
-    # #                    email_address='endurancemayer@gmail.com',
-    # #                    password=hash('123'),
-    # #                    description='We’re looking for the next big thing and we know students like you are going to build it! Register today for the Imagine Cup, Microsoft’s foremost global competition for student developers. As a student developer, your team can earn up to $11,000 and 1 of 6 spots to represent the United States at the global finals of Imagine Cup 2018. The top 12-ranked US teams will receive a trip to compete in the National Finals hosted in San Francisco, CA.',
-    # #                    logo_path='{}/media/logos/microsoft.jpg'.format(''),
-    # #                    external_links='https://imagine.microsoft.com/ru-ru/usa;https://vk.com/imcup',
-    # #                    tags='it;community;programming;web',
-    # #                    headquarters='Moscow, Microsoft LLC')
-    # # s.add(org)
-    # # s.commit()
-    # os.remove('tmp.db')

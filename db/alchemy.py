@@ -2,7 +2,7 @@ import os
 import stat
 from db.models import Base
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm import sessionmaker, scoped_session, Session
 
 
 class Alchemy:
@@ -50,7 +50,7 @@ class Alchemy:
         return Alchemy.db_instance
 
     @staticmethod
-    def get_session(path='data.db'):
+    def get_session(path='data.db') -> Session:
         return Alchemy.get_instance(path).get_session()
 
     @staticmethod

@@ -11,7 +11,7 @@ class Organization(Base):
     email_address = Column(String)
     password = Column(String)  # no hashes! no salt ! none at all
     description = Column(String)
-    logo_path = Column(String)
+    logo = Column(String)
     external_links = Column(String)
     tags = Column(String)
     headquarters = Column(String)

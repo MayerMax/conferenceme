@@ -23,12 +23,12 @@ class TestAuthApi(unittest.TestCase):
         cls.data = create_db(cls.db_path)
 
     def test_check_false(self):
-        result = AuthApi.check_organization_exists('nobody@test.ru', 'best_org')
+        result = AuthApi.check_organization_exists('nobody@test.ru', 'pass')
         self.assertEqual(result, False, "В базе обнаружен test@test.ru (best_org)")
 
     def test_check_true(self):
         org = self.data['orgs'][0]
-        result = AuthApi.check_organization_exists(org.email_address, org.name)
+        result = AuthApi.check_organization_exists(org.email_address, org.password)
         self.assertEqual(result, True, "Существующая организация не обнаружена")
 
     def test_create_new(self):
@@ -36,13 +36,13 @@ class TestAuthApi(unittest.TestCase):
         name = 'best_org'
         password = 'pass'
 
-        result = AuthApi.check_organization_exists(email, name)
+        result = AuthApi.check_organization_exists(email, password)
         self.assertEqual(result, False, 'Добавляемый организатор уже существует')
 
         result = AuthApi.create_organization_account(email, name, password)
         self.assertEqual(result, True, 'Невозможно добавить организатора в бд')
 
-        result = AuthApi.check_organization_exists(email, name)
+        result = AuthApi.check_organization_exists(email, password)
         self.assertEqual(result, True, 'Добавленный организатор должен существовать')
 
     @classmethod

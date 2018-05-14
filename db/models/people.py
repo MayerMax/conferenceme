@@ -13,7 +13,7 @@ class Contact(Base):
     external_links = Column(String)
     phone = Column(String)
     duty = Column(String)
-    photo_path = Column(String)
+    photo = Column(String)
     conf = relationship('Conference', backref='contacts')
 
 
@@ -26,7 +26,7 @@ class Face(Base):
     external_links = Column(String)
     duty = Column(String)
     description = Column(String)
-    photo_path = Column(String)
+    photo = Column(String)
 
 
 class Speaker(Base):
@@ -34,12 +34,14 @@ class Speaker(Base):
     id = Column(Integer, primary_key=True)
     lecture_id = Column(Integer, ForeignKey('lecture.id'))
     conf_id = Column(Integer, ForeignKey('conference.id'))
-    name = Column(String)
+    first_name = Column(String)
+    middle_name = Column(String)
+    surname = Column(String)
     description = Column(String)
     tags = Column(String)
     external_links = Column(String)
     science_degree = Column(String)
-    photo_path = Column(String)
+    photo = Column(String)
 
     lecture = relationship('Lecture', backref='speakers')
     conference = relationship('Conference', backref='speakers')
@@ -49,7 +51,7 @@ class Speaker(Base):
 This is {}.
 What I know about the speaker: {},
 Speaker's science degree is:{},
-You can learn more using links {}""".format(self.name, self.description, self.science_degree, self.external_links)
+You can learn more using links {}""".format(self.first_name, self.description, self.science_degree, self.external_links)
 
 
 class Visitor(Base):
@@ -59,4 +61,4 @@ class Visitor(Base):
     name = Column(String)
     description = Column(String)
     external_links = Column(String)
-    photo_path = Column(String)
+    photo = Column(String)
