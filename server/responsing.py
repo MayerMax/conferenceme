@@ -1,5 +1,4 @@
 import json
-import os
 from flask import Flask, jsonify
 from flask import request
 from flask_cors import CORS
@@ -7,14 +6,13 @@ from flask_cors import CORS
 from db.alchemy import Alchemy
 from db.api import ConferenceApi, SpeakerApi, LectureApi
 from server.util import DictForJson
-from db.tests._create import create_db
 
 
 app = Flask(__name__)
 CORS(app)
 _ = Alchemy.get_instance('../db/data.db')
 
-
+request.headers.get_all()[0]
 @app.route('/conference/<int:conference_id>', methods=['GET'])
 def send_conference(conference_id):
     conference = ConferenceApi.get_conference(conference_id)
