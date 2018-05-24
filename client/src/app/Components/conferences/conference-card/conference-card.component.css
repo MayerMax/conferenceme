@@ -1,0 +1,76 @@
+header{
+
+}
+.logo{
+  grid-area: logo;
+  min-height: 150px;
+}
+.topics{
+  grid-area: topics;
+  max-height: 50vh;
+}
+.date{
+  grid-area: date;
+  display: flex;
+  min-height: 30px;
+white-space: nowrap;
+}
+.date > span{
+  flex: 1;
+}
+.card{
+margin: auto;
+  display: grid;
+  padding: 10px;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-areas: "name name name name name date date date date "
+                       "logo logo logo topics topics topics topics topics . "
+                        ". . .  . . .  . actions . "
+}
+@media all and (max-width: 840px) {
+  .card{
+    grid-template-areas:"logo logo name name name name name name  "
+                          "logo logo date date date . . .  "
+                        "topics topics topics topics topics topics topics topics "
+                        ". . .  . . .  . actions  "
+  }
+}
+@media all and (max-width: 600px) {
+  .card{
+    grid-template-areas:"name name name name name date date date  "
+    "logo logo  logo topics topics  topics  topics topics"
+    "logo logo logo . . . . actions "
+  }
+}
+@media all and (max-width: 500px) {
+  .card{
+    grid-gap: 0;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-areas:
+      "name"
+      "logo"
+      "topics"
+      "date"
+      "actions"
+  }
+  .logo{
+    grid-area: logo;
+    width: 100%;
+    height: auto;
+  }
+}
+.actions{
+  grid-area: actions;
+  margin-bottom: 10px;
+}
+.name{
+  flex-grow: 2;
+  grid-area: name;
+}
+img{
+  width: 100%;
+}
+

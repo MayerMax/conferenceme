@@ -1,3 +1,83 @@
-<p>
-  conference works!
-</p>
+<!--<div class="Wrapper mdl-shadow&#45;&#45;2dp" >-->
+
+  <!--<mat-toolbar   class="mdl-shadow&#45;&#45;2dp"> <div *ngIf="loading" style="display: flex; justify-content: center; align-items: center; width: 100%; height: calc(100vh - 144px)" >-->
+    <!--<mat-progress-spinner  diameter="150"   mode="indeterminate" color="primary" >-->
+    <!--</mat-progress-spinner>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+  <div class="Wrapper mdl-shadow--2dp">
+
+  <header class="mdl-layout__header mdl-typography--headline titleDialog" >
+    <div >Редактировать  Конференцию</div>
+  </header>
+    <div *ngIf="loading" style="display: flex; justify-content: center; align-items: center; width: 100%; height: calc(100vh - 144px)" >
+      <mat-progress-spinner  diameter="150"   mode="indeterminate" color="primary" >
+      </mat-progress-spinner>
+    </div>
+  <div  *ngIf="!loading" class="mdl_layout__content">
+
+    <form class="form-group mdl-grid" #f="ngForm" novalidate >
+      <div class="title mdl-cell--6-col-desktop">
+        <div class="title mdl-typography--title  "> Название конференции</div>
+      <mat-form-field>
+        <input matInput  type="text" class="form-control" name="name"
+               [(ngModel)]="model.name"   #topicLecture='ngModel'>
+      </mat-form-field>
+        <div class="title mdl-typography--title  "> Информация о конференции</div>
+        <mat-form-field class="  ">
+  <textarea  matInput  type="text" class=" form-control" name="topics"
+             [(ngModel)]="model.topics" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="8"
+             #topics='ngModel'>
+  </textarea>
+        </mat-form-field>
+      </div>
+      <div  class=" mdl-typography--title mdl-cell mdl-cell--6-col-desktop conteinerAvatar " >
+        <div class="title mdl-typography--title  "> Логотип конференции</div>
+  <span   ng2FileDrop
+         [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+         (fileOver)="fileOverBase($event)"
+         [uploader]="uploaderPhoto"
+         class="my-drop-zone z-index ">
+  <span class=" z-index mdl-color-text--grey-600">  Перетащите логотип
+    </span>
+
+    <img  appImagePreview class="avatarSpeaker" alt=""  #srcPhoto src="" [media]="file" [type]="type">
+ </span>
+      </div>
+      <div class="mdl-cell mdl-cell--12-col-desktop " >
+        <div class="mdl-typography--title" > Дата</div>
+      </div>
+      <mat-form-field  class="mdl-cell mdl-cell--6-col-desktop PaddingCellInput" >
+        <input matInput  [(ngModel)]="model.begin_date" name="begin_dateConference" [matDatepicker]="pickerBegin"
+               placeholder="Дата начала конференции">
+        <mat-datepicker-toggle  matSuffix [for]="pickerBegin"></mat-datepicker-toggle>
+        <mat-datepicker #pickerBegin></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field  class="mdl-cell mdl-cell--6-col-desktop PaddingCellInput" >
+        <input matInput  [(ngModel)]="model.end_date" name="end_dateConference" [matDatepicker]="pickerEnd"
+               placeholder="Дата конца конференции">
+        <mat-datepicker-toggle  matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+        <mat-datepicker #pickerEnd></mat-datepicker>
+      </mat-form-field>
+      <button style="margin-bottom: 10px" mat-raised-button routerLinkActive="active"  color="primary" (click)="onSubmit()">send
+      </button>
+      <!--<mat-form-field class="mdl-cell mdl-cell&#45;&#45;6-col-desktop PaddingCellInput ">-->
+      <!--<textarea style="padding: 10px" matInput placeholder="Общая информация" type="text" class=" form-control" name="informationSpeaker"-->
+      <!--[(ngModel)]="model.about" matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="10"-->
+      <!--#informationSpeaker='ngModel'>-->
+      <!--</textarea>-->
+      <!--</mat-form-field>-->
+
+      <!--<mat-form-field class=" ">-->
+      <!--<textarea matInput placeholder="Краткая Информация " type="text" class="form-control" name="informationSpeaker"-->
+      <!--[(ngModel)]="model.shortInformation" matTextareaAutosize matAutosizeMinRows="10" matAutosizeMaxRows=""-->
+      <!--#informationSpeaker='ngModel'>-->
+      <!--</textarea>-->
+
+    </form>
+
+  </div>
+
+  </div>

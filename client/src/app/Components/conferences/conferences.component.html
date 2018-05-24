@@ -1,0 +1,14 @@
+<div class="Wrapper " >
+
+  <app-toolbar-constructor  [dialogComponent]="" [titleButtonCreate]="'Конференцию'" [titleToolbar]="'Конфиренции'"></app-toolbar-constructor>
+  <div *ngIf="loading" style="display: flex; justify-content: center; align-items: center; width: 100%; height: calc(100vh - 144px)" >
+    <mat-progress-spinner  diameter="150"   mode="indeterminate" color="primary" >
+    </mat-progress-spinner>
+    </div>
+  <div *ngIf="!loading" >
+    <div class="confernceCard" *ngFor="let conference of conferences" >
+      <app-conference-card [conference]="conference"></app-conference-card>
+    </div>
+  </div>
+  </div>
+

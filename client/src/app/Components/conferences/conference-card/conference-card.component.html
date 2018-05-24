@@ -1,0 +1,17 @@
+<section class="mdl-grid">
+  <div class="card mdl-cell--10-col-desktop  mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-shadow--2dp">
+    <div class="logo  " [style.background-repeat]="' no-repeat '" [style.background-size]="'contain'" [style.background-position]="'center'"
+         [ngStyle]="{background:' url('+conference.logo +')'}" ></div>
+    <div class="name mdl-typography--title ">Лекция о {{conference.name}} </div>
+    <div class="date">
+      <span class="mdl-color-text--grey-600">Дата Начала: <br> {{conference.begin_date | date: 'dd/MM/yyyy'}}</span>
+      <span  class="mdl-color-text--grey-600">Дата  окончания:<br> {{conference.end_date | date: 'dd/MM/yyyy'}} </span>
+    </div>
+   <div class="topics ">
+     <span class="mdl-typography--title">Тема Конференции</span> <br>
+   {{conference.topics}}
+   </div>
+    <footer class="actions"> <button (click)="navigate(conference.id)" mat-raised-button color="primary">Редактировать</button></footer>
+
+  </div>
+ </section>
