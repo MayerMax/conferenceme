@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import {Lecture} from "../../../models/lecture";
 import {EditLectureComponent} from "./edit-lecture/edit-lecture.component";
+import {StoreService} from "../../../../services/store.service";
 @Component({
   selector: 'app-lecture-card',
   templateUrl: './lecture-card.component.html',
@@ -11,10 +12,13 @@ import {EditLectureComponent} from "./edit-lecture/edit-lecture.component";
 export class LectureCardComponent implements OnInit {
 
   @Input() lecture: Lecture;
-  constructor(private  route: ActivatedRoute, private router: Router, public dialog: MatDialog) {
+  constructor(private  route: ActivatedRoute, private router: Router, public dialog: MatDialog,private  store: StoreService ) {
 
   }
-
+  navigate() {
+    this.router.navigate([{outlets: {primary: `constructor/conference/${this.lecture.conference_id}/speakers`,sidemenu: 'constructor' }}],
+      {queryParams: {lectureId: this.lecture.id}});
+  }
   openDialog() {
     let dialogRef = this.dialog.open(EditLectureComponent, {
       width: '70vw',
@@ -30,6 +34,6 @@ export class LectureCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.lecture.date.getTime());
+
   }
 }

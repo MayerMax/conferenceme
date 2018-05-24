@@ -1,10 +1,11 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormGroup} from "@angular/forms";
 import {Lecture} from "../../../../models/lecture";
 import {FileUploader} from "ng2-file-upload";
 import {MAT_DIALOG_DATA, MatChipInputEvent, MatDialog, MatDialogRef} from "@angular/material";
 import {Router} from "@angular/router";
+import {StoreService} from "../../../../../services/store.service";
 const URL = 'http://localhost';
 @Component({
   selector: 'app-edit-lecture',
@@ -12,7 +13,8 @@ const URL = 'http://localhost';
   styleUrls: ['./edit-lecture.component.css']
 })
 export class EditLectureComponent implements OnInit {
-
+@ViewChild('srcPhoto')
+  srcPhoto: ElementRef;
   file: any;
   type: any;
   name: string;
@@ -28,7 +30,8 @@ export class EditLectureComponent implements OnInit {
   public uploaderFile: FileUploader = new FileUploader({url: URL});
   constructor(
     public dialogRef: MatDialogRef<EditLectureComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, public dialog: MatDialog) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, public dialog: MatDialog,
+    private storeConference: StoreService) {
     this.model = data.lecture;
   }
   public fileOverBase(e): void {
@@ -43,13 +46,15 @@ export class EditLectureComponent implements OnInit {
   }
 
   onSubmit() {
-    this.model.files = this.uploaderFile.queue.map(
-      (val) => { return val._file; }
-    );
+    console.log(this.srcPhoto);
+    this.model.photo = this.srcPhoto.nativeElement.src;
     this.uploaderFile.cancelAll();
-    this.form.reset();
-    // this.router.navigateByUrl('lecture');
-
+    console.log( JSON.stringify(this.model));
+    this.storeConference.ConferenceSubject$.subscribe(
+      conference => {
+        conference.lectures[conference.lectures.findIndex((lecture)=> lecture.id === this.model.id)] = this.model;
+        this.storeConference.updateConfernce(conference);
+      });
   }
   // canDeactivate() {
   //   console.log(this.form.dirty);

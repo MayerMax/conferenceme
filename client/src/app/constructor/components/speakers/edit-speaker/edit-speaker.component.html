@@ -5,10 +5,10 @@
 
   <div class="mdl_layout__content">
     <form class="form-group" #f="ngForm" novalidate >
-      <div class="mdl-grid mdl-grid--no-spacing  mdl-shadow--2dp">
+      <div class="mdl-grid mdl-grid--no-spacing  ">
         <!--<div class ='mdl-shadow&#45;&#45;2dp mdl-cell&#45;&#45;12-col-tabletmdl-cell&#45;&#45;12-col-desktop'>-->
         <div class="title mdl-cell--4-col-desktop mdl-cell--12-col-tablet mdl-typography--title ">Персональные данные </div>
-        <div class="title mdl-cell--4-col-desktop mdl-typography--title  onlyDesktop">Краткая Информация </div>
+        <div class="title mdl-cell--4-col-desktop mdl-typography--title  onlyDesktop">Профессия </div>
         <div class="title mdl-cell--4-col-desktop mdl-typography--title  onlyDesktop"> Фото </div>
         <div class=" mdl-cell--4-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet personalData">
           <mat-input-container class="  ">
@@ -24,12 +24,12 @@
                    #otchestvo='ngModel'>
           </mat-input-container>
         </div>
-        <div class="title mdl-cell--12-col-phone mdl-cell--12-col-tablet  mdl-typography--title  onlyTabletOrPhone">Краткая Информация </div>
+        <div class="title mdl-cell--12-col-phone mdl-cell--12-col-tablet  mdl-typography--title  onlyTabletOrPhone">Профессия </div>
         <mat-form-field class=" mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell mdl-cell--4-col-desktop ">
-          <mat-placeholder>Краткая информация</mat-placeholder>
-          <textarea  matInput type="text" class="PaddingCellInput form-control" name="shortInformation"
-                     [(ngModel)]="model.shortInformation" matTextareaAutosize   matAutosizeMinRows="8" matAutosizeMaxRows="8"
-                     #informationSpeaker='ngModel'>
+
+          <textarea  matInput type="text" class="PaddingCellInput form-control" name="profession"
+                     [(ngModel)]="model.profession" matTextareaAutosize   matAutosizeMinRows="8" matAutosizeMaxRows="8"
+                     #professionSpeaker='ngModel'>
   </textarea>
         </mat-form-field>
         <div class="title mdl-cell--4-col-desktop mdl-typography--title mdl-cell--12-col-tablet  mdl-cell--12-col-phone  onlyTabletOrPhone"> Фото </div>
@@ -42,7 +42,8 @@
   <span class=" z-index mdl-color-text--grey-600">  Перетащите фото
     </span>
 
-    <img appImagePreview class="avatarSpeaker" alt="" src="" [media]="file" [type]="type">
+    <img appImagePreview #img [style.background-size]="'cover'" [style.background-position]="'center'"
+         class="avatarSpeaker" alt="" src="{{model.photo}}" [media]="file" [type]="type">
  </span>
         </div>
 
@@ -103,8 +104,7 @@
         <div class="">
           <button mat-raised-button style="margin: 5px" routerLinkActive="active"  (click)="onSubmit()" color="primary"  >send
           </button>
-          <button mat-button  (click)="onNoClick()">Назад</button>
-          <button mat-button  [mat-dialog-close]="data.speaker.nameLectures" cdkFocusInitial>Send</button>
+          <button mat-button cdkFocusInitial (click)="onNoClick()">Назад</button>
         </div>
       </div>
     </form>

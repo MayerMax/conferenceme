@@ -1,5 +1,9 @@
 .Wrapper{
-  min-height: 87.9vh;
+  height: 100%;
+  width: 100%;
+}
+:host{
+  width: 100%;
 }
 .example-header-image {
   background-image: url('https://png.icons8.com/color/1600/person-male.png');

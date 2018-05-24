@@ -1,6 +1,12 @@
-<div *ngFor="let  menuItem of menuItemsHome" >
+<div *ngIf="loading" style="display: flex; justify-content: center; align-items: center; width: 100%; height: calc(100vh - 144px)" >
+  <mat-progress-spinner  diameter="150"   mode="indeterminate" color="primary" >
+  </mat-progress-spinner>
+</div>
+<div *ngIf="!loading">
+<div *ngFor="let  menuItem of menuItemsConstructor" >
   <button   (click)="navigate(menuItem)"  class="mdl-button mdl-js-button mdl-button--accent"  >
     <i class="mdl-color-text--blue-grey-400 material-icons" >{{menuItem.icon}}</i>
     {{menuItem.name}}
   </button>
+</div>
 </div>

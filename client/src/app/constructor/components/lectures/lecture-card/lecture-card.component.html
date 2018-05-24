@@ -1,6 +1,6 @@
 <div class="card">
-  <div class="card-header"  [style.background-size]="'cover'" [style.background-position]="'center'"
-       [ngStyle]="{background:' url('+lecture.photo.src +')'}">
+  <div class="card-header"  [style.background-repeat]="' no-repeat '" [style.background-size]="'cover'" [style.background-position]="'center'"
+       [ngStyle]="{background:' url('+lecture.photo +')'}">
     <button mat-mini-fab (click)="openDialog()"  class="buttonEdit">
       <mat-icon><i class="material-icons">edit</i></mat-icon>
     </button>
@@ -14,9 +14,9 @@
     <h4 class="job-title"></h4>
     <div class="shortInf">{{lecture.shortInfAboutLecture}} </div>
     <footer class=" card-body-footer flex">
-      <div class="flex_1 mdl-color-text--grey-600">Дата Лекции: {{lecture.date.toLocaleDateString()}}
+      <div class="flex_1 mdl-color-text--grey-600">Дата Лекции: {{lecture.date | date: 'dd/MM/yyyy'}}
         <br>
-        Начало в {{lecture.date.getHours()}}:{{lecture.date.getMinutes()}}
+       Начало в {{lecture.date | date: 'h:mm:ss'}}
       </div>
       <div class="flex_1 mdl-color-text--grey-600">Продолжительность:
         {{lecture.duration}}
@@ -32,7 +32,7 @@
       <a href="" style="color: black"><span class="value"><i class="fa fa-linkedin" aria-hidden="true"></i></span></a>
     </div>
     <div class="stat">
-      <button mat-raised-button routerLink="/constructor/conference/1/speakers" >Спикеры <mat-icon><i class="fa fa-user" aria-hidden="true"></i></mat-icon></button>
+      <button mat-raised-button (click)="navigate()"  >Спикеры <mat-icon><i class="fa fa-user" aria-hidden="true"></i></mat-icon></button>
     </div>
   </div>
 </div>

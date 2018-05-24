@@ -34,7 +34,7 @@
   <span class=" z-index mdl-color-text--grey-600">  Перетащите фото
     </span>
 
-    <img appImagePreview class="avatarSpeaker" src="" [media]="file" [type]="type">
+    <img  appImagePreview class="avatarSpeaker"  #srcPhoto src="{{model.photo}}" [media]="file" [type]="type">
  </span>
       </div>
 
@@ -74,7 +74,7 @@
         </mat-form-field>
       </div>
       <mat-form-field  class="mdl-cell mdl-cell--3-col-desktop PaddingCellInput" >
-        <input matInput  [(ngModel)]="model.date" name="dateLecture" [matDatepicker]="picker" placeholder="Choose a date Lecture">
+        <input matInput  [(ngModel)]="model.date" name="date" [matDatepicker]="picker" placeholder="Choose a date Lecture">
         <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>

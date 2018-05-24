@@ -1,15 +1,21 @@
-<div  class="Wrapper mdl-shadow--2dp" >
-  <app-toolbar-constructor [dialogComponent]="newSpeakerComponent" [titleButtonCreate]="'Спикера'" [titleToolbar]="'Спикеры'"></app-toolbar-constructor>
-  <div class="mdl-grid"  >
-    <div *ngFor="let speaker of speakers.speakers"  class="mdl-cell mdl-cell-4-col-desktop mdl-cell--3-col-phone "  >
+<div class="Wrapper " >
+
+  <app-toolbar-constructor  [dialogComponent]="newSpeakerComponent" [titleButtonCreate]="'Спикера'" [titleToolbar]="'Спикеры'"></app-toolbar-constructor>
+ <div *ngIf="loading" style="display: flex; justify-content: center; align-items: center; width: 100%; height: calc(100vh - 144px)" >
+  <mat-progress-spinner  diameter="150"   mode="indeterminate" color="primary" >
+  </mat-progress-spinner>
+</div>
+  <div *ngIf="!loading" class="mdl-grid"  >
+    <div *ngFor="let speaker of speakers"  class="mdl-cell mdl-cell-4-col-desktop mdl-cell--3-col-phone "  >
       <app-speaker-card class="speakerCard" [speaker]="speaker"></app-speaker-card>
     </div>
   </div>
-  <div class="paginator flex">
-    <span class="flex_1" ></span>
-    <div class=""></div>
-    <mat-paginator class="flex_1" style=" background-color:#f5f5f5" [length]="100"
-                   [pageSize]="6">
-    </mat-paginator>
-  </div>
+  <!--<div *ngIf="!loading" class="paginator flex">-->
+    <!--<span class="flex_1" ></span>-->
+    <!--<div class=""></div>-->
+    <!--<mat-paginator class="flex_1" style=" background-color:#f5f5f5" [length]="100"-->
+                   <!--[pageSize]="6">-->
+    <!--</mat-paginator>-->
+  <!--</div>-->
 </div>
+

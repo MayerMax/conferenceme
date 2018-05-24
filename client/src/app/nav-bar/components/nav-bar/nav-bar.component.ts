@@ -9,10 +9,8 @@ import {MenuItem} from "../../models/MenuItem";
 export class NavBarComponent implements OnInit {
   menuItemsHome: Array<MenuItem> = [
     new MenuItem('home', 'home', 'home', 'home'),
-    new MenuItem('Новости', 'class', 'home', 'home'),
-    new MenuItem('Наши конференции', 'watch_later', 'home', ''),
-    new MenuItem('О нас', 'account_circle', 'home', ''),
-    new MenuItem('Создать конфиренцию', '', 'constructor', 'constructor')
+    // new MenuItem('Новости', 'class', 'home', 'home'),
+    new MenuItem('Наши конференции', 'watch_later', 'conferences', 'home'),
   ];
   // @Input() parentComponent: string;
   // parenthome = false;
@@ -22,7 +20,6 @@ export class NavBarComponent implements OnInit {
   }
 
   navigate(path: MenuItem) {
-
     this.router.navigate([{outlets: {primary: path.link, sidemenu: path.menuLink }}]  );
 
   }

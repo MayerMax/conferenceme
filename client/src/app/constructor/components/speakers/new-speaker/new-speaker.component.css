@@ -17,6 +17,9 @@
 .StepperContent{
   height: calc(100% - 104px);
 }
+.actions{
+  display: block;
+}
 .flex{
   display: flex;
 }

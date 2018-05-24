@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatButtonModule, MatFormFieldModule, MatInputModule} from "@angular/material";
+import {MatButtonModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule} from "@angular/material";
 import { LoginComponent } from './Components/login/login.component';
 import {RouterModule, Routes} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -20,6 +20,12 @@ import {AppRoutingModule} from "./app-routing.module";
 import {GetDataService} from "./services/get-data.service";
 import {MockGetDataService} from "./services/mock-get-data.service";
 import {PostDataService} from "./services/post-data.service";
+import { ConferencesComponent } from './Components/conferences/conferences.component';
+import {ConstructorModule} from "./constructor/constructor.module";
+import { ConferenceCardComponent } from './Components/conferences/conference-card/conference-card.component';
+import {StoreService} from "./services/store.service";
+import {StoreConferencesService} from "./services/store-conferences.service";
+import {LocationStrategy, PathLocationStrategy} from "@angular/common";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -35,7 +41,9 @@ const appRoutes: Routes = [
     SignUpComponent,
     CompareFormControlDirective,
     MainComponent,
-    HomeComponent
+    HomeComponent,
+    ConferencesComponent,
+    ConferenceCardComponent
   ],
   imports: [
     BrowserModule,
@@ -46,12 +54,17 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     MatInputModule,
     HttpClientModule,
+    AppRoutingModule,
+    ConstructorModule,
     NavBarModule,
-    AppRoutingModule
+    MatProgressSpinnerModule,
   ],
   providers: [
     EnsureAuthenticatedService,
     PostDataService,
+    StoreService,
+    StoreConferencesService,
+    {provide: LocationStrategy, useClass:PathLocationStrategy},
     {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,

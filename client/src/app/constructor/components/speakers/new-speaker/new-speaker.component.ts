@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, Input, OnInit, ViewChild} from '@angular/core';
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormGroup} from "@angular/forms";
 import {FileUploader} from "ng2-file-upload";
@@ -6,9 +6,10 @@ import {
   MAT_DIALOG_DATA, MatChipInputEvent, MatDialog, MatDialogConfig, MatDialogRef,
   MatStepperIntl
 } from "@angular/material";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Speaker} from "../../../models/speaker";
 import {PostDataService} from "../../../../services/post-data.service";
+import {StoreService} from "../../../../services/store.service";
 const URL = 'http://localhost';
 @Component({
   selector: 'app-new-speaker',
@@ -17,11 +18,13 @@ const URL = 'http://localhost';
 
 })
 export class NewSpeakerComponent implements OnInit {
-
+  selectedLecture: number;
   file: any;
   type: any;
   name: string;
+  @ViewChild('img') img : ElementRef;
   sendData = false;
+  lectures: object[];
   visible: boolean = true;
   selectable: boolean = true;
   removable: boolean = true;
@@ -29,6 +32,7 @@ export class NewSpeakerComponent implements OnInit {
   separatorKeysCodes = [ENTER, COMMA];
   @ViewChild('f') form: FormGroup;
   model: Speaker;
+  idConference: number;
   public uploader: FileUploader = new FileUploader({url: URL});
   public hasBaseDropZoneOver: boolean = false;
   public fileOverBase(e): void {
@@ -40,7 +44,10 @@ export class NewSpeakerComponent implements OnInit {
   }
   constructor(
     public dialogRef: MatDialogRef<NewSpeakerComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, public dialog: MatDialog, private postService: PostDataService) {
+    @Inject(MAT_DIALOG_DATA) public data: any,private storeConference :StoreService,
+    private router: Router, public dialog: MatDialog, private postService: PostDataService,private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe( val=> this.idConference = parseInt(val.id));
+    console.log( this.activatedRoute.params);
   }
 
   onNoClick(): void {
@@ -50,14 +57,18 @@ export class NewSpeakerComponent implements OnInit {
     this.model = new Speaker();
   }
   onSubmit() {
-    this.uploader.uploadAll();
-    this.form.reset();
-    this.postService.postData(this.model);
-  }
-  // canDeactivate() {
-  //   console.log(this.form.dirty);
-  //   return this.sendData || !this.form.touched ;
-  // }
+    this.model.photo = this.img.nativeElement.src;
+    console.log(JSON.stringify(this.model));
+    this.storeConference.ConferenceSubject$.subscribe(
+      conference => {
+       conference.speakers.unshift(this.model);
+       this.storeConference.updateConfernce(conference);
+      }
+      )}
+    canDeactivate() {
+      console.log(this.form.dirty);
+      return this.sendData || !this.form.touched ;
+    }
   addTag(event: MatChipInputEvent): void {
     let input = event.input;
     let value = event.value;
@@ -101,9 +112,13 @@ export class NewSpeakerComponent implements OnInit {
     }
   }
   ngOnInit() {
-    this.model = new Speaker
-    (0, 0, 0, 0, '', '', '', '', '', );
-
+     this.storeConference.ConferenceSubject$.subscribe(
+      conference => this.lectures = conference.lectures.map((item)=>{
+        this.model = new Speaker
+        (conference.id, 0, 9, '', '', '', '', '', );
+        return {id: item.id, topic: item.topic}
+      })
+    )
     //  this.getData.getData(this.router.url).subscribe(
     //    data => { this.model = data; }
     // );

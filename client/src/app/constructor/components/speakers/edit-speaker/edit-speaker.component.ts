@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatChipInputEvent, MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material";
 // import {GetDataService} from "../../../services/get-data.service";
 import {Router} from "@angular/router";
@@ -6,6 +6,9 @@ import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {Speaker} from "../../../models/speaker";
 import {FormGroup} from "@angular/forms";
 import {FileUploader} from "ng2-file-upload";
+import {PostDataService} from "../../../../services/post-data.service";
+import {StoreConferencesService} from "../../../../services/store-conferences.service";
+import {StoreService} from "../../../../services/store.service";
 // import {CanComponentDeactivate} from "../../../services/can-deactive-guard.service";
 const URL = 'http://localhost';
 @Component({
@@ -17,6 +20,7 @@ export class EditSpeakerComponent implements OnInit {
   file: any;
   type: any;
   name: string;
+  @ViewChild('img') img : ElementRef;
   sendData = false;
   visible: boolean = true;
   selectable: boolean = true;
@@ -37,21 +41,26 @@ export class EditSpeakerComponent implements OnInit {
   }
   constructor(
     public dialogRef: MatDialogRef<EditSpeakerComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, public dialog: MatDialog) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, public dialog: MatDialog,private  storeConference: StoreService ) {
     this.model = data.speaker ;
+    console.log(this.model);
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
   onSubmit() {
-    console.log(this.uploader.queue[0]._file);
-    let ar = this.uploader.queue;
-    this.uploader.uploadAll();
-    this.form.reset();
-    this.router.navigateByUrl('lecture');
+    console.log(this.img);
+     this.model.photo = this.img.nativeElement.src;
+     console.log( JSON.stringify(this.model));
+    this.storeConference.ConferenceSubject$.subscribe(
+      conference => {
+        conference.speakers[conference.speakers.findIndex((speaker)=> speaker.id === this.model.id)] = this.model;
+        this.storeConference.updateConfernce(conference);
+        this.dialogRef.close();
+      }
+    )}
 
-  }
   canDeactivate() {
     console.log(this.form.dirty);
     return this.sendData || !this.form.touched ;
@@ -110,6 +119,7 @@ export class EditSpeakerComponent implements OnInit {
     }
   }
   ngOnInit() {
+
     // this.model = new Speaker();
     //  this.getData.getData(this.router.url).subscribe(
     //    data => { this.model = data; }

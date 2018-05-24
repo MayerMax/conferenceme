@@ -5,11 +5,20 @@ import {NavBarComponent} from "./nav-bar/components/nav-bar/nav-bar.component";
 import {RouterModule, Routes} from "@angular/router";
 import {NavBarConstructorComponent} from "./nav-bar/components/nav-bar/nav-bar-constructor/nav-bar-constructor.component";
 import {HomeComponent} from "./Components/home/home.component";
+import {ConferenceComponent} from "./constructor/components/conference/conference.component";
+import {ConferencesComponent} from "./Components/conferences/conferences.component";
+import {LoginComponent} from "./Components/login/login.component";
+import {SignUpComponent} from "./Components/sign-up/sign-up.component";
 
 const appRoutes: Routes = [
   {
+    path: '',
+    redirectTo: '/home(sidemenu:home)',
+    pathMatch: 'full'
+  },
+  {
     path: 'constructor',
-    loadChildren: 'app/constructor/constructor.module#ConstructorModule'
+    loadChildren: 'app/constructor/constructor.module#ConstructorModule',
   },
   {
     path: 'constructor',
@@ -17,19 +26,19 @@ const appRoutes: Routes = [
     component: NavBarConstructorComponent
   },
   {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
+    path: 'conferences',
+    component: ConferencesComponent,
+  },
+  {
+    path: 'conferences',
+    outlet: 'sidemenu',
+    component: NavBarComponent
   },
   // {
-  //   path: 'landing',
-  //   component: LandingComponent
+  //   path: 'login',
+  //   // component: SignUpComponent
   // },
 
-  {
-    path: '',
-    component: MainComponent,
-  },
   {
     path: '',
     outlet: 'sidemenu',
@@ -43,7 +52,12 @@ const appRoutes: Routes = [
     path: 'home',
     outlet: 'sidemenu',
     component: NavBarComponent
-  }
+  },
+  {
+    path: '**',
+    redirectTo: '/home(sidemenu:home)',
+    pathMatch: 'full'
+  },
   // {
   //   path: 'calendar',
   //   component: CalendarComponent
@@ -51,7 +65,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes)],
+  imports: [RouterModule.forRoot(appRoutes,{useHash:true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

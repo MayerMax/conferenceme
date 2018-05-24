@@ -4,8 +4,16 @@ import {ConstructorComponent} from "./components/constructor/constructor.compone
 import {SpeakersComponent} from "./components/speakers/speakers.component";
 import {LecturesComponent} from "./components/lectures/lectures.component";
 import {NavBarConstructorComponent} from "../nav-bar/components/nav-bar/nav-bar-constructor/nav-bar-constructor.component";
+import {ConferenceComponent} from "./components/conference/conference.component";
+import {NewConferenceComponent} from "./components/conference/new-conference/new-conference.component";
 
 const constructorRoutes: Routes = [
+
+  {
+    path: '',
+    redirectTo: 'conference/0',
+    pathMatch: 'full'
+  },
   {
     path: '',
     component: ConstructorComponent,
@@ -18,27 +26,21 @@ const constructorRoutes: Routes = [
         path: 'conference/:id/lectures',
         component: LecturesComponent
       },
-      // {
-      //   path: 'conference/:id/sections',
-      //   component: SectionsComponent
-      // },
       {
-        path: 'conference/:id/speakers',
-        outlet: 'sidemenu',
-        component: NavBarConstructorComponent
+        path: 'new_conference',
+        component: NewConferenceComponent
       },
       {
-        path: 'conference/:id/lectures',
-        outlet: 'sidemenu',
-        component: NavBarConstructorComponent
+        path: 'conference/:id',
+        component: ConferenceComponent
       },
       {
-        path: 'conference/:id/sections',
+        path: 'conference',
         outlet: 'sidemenu',
         component: NavBarConstructorComponent
       }
     ]
-  },
+  }
   // {
   //   path: '',
   //   outlet: 'sidemenu',

@@ -12,6 +12,7 @@ import {
   MatGridListModule,
   MatIconModule,
   MatInputModule, MatListModule, MatNativeDateModule, MatOptionModule, MatPaginatorIntl, MatPaginatorModule,
+  MatProgressSpinnerModule,
   MatSelectModule,
   MatSidenavModule, MatStepperIntl, MatStepperModule,
   MatToolbarModule
@@ -43,6 +44,9 @@ import { EditLectureComponent } from './components/lectures/lecture-card/edit-le
 import {MyMatPaginatorIntl} from "./Intl/MyMatPaginatorIntl";
 import {GetDataService} from "../services/get-data.service";
 import {MockGetDataService} from "../services/mock-get-data.service";
+import { NewLectureComponent } from './components/lectures/lecture-card/new-lecture/new-lecture.component';
+import {StoreService} from "../services/store.service";
+import { NewConferenceComponent } from './components/conference/new-conference/new-conference.component';
 // import { SpeakerCardComponent } from './conference/speakers/speaker-card/speaker-card.component';
 // import { ToolbarConferencesComponent } from './conference/toolbar-conferences/toolbar-conferences.component';
 // import { LecturesComponent } from './conference/lectures/lectures.component';
@@ -82,10 +86,12 @@ import {MockGetDataService} from "../services/mock-get-data.service";
     MatChipsModule,
     MatPaginatorModule,
     NavBarModule,
-    MatStepperModule
+    MatStepperModule,
+    MatProgressSpinnerModule
   ],
-  entryComponents: [EditSpeakerComponent, NewSpeakerComponent, EditLectureComponent],
-  providers: [{provide: GetDataService, useClass: MockGetDataService}],
-  declarations: [ConferenceComponent, ConstructorComponent, SpeakersComponent, LecturesComponent, SpeakerCardComponent, NewSpeakerComponent, ToolbarConstructorComponent, EditSpeakerComponent, ImagePreviewDirective, LectureCardComponent, EditLectureComponent]
+  entryComponents: [EditSpeakerComponent, NewSpeakerComponent, EditLectureComponent, NewLectureComponent],
+  providers: [{provide: GetDataService, useClass: GetDataService} ],
+  declarations: [ConferenceComponent, ConstructorComponent, SpeakersComponent, LecturesComponent, SpeakerCardComponent, NewSpeakerComponent, ToolbarConstructorComponent, EditSpeakerComponent, ImagePreviewDirective, LectureCardComponent, EditLectureComponent, NewLectureComponent, NewConferenceComponent],
+  exports: [ToolbarConstructorComponent]
 })
 export class ConstructorModule { }

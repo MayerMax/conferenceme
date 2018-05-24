@@ -15,7 +15,7 @@ export class ToolbarConstructorComponent implements OnInit {
   @Input() titleToolbar: string;
   @Input() titleButtonCreate: string;
   @Input() dialogComponent: any;
-  constructor(route: ActivatedRoute, private router: Router, public dialog: MatDialog) {
+  constructor(route: ActivatedRoute, private router: Router, public dialog: MatDialog, ) {
   }
   showSearchBar() {
     this.search = true;
