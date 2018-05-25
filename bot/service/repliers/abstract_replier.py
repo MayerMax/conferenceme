@@ -17,6 +17,9 @@ class AbstractReplier(metaclass=abc.ABCMeta):
         self.default_state_names = default_state_names
         self.user_state = state
 
+        self.stack = []
+
+
     def set_user_state(self, new_state: UserState):
         self.user_state = UserState
 

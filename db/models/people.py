@@ -51,6 +51,13 @@ What I know about the speaker: {},
 Speaker's science degree is:{},
 You can learn more using links {}""".format(self.name, self.description, self.science_degree, self.external_links)
 
+    @staticmethod
+    def convert_raw_data_to_speaker(speaker_data: dict):
+        data = speaker_data
+        s = Speaker(
+            lecture_id=data['lecture_id'],
+            conf_id = data['']
+        )
 
 class Visitor(Base):
     __tablename__ = 'visitor'

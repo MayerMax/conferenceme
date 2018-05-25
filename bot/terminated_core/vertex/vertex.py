@@ -33,6 +33,9 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
         self.children = set()
         self.alternative_name = name if not alternative_name else alternative_name
 
+        self.to_roots = None
+
+
     def add_child(self, child_vertex):
         """
         добавляет данному состоянию доченреи состояния
@@ -50,6 +53,11 @@ class BaseActionVertex(metaclass=abc.ABCMeta):
         if self.parent:
             raise ActionVertexParentExists('This vertex has already have parent named {}'.format(self.parent))
         self.parent = parent_vertex
+
+
+    def set_roots(self, roots: List[str]):
+        self.to_roots = roots
+
 
     def __str__(self):
         return 'Vertex {}, It has children: {}'.format(self.name, ', '.join(x.alternative_name for x in self.children))

@@ -11,7 +11,8 @@ class QueryResult:
     результат
     """
 
-    def __init__(self, status: StatusTypes, answer: List[str], attachments: List[str], extra_args: object = None):
+    def __init__(self, status: StatusTypes, answer: List[str], attachments: List[str],
+                 extra_args: object = None, is_completed: bool=True):
         """
         конструктор
         :param status: статус формируемого результата - конец ли это диалога или бот ожидает продолжение
@@ -23,6 +24,7 @@ class QueryResult:
         self.status = status
         self.answer = answer
         self.attachments = attachments
+        self.is_completed = is_completed
         self.extra_args = extra_args
 
 
@@ -32,7 +34,9 @@ class QueryRequest:
     """
 
     def __init__(self, who_asked: User, question: str, request_type: RequestType=RequestType.STRING,
-                 where_to_search: ConferencePlainObject = None):
+
+                 where_to_search: ConferencePlainObject = None, need_more=False):
+
         """
         конструктор
         :param who_asked: пользователь мессенджера
@@ -43,3 +47,7 @@ class QueryRequest:
         self.question = question
         self.where_to_search = where_to_search
         self.request_type = request_type
+
+        self.edition = None
+        self.need_more = need_more
+
