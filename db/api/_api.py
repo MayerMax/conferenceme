@@ -109,3 +109,12 @@ class ConferenceApi:
         session = db.Alchemy.get_session()
         confhash = session.query(ConferenceHashes).filter(ConferenceHashes.key == key).one_or_none()
         return confhash
+
+
+class ConferenceAddContentApi:
+    @staticmethod
+    def add_speaker(raw_speaker: dict):
+        session = db.Alchemy.get_session()
+        new_speaker = Speaker.convert_raw_data_to_speaker(raw_speaker)
+        session.add(new_speaker)
+        session.commit()
