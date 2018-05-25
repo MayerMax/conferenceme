@@ -3,6 +3,7 @@ from typing import List
 import emoji
 from telegram import ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardRemove
 
+
 from bot.query import QueryResult
 from bot.service.repliers.abstract_replier import AbstractReplier
 from bot.statuses import UserState, StatusTypes
@@ -11,6 +12,7 @@ from bot.statuses import UserState, StatusTypes
 class TelegramReplier(AbstractReplier):
     def create_reply(self, query_result: QueryResult, extra_args: List[object]):
         bot, update = extra_args
+
         if self.stack:
             chat_id, message_id = self.stack.pop()
             keyboard = [[InlineKeyboardButton(emoji.emojize(':heavy_check_mark:'), callback_data='NONE')]]
@@ -27,6 +29,7 @@ class TelegramReplier(AbstractReplier):
             markup = InlineKeyboardMarkup(hide_keyboard=True, inline_keyboard=keyboard)
             if query_result.extra_args:
                 self.stack.append((update.message.chat_id, update.message.message_id+1))
+
 
         for text, attachment in zip(query_result.answer, query_result.attachments):
             bot.send_message(chat_id=update.message.chat_id, text=text, reply_markup=markup)

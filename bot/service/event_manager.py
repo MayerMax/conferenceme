@@ -1,5 +1,6 @@
 import datetime
 
+
 from bot.service.conference_plain_object import ConferencePlainObject
 from db.alchemy import Alchemy
 from db.api import ConferenceApi
@@ -60,3 +61,4 @@ if __name__ == '__main__':
     # em.pop_conference(1)
     today = datetime.datetime.now() + datetime.timedelta(days=1)
     print(cpo.get_section_schedule(today, 'It in modern life'))
+

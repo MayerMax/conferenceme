@@ -1,3 +1,4 @@
+
 import datetime
 
 import dateparser
@@ -5,10 +6,13 @@ import textdistance
 
 import emoji
 
+
+
 from bot.query import QueryResult, QueryRequest
 from bot.service.history import Context
 from bot.statuses import StatusTypes
 from bot.terminated_core.vertex.vertex import BaseActionVertex
+
 
 
 class ScheduleSectionVertex(BaseActionVertex):
@@ -145,3 +149,4 @@ class ScheduleTomorrowVertex(BaseActionVertex):
                                                                                         str(x) for x in
                                                                                         satisfy_condition))],
                                [None], self.to_roots)
+

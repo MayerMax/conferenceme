@@ -71,4 +71,5 @@ class Analyzer:
 
         query_result = self.__graph.activate_vertex(vertex_name, request, user_context)
         user_context.add_record(vertex_name, request.edition, query_result)
+
         return query_result

@@ -1,10 +1,12 @@
 from typing import List
 
+
 import datetime
 
 import os
 
 from bot.intelligence.photosim import ConferencePhotoModel
+
 from db.models.content import Lecture, Section
 from db.models.event import Conference
 from db.models.people import Speaker
@@ -26,12 +28,14 @@ class ConferencePlainObject:
         self.__conference = conference_general
         self.__speakers = speakers
         self.__lectures = lectures
+
         self.__sections = {}  # хранит словарь вида имя секции : секция
         for x in self.get_lectures():
             self.__sections[x.section.name] = x.section
 
         photo_root_dir = self.__conference.root_path
         self.__photo_model = ConferencePhotoModel(img_dir='{}/{}'.format(photo_root_dir, 'speakers'))
+
 
     def get_conference_summary(self):
         return self.__conference.__repr__()
@@ -44,6 +48,7 @@ class ConferencePlainObject:
 
     def get_sections(self) -> List[Section]:
         return [x.section for x in self.get_lectures()]
+
 
     def get_section_schedule(self, when: datetime.datetime, section_name: str) -> List[Lecture]:
         """
@@ -64,3 +69,4 @@ class ConferencePlainObject:
         found_face_path = os.path.normpath(found_face_path[0])
         # TODO индексация данных для скорости
         return [speaker for speaker in self.__speakers if speaker.photo_path == found_face_path][0]
+

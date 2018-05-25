@@ -2,6 +2,7 @@ import logging
 import random
 import string
 
+
 from bot.query import QueryRequest
 from bot.service.abstract_bot import AbstractBot
 from bot.service.auth import Auth
@@ -63,6 +64,7 @@ class Bot(AbstractBot):
         pass
 
     def photo_handler(self, bot, update):
+
         current_user = MakeUser.from_telegram(update.message.from_user)
         if current_user.username in self.auth_requested:
             pass # логика для неавторизованных пользователей еще не сделана
@@ -84,6 +86,7 @@ class Bot(AbstractBot):
             return
         user = MakeUser.from_telegram(query.from_user)
         self.__create_and_send_back_auth(query.data, user, bot, query)
+
 
     def launch(self):
         start_handler = CommandHandler('start', self.start_state)

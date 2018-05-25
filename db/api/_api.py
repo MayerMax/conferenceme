@@ -33,11 +33,11 @@ class AuthApi:
             # return False
 
     @staticmethod
-    def check_organization_exists(email, name):
+    def check_organization_exists(email, password):
         session = db.Alchemy.get_session()
         try:
             _ = session.query(Organization).filter(and_(Organization.email_address == email,
-                                                        Organization.name == name)).one()
+                                                        Organization.password == password)).one()
             return True
         except NoResultFound:
             return False
