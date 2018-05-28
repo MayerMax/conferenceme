@@ -1,14 +1,16 @@
+from bot.intelligence.basic import Basic
 from bot.query import QueryResult, QueryRequest
 from bot.service.history import Context
+from bot.service.users.user import User
 from bot.statuses import StatusTypes
-from bot.terminated_core.graph.create import create_graph
 
 
-class Analyzer:
-    def __init__(self):
+class Analyzer(Basic):
+    def __init__(self, create_graph_func, source_vertex_name:str):
         """класс, отвечающий за работу над пользовательским запросом"""
-        self.__graph = create_graph()
-        self.user_context = {}
+        Basic.__init__(self)
+        self.__graph = create_graph_func()
+        self.source_vertex_name = source_vertex_name
 
     def analyze(self, request: QueryRequest) -> QueryResult:
         asked_user = request.who_asked
@@ -38,11 +40,13 @@ class Analyzer:
                 user_context.add_record(last_vertex.name, request.question, query_result)
             return query_result
 
+
         most_probable = self.__graph.predict_vertex_activation_against_input_and_return(last_action.vertex_name,
                                                                                         request, user_context)
+
         if not most_probable:
             request.question = 'Do not understand'
-            return self.__activate_vertex_and_record('Welcome', request, user_context)
+            return self.__activate_vertex_and_record(self.source_vertex_name, request, user_context)
             # нужно написать более развернутую ошибку
 
         return self.__activate_vertex_and_record(most_probable, request, user_context)
@@ -60,7 +64,8 @@ class Analyzer:
             return request
         return request
 
-    def __activate_vertex_and_record(self, vertex_name:str, request: QueryRequest, user_context: Context) -> QueryResult:
+    def __activate_vertex_and_record(self, vertex_name: str, request: QueryRequest,
+                                     user_context: Context) -> QueryResult:
         if vertex_name not in self.__graph.get_vertices_names():
             return QueryResult(
                 status=StatusTypes.LEAF,
@@ -73,3 +78,10 @@ class Analyzer:
         user_context.add_record(vertex_name, request.edition, query_result)
 
         return query_result
+
+    def default_behaviour(self, request: QueryRequest) -> QueryResult:
+        pass
+
+    def clean_user_context(self, user: User):
+        if user.username in self.user_context:
+            self.user_context.pop(user.username)

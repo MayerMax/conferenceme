@@ -84,7 +84,6 @@ class StateGraph:
         if not vertex_children:
             return None
 
-
         suitable_predictions = [self.get_action_vertex(x).predict_is_suitable_input(request, context)
                                 for x in vertex_children]
 

@@ -7,7 +7,7 @@ from bot.terminated_core.vertex.vertex import BaseActionVertex
 class WelcomeVertex(BaseActionVertex):
     def activation_function(self, request: QueryRequest, context: Context) -> QueryResult:
         if not context.peek():
-            return QueryResult(StatusTypes.ROOT, [request.where_to_search.get_conference_summary()], [None],
+            return QueryResult(StatusTypes.ROOT, ['Приветствую тебя на конференции!'], [None],
                                self.get_children_alternative_names())  # Send attachment
 
         if request.question != self.name or request.question == 'Do not understand':
