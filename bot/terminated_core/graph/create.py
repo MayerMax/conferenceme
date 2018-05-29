@@ -3,7 +3,8 @@ import emoji
 from bot.statuses import StatusTypes
 from bot.terminated_core.graph.state_graph import StateGraph
 from bot.terminated_core.vertex.auth_mode.info import ConferenceInfoVertex
-from bot.terminated_core.vertex.auth_mode.lecture import LectureVertex
+from bot.terminated_core.vertex.auth_mode.lecture import LectureVertex, LectureDisplayAllVertex, \
+    LectureByNameTransitionVertex, LectureByNameFinishVertex
 from bot.terminated_core.vertex.auth_mode.news import NewsVertex
 from bot.terminated_core.vertex.auth_mode.schedule import ScheduleVertex, ScheduleByDateTransitionVertex, \
     ScheduleByDateFinishVertex, ScheduleAllVertex, ScheduleTodayVertex
@@ -48,6 +49,17 @@ def create_auth() -> StateGraph:
     g.add_action_vertex(ScheduleTodayVertex('ScheduleToday', StatusTypes.LEAF, emoji.emojize(':clock1030: Что будет сегодня',
                                                                                              use_aliases=True)))
     g.add_transition_from_parent_to_child_by_names('Schedule', 'ScheduleToday')
+
+    g.add_action_vertex(LectureDisplayAllVertex('DisplayAllLectures', StatusTypes.LEAF, emoji.emojize(':lollipop: Список всех лекций',
+                                                                                                      use_aliases=True)))
+
+    g.add_action_vertex(LectureByNameTransitionVertex('LectureByNameTransition', StatusTypes.NEIGHBOUR,
+                                                      emoji.emojize(':pencil2: Найти лекцию по названию', use_aliases=True)))
+    g.add_action_vertex(LectureByNameFinishVertex('LectureByNameFinish', StatusTypes.LEAF))
+
+    g.add_transition_from_parent_to_child_by_names('Lecture', 'DisplayAllLectures')
+    g.add_transition_from_parent_to_child_by_names('Lecture', 'LectureByNameTransition')
+    g.add_transition_from_parent_to_child_by_names('LectureByNameTransition', 'LectureByNameFinish')
 
     # g.add_action_vertex(ScheduleAskVertex('ScheduleAskVertex', StatusTypes.NEIGHBOUR))
     #
