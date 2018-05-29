@@ -1,27 +1,29 @@
 import logging
 
 import datetime
+import random
+import string
 
 from bot.intelligence.analyzer import Analyzer
 from bot.query import QueryRequest
 from bot.service.repliers.behaviour import UserBehaviour
-from bot.service.users.user import User, MakeUser
-from bot.statuses import UserState, RequestType
+from bot.service.users.user import MakeUser
+from bot.statuses import RequestType
 from bot.telegram_core.keys import KEY
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 
 from bot.terminated_core.graph.create import create_auth
 from bot.terminated_core.graph.guest_create import create_guest
-from bot.terminated_core.vertex.auth_mode.schedule import get_lectures_by_date
 from db.alchemy import Alchemy
-from db.models.content import Lecture
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 updater = Updater(token=KEY)
 
 dispatcher = updater.dispatcher
+
+CPM = None
 
 
 class Bot:
@@ -80,13 +82,30 @@ class Bot:
                 self.user_behaviour.get_available_replier(current_user).create_reply(query_result, [bot, update])
                 return
 
+    def image_handler(self, bot, update):
+        current_user = MakeUser.from_telegram(update.message.from_user)
+        if self.user_behaviour.is_authorized(current_user):
+            random_name = ''.join(random.choice(string.ascii_letters) for _ in range(16))
+            path = update.message.photo[1].get_file().download(custom_path='../../db/media/temp/{}.jpg'.format(random_name))
+            user_request = QueryRequest(current_user, path, RequestType.PHOTO,
+                                        self.user_behaviour.authorized_where_to_search[current_user])
+
+            analyzer_reply = self.analyzer.analyze(user_request)
+            self.user_behaviour.get_available_replier(current_user).create_reply(analyzer_reply, [bot, update])
+        else:
+            fake_query = QueryRequest(current_user, 'FAKE')
+            fake_answer = self.guest.analyze(fake_query)
+            self.user_behaviour.get_available_replier(current_user).create_reply(fake_answer, [bot, update])
+
     def launch(self):
         start_handler = CommandHandler('start', self.start_state)
         text_handler = MessageHandler(Filters.text, self.text_handler)
+        image_handler = MessageHandler(Filters.photo, self.image_handler)
 
         dispatcher.add_handler(start_handler)
         dispatcher.add_handler(text_handler)
         dispatcher.add_handler(CallbackQueryHandler(self.button_callback))
+        dispatcher.add_handler(image_handler)
 
         updater.start_polling()
 
@@ -112,7 +131,3 @@ if __name__ == '__main__':
     b = Bot()
     b.launch()
     print('GO')
-
-    # print(get_lectures_by_date(1, datetime.datetime.now()))
-    # a = Alchemy.get_session()
-    # print(a.query(Lecture).all())

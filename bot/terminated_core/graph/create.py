@@ -8,8 +8,10 @@ from bot.terminated_core.vertex.auth_mode.lecture import LectureVertex, LectureD
 from bot.terminated_core.vertex.auth_mode.news import NewsVertex
 from bot.terminated_core.vertex.auth_mode.schedule import ScheduleVertex, ScheduleByDateTransitionVertex, \
     ScheduleByDateFinishVertex, ScheduleAllVertex, ScheduleTodayVertex
-from bot.terminated_core.vertex.auth_mode.speaker import SpeakerVertex
+from bot.terminated_core.vertex.auth_mode.speaker import SpeakerVertex, AllSpeakersVertex, \
+    SearchSpeakerTransitionVertex, SearchSpeakerFinishVertex
 from bot.terminated_core.vertex.auth_mode.welcome import WelcomeVertex
+from bot.terminated_core.vertex.guest_mode.other import UnavailableActionVertex
 
 
 def create_auth() -> StateGraph:
@@ -61,33 +63,16 @@ def create_auth() -> StateGraph:
     g.add_transition_from_parent_to_child_by_names('Lecture', 'LectureByNameTransition')
     g.add_transition_from_parent_to_child_by_names('LectureByNameTransition', 'LectureByNameFinish')
 
-    # g.add_action_vertex(ScheduleAskVertex('ScheduleAskVertex', StatusTypes.NEIGHBOUR))
-    #
-    # g.add_action_vertex(ScheduleTodayVertex('ScheduleToday', StatusTypes.LEAF, 'На Сегодня'))
-    # g.add_action_vertex(ScheduleTomorrowVertex('ScheduleTomorrow', StatusTypes.LEAF, 'На завтра'))
-    #
-    # g.add_action_vertex(ScheduleDateAskVertex('ScheduleDateAskVertex', StatusTypes.NEIGHBOUR, 'По дате'))
-    # g.add_action_vertex(ScheduleByDateVertex('ScheduleByDate', StatusTypes.LEAF))
-    #
-    # g.add_transition_from_parent_to_child_by_names('Welcome', 'Schedule')
-    # g.add_transition_from_parent_to_child_by_names('Schedule', 'ScheduleAskVertex')
-    #
-    # g.add_transition_from_parent_to_child_by_names('ScheduleAskVertex', 'ScheduleToday')
-    # g.add_transition_from_parent_to_child_by_names('ScheduleAskVertex', 'ScheduleTomorrow')
-    #
-    # g.add_transition_from_parent_to_child_by_names('ScheduleAskVertex', 'ScheduleDateAskVertex')
-    #
-    # g.add_transition_from_parent_to_child_by_names('ScheduleDateAskVertex', 'ScheduleByDate')
-    #
-    # # контент
-    # g.add_action_vertex(ContentVertex('Content', StatusTypes.ROOT, 'Контент'))
-    # g.add_action_vertex(BeginAskAboutSpeaker('BeginAskAboutSpeaker', StatusTypes.NEIGHBOUR, 'Узнать о лекторе'))
-    # g.add_action_vertex(AskAboutSpeaker('AskAboutSpeaker', StatusTypes.LEAF))
-    #
-    # g.add_transition_from_parent_to_child_by_names('Welcome', 'Content')
-    # g.add_transition_from_parent_to_child_by_names('Content', 'BeginAskAboutSpeaker')
-    # g.add_transition_from_parent_to_child_by_names('BeginAskAboutSpeaker', 'AskAboutSpeaker')
-    #
-    # g.set_default_vertices(['Content', 'Schedule'])  # пока что пуст
+    g.add_action_vertex(AllSpeakersVertex('AllSpeakers', StatusTypes.LEAF, emoji.emojize(':speaker: Все спикеры',
+                                                                                              use_aliases=True)))
+    g.add_action_vertex(SearchSpeakerTransitionVertex('SearchSpeakerTransition', StatusTypes.NEIGHBOUR,
+                                                      emoji.emojize(':camera: Найти информацию о спикере',
+                                                                    use_aliases=True)))
+    g.add_action_vertex(SearchSpeakerFinishVertex('SearchSpeakerFinish', StatusTypes.LEAF))
+
+    g.add_transition_from_parent_to_child_by_names('Speaker', 'AllSpeakers')
+    g.add_transition_from_parent_to_child_by_names('Speaker', 'SearchSpeakerTransition')
+    g.add_transition_from_parent_to_child_by_names('SearchSpeakerTransition', 'SearchSpeakerFinish')
+
 
     return g

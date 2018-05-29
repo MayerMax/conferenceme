@@ -6,6 +6,7 @@ from bot.terminated_core.vertex.guest_mode.about import AboutUsVertex
 from bot.terminated_core.vertex.guest_mode.auth import AuthorizeVertex, AuthorizeConclusionVertex
 from bot.terminated_core.vertex.guest_mode.find_more import FindMoreAboutConferenceVertex
 from bot.terminated_core.vertex.guest_mode.hello import HelloVertex
+from bot.terminated_core.vertex.guest_mode.other import UnavailableActionVertex
 from bot.terminated_core.vertex.guest_mode.profile import YourProfileVertex
 
 
@@ -30,4 +31,7 @@ def create_guest() -> StateGraph:
 
     g.add_action_vertex(AuthorizeConclusionVertex('AuthorizeConclusionVertex', StatusTypes.LEAF))
     g.add_transition_from_parent_to_child_by_names('Authorization', 'AuthorizeConclusionVertex')
+
+    g.add_action_vertex(UnavailableActionVertex('Unavailable', StatusTypes.NEIGHBOUR))
+    g.add_transition_from_parent_to_child_by_names('Welcome', 'Unavailable')
     return g

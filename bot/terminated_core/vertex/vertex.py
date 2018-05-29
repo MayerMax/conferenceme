@@ -2,7 +2,6 @@ import abc
 from typing import List, Tuple
 
 from bot.query import QueryResult, QueryRequest
-from bot.service.conference_plain_object import ConferencePlainObject
 from bot.service.history import Context
 from bot.statuses import StatusTypes
 
