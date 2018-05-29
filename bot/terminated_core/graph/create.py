@@ -5,7 +5,8 @@ from bot.terminated_core.graph.state_graph import StateGraph
 from bot.terminated_core.vertex.auth_mode.info import ConferenceInfoVertex
 from bot.terminated_core.vertex.auth_mode.lecture import LectureVertex
 from bot.terminated_core.vertex.auth_mode.news import NewsVertex
-from bot.terminated_core.vertex.auth_mode.schedule import ScheduleVertex
+from bot.terminated_core.vertex.auth_mode.schedule import ScheduleVertex, ScheduleByDateTransitionVertex, \
+    ScheduleByDateFinishVertex
 from bot.terminated_core.vertex.auth_mode.speaker import SpeakerVertex
 from bot.terminated_core.vertex.auth_mode.welcome import WelcomeVertex
 
@@ -32,6 +33,14 @@ def create_auth() -> StateGraph:
     g.add_transition_from_parent_to_child_by_names('Welcome', 'Speaker')
     g.add_transition_from_parent_to_child_by_names('Welcome', 'ConferenceInfo')
     g.add_transition_from_parent_to_child_by_names('Welcome', 'NewsVertex')
+
+
+    g.add_action_vertex(ScheduleByDateTransitionVertex('ByDateTransitionVertex', StatusTypes.NEIGHBOUR,
+                                                       emoji.emojize(':interrobang: По дате', use_aliases=True)))
+    g.add_action_vertex(ScheduleByDateFinishVertex('ScheduleByDateFinish', StatusTypes.LEAF))
+
+    g.add_transition_from_parent_to_child_by_names('Schedule', 'ByDateTransitionVertex')
+    g.add_transition_from_parent_to_child_by_names('ByDateTransitionVertex', 'ScheduleByDateFinish')
 
     # g.add_action_vertex(ScheduleAskVertex('ScheduleAskVertex', StatusTypes.NEIGHBOUR))
     #

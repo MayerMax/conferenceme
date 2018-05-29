@@ -1,5 +1,7 @@
 import logging
 
+import dateparser
+
 from bot.intelligence.analyzer import Analyzer
 from bot.query import QueryRequest
 from bot.service.repliers.behaviour import UserBehaviour
@@ -11,6 +13,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 
 from bot.terminated_core.graph.create import create_auth
 from bot.terminated_core.graph.guest_create import create_guest
+from bot.terminated_core.vertex.auth_mode.schedule import get_lectures_by_date
 from db.alchemy import Alchemy
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -53,7 +56,7 @@ class Bot:
         # поведение авторизованного пользователя
         if self.user_behaviour.is_authorized(current_user):
             user_request = QueryRequest(current_user, update.message.text, RequestType.STRING,
-                                        self.user_behaviour.authorized_where_to_search(current_user))
+                                        self.user_behaviour.authorized_where_to_search[current_user])
             query_result = self.analyzer.analyze(user_request)
             self.user_behaviour.get_available_replier(current_user).create_reply(query_result, [bot, update])
             return
@@ -92,13 +95,13 @@ class Bot:
             return
         user = MakeUser.from_telegram(query.from_user)
 
-        qr = QueryRequest(user, update.message.text, RequestType.STRING)
+        qr = QueryRequest(user, query.data, RequestType.STRING)
         if self.user_behaviour.is_authorized(user):
             query_result = self.analyzer.analyze(qr)
         else:
             query_result = self.guest.analyze(qr)
 
-        self.user_behaviour.get_available_replier(user).create_reply(query_result, [bot, update])
+        self.user_behaviour.get_available_replier(user).create_reply(query_result, [bot, query])
         return
 
 
