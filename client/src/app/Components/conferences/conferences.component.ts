@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Conference} from "../../constructor/models/Conference";
 import {StoreConferencesService} from "../../services/store-conferences.service";
 import {StoreService} from "../../services/store.service";
+import {NewConferenceComponent} from "./new-conference/new-conference.component";
+import {CalendarComponent} from "../../constructor/components/calendar/calendar.component";
 
 @Component({
   selector: 'app-conferences',
@@ -10,13 +12,14 @@ import {StoreService} from "../../services/store.service";
 })
 export class ConferencesComponent implements OnInit {
 
-  editLecture : any;
+  newConference : any;
   conferences: Conference[];
   loading: boolean;
   constructor(private storeService: StoreConferencesService) {
   }
 
   ngOnInit() {
+    this.newConference = NewConferenceComponent;
     this.loading =true;
     this.storeService.getData();
     this.storeService.ConferencesSubject$.subscribe(

@@ -5,4 +5,9 @@
 .demo-content {
   max-width: 1080px;
 }
-
+.daysWeek{
+  display: flex;
+}
+.daysWeek *{
+  flex: 1;
+}

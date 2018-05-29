@@ -7,20 +7,23 @@ export class Conference{
   public name: string;
   public topics: string;
   public begin_date: Date;
+  public begin_time: Date;
   public end_date: Date;
   public location: string;
   public lectures: Lecture[];
   public speakers: Speaker[];
   public sections: any;
-  constructor(id = 0,
-              name = 'статусе реальности в искусстве',
-              topics = ' Европе Европейская живопись ьство прошлого, открытие современности. Лектор - Илья Доронченков - профессор факультета истории искусств Европейского университета в Санкт-Петербурге.\'\n',
-              begin_date = new Date(),
-              end_date = new Date(),
-              sections = [],
-              lectures = [],
-              speakers = [],
-              logo = '../../../../assets/sber.png'
+  constructor(
+                id = 0,
+                name = 'статусе реальности в искусстве',
+                topics = ' Европе Европейская живопись ьство прошлого, открытие современности. Лектор - Илья Доронченков - профессор факультета истории искусств Европейского университета в Санкт-Петербурге.\'\n',
+                begin_date = new Date(),
+                end_date = new Date(),
+                sections = [],
+                lectures = [],
+                speakers = [],
+                logo = '../../../../assets/sber.png'
+
   ) {
     this.id= id;
     this.name = name;

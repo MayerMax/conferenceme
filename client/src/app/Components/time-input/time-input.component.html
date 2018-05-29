@@ -1,0 +1,5 @@
+<mat-input-container >
+  <input type="time"  placeholder="Время начала конференции" matInput #Time (input)="changeTime($event.target.value)" [value]="time | date:'HH:mm'" >
+  <button mat-icon-button matSuffix  (click)="open(Time)"><mat-icon>alarm</mat-icon>
+  </button>
+</mat-input-container>

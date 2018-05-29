@@ -4,7 +4,10 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatButtonModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule} from "@angular/material";
+import {
+  MatButtonModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule,
+  MatStepperModule
+} from "@angular/material";
 import { LoginComponent } from './Components/login/login.component';
 import {RouterModule, Routes} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -26,6 +29,8 @@ import { ConferenceCardComponent } from './Components/conferences/conference-car
 import {StoreService} from "./services/store.service";
 import {StoreConferencesService} from "./services/store-conferences.service";
 import {LocationStrategy, PathLocationStrategy} from "@angular/common";
+import {AmazingTimePickerModule} from "amazing-time-picker";
+import { TimeInputComponent } from './Components/time-input/time-input.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -57,7 +62,7 @@ const appRoutes: Routes = [
     AppRoutingModule,
     ConstructorModule,
     NavBarModule,
-    MatProgressSpinnerModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     EnsureAuthenticatedService,

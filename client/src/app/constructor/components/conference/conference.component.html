@@ -38,7 +38,7 @@
   <span   ng2FileDrop
          [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
          (fileOver)="fileOverBase($event)"
-         [uploader]="uploaderPhoto"
+         [uploader]="uploader"
          class="my-drop-zone z-index ">
   <span class=" z-index mdl-color-text--grey-600">  Перетащите логотип
     </span>
@@ -60,6 +60,16 @@
                placeholder="Дата конца конференции">
         <mat-datepicker-toggle  matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
         <mat-datepicker #pickerEnd></mat-datepicker>
+      </mat-form-field>
+      <mat-input-container class="mdl-cell mdl-cell--3-col-desktop " >
+        <input type="time"  placeholder="Время начала конференции" matInput #startTime  [value]="model.begin_date | date:'HH:mm'" >
+        <button mat-icon-button matSuffix  (click)="open(startTime)"><mat-icon>alarm</mat-icon>
+        </button>
+      </mat-input-container>
+      <div class="mdl-cell mdl-cell--3-col-desktop "></div>
+      <mat-form-field class="mdl-cell mdl-cell--3-col-desktop ">
+        <input type="time" matInput placeholder="Время конца конференции" #endTime   [value]="model.end_date | date:'HH:mm'" >
+        <button mat-icon-button matSuffix  (click)="open(endTime)"> <mat-icon>alarm</mat-icon></button>
       </mat-form-field>
       <button style="margin-bottom: 10px" mat-raised-button routerLinkActive="active"  color="primary" (click)="onSubmit()">send
       </button>

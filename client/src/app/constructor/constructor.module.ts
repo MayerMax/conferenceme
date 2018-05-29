@@ -46,7 +46,13 @@ import {GetDataService} from "../services/get-data.service";
 import {MockGetDataService} from "../services/mock-get-data.service";
 import { NewLectureComponent } from './components/lectures/lecture-card/new-lecture/new-lecture.component';
 import {StoreService} from "../services/store.service";
-import { NewConferenceComponent } from './components/conference/new-conference/new-conference.component';
+import {NewConferenceComponent} from "../Components/conferences/new-conference/new-conference.component";
+import {AmazingTimePickerModule} from "amazing-time-picker";
+import {TimeInputComponent} from "../Components/time-input/time-input.component";
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { CardCalenderComponent } from './components/calendar/card-calender/card-calender.component';
+import { TimeCardDirective } from './directive/time-card.directive';
+
 // import { SpeakerCardComponent } from './conference/speakers/speaker-card/speaker-card.component';
 // import { ToolbarConferencesComponent } from './conference/toolbar-conferences/toolbar-conferences.component';
 // import { LecturesComponent } from './conference/lectures/lectures.component';
@@ -87,11 +93,12 @@ import { NewConferenceComponent } from './components/conference/new-conference/n
     MatPaginatorModule,
     NavBarModule,
     MatStepperModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    AmazingTimePickerModule
   ],
-  entryComponents: [EditSpeakerComponent, NewSpeakerComponent, EditLectureComponent, NewLectureComponent],
+  entryComponents: [EditSpeakerComponent,CalendarComponent, NewSpeakerComponent,NewConferenceComponent, EditLectureComponent, NewLectureComponent],
   providers: [{provide: GetDataService, useClass: GetDataService} ],
-  declarations: [ConferenceComponent, ConstructorComponent, SpeakersComponent, LecturesComponent, SpeakerCardComponent, NewSpeakerComponent, ToolbarConstructorComponent, EditSpeakerComponent, ImagePreviewDirective, LectureCardComponent, EditLectureComponent, NewLectureComponent, NewConferenceComponent],
-  exports: [ToolbarConstructorComponent]
+  declarations: [ConferenceComponent,TimeInputComponent, NewConferenceComponent, ConstructorComponent, SpeakersComponent, LecturesComponent, SpeakerCardComponent, NewSpeakerComponent, ToolbarConstructorComponent, EditSpeakerComponent, ImagePreviewDirective, LectureCardComponent, EditLectureComponent, NewLectureComponent, CalendarComponent, CardCalenderComponent, TimeCardDirective],
+  exports: [ToolbarConstructorComponent,NewConferenceComponent]
 })
 export class ConstructorModule { }

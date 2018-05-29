@@ -14,7 +14,8 @@ public gerNewConference(): Observable<Conference>{
   return this.http.get<Conference>(url).map(
     conference => {
       console.log(conference)
-      return conference
+      // let {id,name,topics,begin_date,end_date,sections,lectures,speakers,logo}= conference;
+      return conference;
     } );
 }
   public getData(){

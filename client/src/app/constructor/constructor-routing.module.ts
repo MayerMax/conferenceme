@@ -5,13 +5,13 @@ import {SpeakersComponent} from "./components/speakers/speakers.component";
 import {LecturesComponent} from "./components/lectures/lectures.component";
 import {NavBarConstructorComponent} from "../nav-bar/components/nav-bar/nav-bar-constructor/nav-bar-constructor.component";
 import {ConferenceComponent} from "./components/conference/conference.component";
-import {NewConferenceComponent} from "./components/conference/new-conference/new-conference.component";
+import {CalendarComponent} from "./components/calendar/calendar.component";
 
 const constructorRoutes: Routes = [
 
   {
     path: '',
-    redirectTo: 'conference/0',
+    redirectTo: 'conference/1',
     pathMatch: 'full'
   },
   {
@@ -27,10 +27,6 @@ const constructorRoutes: Routes = [
         component: LecturesComponent
       },
       {
-        path: 'new_conference',
-        component: NewConferenceComponent
-      },
-      {
         path: 'conference/:id',
         component: ConferenceComponent
       },
@@ -38,6 +34,10 @@ const constructorRoutes: Routes = [
         path: 'conference',
         outlet: 'sidemenu',
         component: NavBarConstructorComponent
+      },
+      {
+        path: 'calendar',
+        component: CalendarComponent
       }
     ]
   }

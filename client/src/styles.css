@@ -20,6 +20,11 @@ body{
 html,body{
   font-family: 'Roboto', 'Helvetica', sans-serif;
 }
+.dialog-calendar .mat-dialog-container{
+  width: 90vw;
+  height: 89vh;
+  padding: 0;
+}
 .dialog-no-padding-panel .mat-dialog-container{
   width: 70vw;
   height: 89vh;

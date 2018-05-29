@@ -1,6 +1,6 @@
 <div class="Wrapper " >
 
-  <app-toolbar-constructor  [dialogComponent]="" [titleButtonCreate]="'Конференцию'" [titleToolbar]="'Конфиренции'"></app-toolbar-constructor>
+  <app-toolbar-constructor  [dialogComponent]="newConference" [titleButtonCreate]="'Конференцию'" [titleToolbar]="'Конфиренции'"></app-toolbar-constructor>
   <div *ngIf="loading" style="display: flex; justify-content: center; align-items: center; width: 100%; height: calc(100vh - 144px)" >
     <mat-progress-spinner  diameter="150"   mode="indeterminate" color="primary" >
     </mat-progress-spinner>

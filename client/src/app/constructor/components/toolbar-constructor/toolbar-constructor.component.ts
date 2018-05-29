@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, Type} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material";
+import {DialogPosition, MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material";
 import {NewSpeakerComponent} from "../speakers/new-speaker/new-speaker.component";
 
 @Component({
@@ -28,9 +28,8 @@ export class ToolbarConstructorComponent implements OnInit {
     this.search = false;
   }
   openDialog() {
+
     let dialogRef = this.dialog.open(this.dialogComponent, {
-      width: '70vw',
-      height: '89vh',
       data: {
       },
       panelClass: 'dialog-no-padding-panel'
