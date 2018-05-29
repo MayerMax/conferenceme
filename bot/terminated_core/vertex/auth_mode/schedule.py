@@ -14,6 +14,11 @@ by_date_results = {
     'Failure': 'Не смог распознать дату, извини'
 }
 
+by_all_results = {
+    'Success': '{}, лови расписание:\n\n{}',
+    'Empty': 'Ничего не нашлось, видимо конференция еще не готова организаторами'
+}
+
 
 def get_lectures_by_date(conf_id, date):
     a = Alchemy.get_session()
@@ -54,3 +59,19 @@ class ScheduleByDateFinishVertex(BaseActionVertex):
         else:
             answer = by_date_results.get('Empty')
         return QueryResult(StatusTypes.LEAF, [answer], [None], [])
+
+
+class ScheduleAllVertex(BaseActionVertex):
+    def predict_is_suitable_input(self, request: QueryRequest, context: Context) -> bool:
+        return request.question == self.name or request.question == self.alternative_name
+
+    def activation_function(self, request: QueryRequest, context: Context) -> QueryResult:
+        a = Alchemy.get_session()
+        lectures = a.query(Lecture).filter(Lecture.conf_id == request.where_to_search).order_by(Lecture.when).all()
+
+        if not lectures:
+            answer = by_all_results.get('Empty')
+        else:
+            answer = '\n'.join('{} - {}'.format(x.topic, x.when) for x in lectures)
+        return QueryResult(StatusTypes.LEAF, [by_all_results.get('Success').format(request.who_asked.username, answer)],
+                           [None], [])
