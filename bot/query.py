@@ -1,6 +1,5 @@
 from typing import List
 
-from bot.service.conference_plain_object import ConferencePlainObject
 from bot.service.users.user import User
 from bot.statuses import StatusTypes, RequestType
 

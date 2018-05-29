@@ -1,5 +1,7 @@
 import logging
 
+import datetime
+
 from bot.intelligence.analyzer import Analyzer
 from bot.query import QueryRequest
 from bot.service.repliers.behaviour import UserBehaviour
@@ -11,6 +13,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 
 from bot.terminated_core.graph.create import create_auth
 from bot.terminated_core.graph.guest_create import create_guest
+from bot.terminated_core.vertex.auth_mode.schedule import get_lectures_by_date
 from db.alchemy import Alchemy
 from db.models.content import Lecture
 
@@ -110,6 +113,6 @@ if __name__ == '__main__':
     b.launch()
     print('GO')
 
-    #  a = Alchemy.get_session()
-    #  lectures = a.query(Lecture).filter(Lecture.conf_id == 1).order_by(Lecture.when).all()
-    #  print(lectures)
+    # print(get_lectures_by_date(1, datetime.datetime.now()))
+    # a = Alchemy.get_session()
+    # print(a.query(Lecture).all())
