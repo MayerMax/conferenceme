@@ -9,7 +9,7 @@ from db.models.content import Lecture
 
 
 lecture_results = {
-    'Success': 'Вот что удалось найти: {}',
+    'Success': 'Вот что удалось найти:',
     'Empty': 'Ничего не удалось найти'
 }
 
@@ -30,10 +30,11 @@ class LectureDisplayAllVertex(BaseActionVertex):
         a = Alchemy.get_session()
         lectures = [str(x) for x in a.query(Lecture).filter(Lecture.conf_id == request.where_to_search).all()]
         if lectures:
-            answer = lecture_results['Success'].format('\n'.join(str(x) for x in lectures))
+            answers = [lecture_results['Success']]
+            answers = answers.extend(str(x) for x in lectures)
         else:
-            answer = lecture_results['Empty']
-        return QueryResult(StatusTypes.LEAF, [answer], [None], [])
+            answers = [lecture_results['Empty']]
+        return QueryResult(StatusTypes.LEAF, answers, [None] * len(answers), [])
 
 
 class LectureByNameTransitionVertex(BaseActionVertex):
@@ -60,6 +61,7 @@ class LectureByNameFinishVertex(BaseActionVertex):
             request.question = lectures[request.edition[0]].get_description()
         else:
             request.need_more = True
+            request.question = list(lectures)
         return True
 
     def activation_function(self, request: QueryRequest, context: Context):
@@ -70,7 +72,9 @@ class LectureByNameFinishVertex(BaseActionVertex):
             if len(request.edition) < 1:
                 return QueryResult(
                     status=StatusTypes.LEAF,
-                    answer=['WOW! Я никого не нашел! Думаю, ты ошибся, попробуй ввести еще раз!'],
+                    answer=['{}\n{}\n{}'.format('WOW! Я никого не нашел! Думаю, ты ошибся, попробуй ввести еще раз!',
+                                                'Вот все доступные лекции:',
+                                                '\n'.join(request.question))],
                     attachments=[None],
                     extra_args=[],
                     is_completed=False
