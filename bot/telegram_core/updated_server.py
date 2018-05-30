@@ -79,6 +79,7 @@ class Bot:
                 return
             else:
                 # просто ответ для гостя
+                # print(query_result.answer)
                 self.user_behaviour.get_available_replier(current_user).create_reply(query_result, [bot, update])
                 return
 

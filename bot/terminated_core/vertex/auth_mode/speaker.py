@@ -26,11 +26,12 @@ search_finish = {
     'PSuccess': 'супер, я нашел!\n{}'
 }
 
-CPM = ConferencePhotoModel(img_dir='/Users/smallhamster/Documents/conferenceme/db/media//speakers')
+# CPM = ConferencePhotoModel(img_dir='/Users/smallhamster/Documents/conferenceme/db/media//speakers')
 
 
 def find_image(speakers, photo_path):
-    found_face_path = CPM.find_relevant_face(photo_path)
+    # found_face_path = CPM.find_relevant_face(photo_path)
+    found_face_path = None
     if not found_face_path:
         return None
     found_face_path = os.path.normpath(found_face_path[0])
