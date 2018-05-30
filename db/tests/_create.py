@@ -1,17 +1,13 @@
 import os
 import datetime
-import stat
 
-from db.api import AuthApi
-from db.models import Base
 from db.models.event import Conference, RestActivity
 from db.models.content import Section, Lecture
 from db.models.infrastructure import ConferenceHashes
 from db.models.official import Organization
 from db.models.people import Contact, Speaker
 from db.alchemy import Alchemy
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
+
 
 
 def create_db(db_path='data.db'):
@@ -49,7 +45,28 @@ def fill_db(session):
                             end_date=datetime.datetime.now() + datetime.timedelta(days=23),
                             logo_path='{}/media/logos/cup-logo.png'.format(media_root_directory),
                             external_links='https://imagine.microsoft.com/ru-ru/usa;https://vk.com/imcup')
+
+    conference2 = Conference(organization_name='Сбербанк',
+                            conference_topics='Технологии;  IT; Мобильная разработка',
+                            root_path='{}/media/'.format(media_root_directory),
+                            name='Sbertech Conf 2018',
+                            begin_date=datetime.datetime.now() + datetime.timedelta(days=10),
+                            end_date=datetime.datetime.now() + datetime.timedelta(days=20),
+                            logo_path='{}/media/logos/cup-logo.png'.format(media_root_directory),
+                            external_links='https://www.sberbank.ru/ru/person')
+
+    conference3 = Conference(organization_name='Yandex',
+                            conference_topics='Беспилотники; Ml; Yandex',
+                            root_path='{}/media/'.format(media_root_directory),
+                            name='Yet Another Conference 2018',
+                            begin_date=datetime.datetime.now() + datetime.timedelta(days=20),
+                            end_date=datetime.datetime.now() + datetime.timedelta(days=30),
+                            logo_path='{}/media/logos/cup-logo.png'.format(media_root_directory),
+                            external_links='https://www.yandex.ru/')
+
     session.add(conference)
+    session.add(conference2)
+    session.add(conference3)
     session.commit()
 
     section_one = Section(conf_id=conference.id,
@@ -78,7 +95,7 @@ def fill_db(session):
                       room='First floor, conference hall 233b',
                       tags='IT; data science; Bots',
                       keywords='microsoft; azure; botframework; telegram; development',
-                      when=datetime.datetime.now() + datetime.timedelta(days=1),
+                      when=datetime.datetime.now() + datetime.timedelta(hours=5),
                       duration='1h 30 minutes')
 
     lecture2 = Lecture(section_id=section_one.id, conf_id=conference.id,
@@ -211,17 +228,4 @@ def fill_db(session):
 
 if __name__ == '__main__':
     create_db()
-    # AuthApi.create_organization_account('123', '123', '123')
-    # s = Alchemy.get_session()
-    # org = Organization(name='Microsofast',
-    #                    email_address='endurancemayer@gmail.com',
-    #                    password=hash('123'),
-    #                    description='We’re looking for the next big thing and we know students like you are going to build it! Register today for the Imagine Cup, Microsoft’s foremost global competition for student developers. As a student developer, your team can earn up to $11,000 and 1 of 6 spots to represent the United States at the global finals of Imagine Cup 2018. The top 12-ranked US teams will receive a trip to compete in the National Finals hosted in San Francisco, CA.',
-    #                    logo_path='{}/media/logos/microsoft.jpg'.format(''),
-    #                    external_links='https://imagine.microsoft.com/ru-ru/usa;https://vk.com/imcup',
-    #                    tags='it;community;programming;web',
-    #                    headquarters='Moscow, Microsoft LLC')
-    # s.add(org)
-    # s.commit()
-    # os.remove('tmp.db')
 

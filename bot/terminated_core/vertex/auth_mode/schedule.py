@@ -78,7 +78,7 @@ class ScheduleAllVertex(BaseActionVertex):
         if not lectures:
             answer = by_all_results.get('Empty')
         else:
-            answer = '\n'.join('{} - {}'.format(x.topic, x.when) for x in lectures)
+            answer = '\n'.join('{} - {}'.format(x.topic, x.when.strftime("%Y-%m-%d-%H.%M")) for x in lectures)
             answer = by_all_results.get('Success').format(request.who_asked.username, answer)
         return QueryResult(StatusTypes.LEAF, [answer],
                            [None], [])

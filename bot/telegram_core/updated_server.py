@@ -53,6 +53,17 @@ class Bot:
         user_replier = self.user_behaviour.get_available_replier(current_user)
         user_replier.create_reply(query_result, [bot, update])
 
+    def cancel_handler(self, bot, update):
+        current_user = MakeUser.from_telegram(update.message.from_user)
+        fake_request = QueryRequest(current_user, 'Welcome', RequestType.STRING)
+        if self.user_behaviour.is_authorized(current_user):
+            self.analyzer.clean_user_context(current_user)
+            response = self.analyzer.analyze(fake_request)
+        else:
+            self.guest.clean_user_context(current_user)
+            response = self.guest.analyze(fake_request)
+        self.user_behaviour.get_available_replier(current_user).create_reply(response, [bot, update])
+
     def text_handler(self, bot, update):
         current_user = MakeUser.from_telegram(update.message.from_user)
 
@@ -87,7 +98,8 @@ class Bot:
         current_user = MakeUser.from_telegram(update.message.from_user)
         if self.user_behaviour.is_authorized(current_user):
             random_name = ''.join(random.choice(string.ascii_letters) for _ in range(16))
-            path = update.message.photo[1].get_file().download(custom_path='../../db/media/temp/{}.jpg'.format(random_name))
+            path = update.message.photo[1].get_file().download(
+                custom_path='../../db/media/temp/{}.jpg'.format(random_name))
             user_request = QueryRequest(current_user, path, RequestType.PHOTO,
                                         self.user_behaviour.authorized_where_to_search[current_user])
 
@@ -102,8 +114,10 @@ class Bot:
         start_handler = CommandHandler('start', self.start_state)
         text_handler = MessageHandler(Filters.text, self.text_handler)
         image_handler = MessageHandler(Filters.photo, self.image_handler)
+        cancel_handler = CommandHandler('cancel', self.cancel_handler)
 
         dispatcher.add_handler(start_handler)
+        dispatcher.add_handler(cancel_handler)
         dispatcher.add_handler(text_handler)
         dispatcher.add_handler(CallbackQueryHandler(self.button_callback))
         dispatcher.add_handler(image_handler)
