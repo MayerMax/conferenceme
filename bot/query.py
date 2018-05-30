@@ -1,6 +1,5 @@
 from typing import List
 
-from bot.service.conference_plain_object import ConferencePlainObject
 from bot.service.users.user import User
 from bot.statuses import StatusTypes, RequestType
 
@@ -35,7 +34,7 @@ class QueryRequest:
 
     def __init__(self, who_asked: User, question: str, request_type: RequestType=RequestType.STRING,
 
-                 where_to_search: ConferencePlainObject = None, need_more=False):
+                 where_to_search: int = None):
 
         """
         конструктор
@@ -47,7 +46,5 @@ class QueryRequest:
         self.question = question
         self.where_to_search = where_to_search
         self.request_type = request_type
-
+        self.need_more = False
         self.edition = None
-        self.need_more = need_more
-

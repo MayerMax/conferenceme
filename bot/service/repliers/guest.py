@@ -1,6 +1,7 @@
 from typing import List
 
 import emoji
+from emoji import emojize
 from telegram import ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardRemove
 
 from bot.query import QueryResult
@@ -8,16 +9,14 @@ from bot.service.repliers.abstract_replier import AbstractReplier
 from bot.statuses import UserState, StatusTypes
 
 
-class TelegramReplier(AbstractReplier):
-    representation = [
-        [emoji.emojize(':calendar: Расписание', use_aliases=True)],
-        [emoji.emojize(':books: Лекции',use_aliases=True), emoji.emojize(':man: Спикеры',use_aliases=True)],
-        [emoji.emojize(':interrobang: Информация о конференции', use_aliases=True)],
-        [emoji.emojize(':newspaper: Новости', use_aliases=True)]
-    ]
+class GuestTelegramReplier(AbstractReplier):
+    representation = [[emojize(':mag_right: Поиск Конференций', use_aliases=True)],
+                      [emojize(':key: Авторизация',use_aliases=True)],
+                      [emojize(':information_source: О нас', use_aliases=True),
+                       emojize(':bust_in_silhouette: Ваш Профиль',use_aliases=True)]]
+
     def create_reply(self, query_result: QueryResult, extra_args: List[object]):
         bot, update = extra_args
-
         if self.stack:
             chat_id, message_id = self.stack.pop()
             keyboard = [[InlineKeyboardButton(emoji.emojize(':heavy_check_mark:'), callback_data='NONE')]]
@@ -27,7 +26,7 @@ class TelegramReplier(AbstractReplier):
         if query_result.status == StatusTypes.ROOT or (query_result.status == StatusTypes.LEAF and
                                                            query_result.is_completed):
             markup = ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True,
-                                         keyboard=TelegramReplier.representation)
+                                         keyboard=GuestTelegramReplier.representation)
         else:
             keyboard = [[
                 InlineKeyboardButton(option, callback_data=option)] for option in query_result.extra_args]

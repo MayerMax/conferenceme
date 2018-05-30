@@ -38,7 +38,7 @@ keywords: {},
 at {}, in {}.
 Length:{}
 
-        """.format(self.topic, self.keywords, self.when, self.room, self.duration)
+        """.format(self.topic, self.keywords, self.when.strftime("%Y-%m-%d-%H.%M"), self.room, self.duration)
 
     def get_description(self):
         return """
@@ -49,4 +49,4 @@ keywords: {},
 at {}, in {}.
 Length:{}
 
-""".format(self.topic, self.description, self.keywords, self.when, self.room, self.duration)
+""".format(self.topic, self.description, self.keywords, self.when.strftime("%Y-%m-%d-%H.%M"), self.room, self.duration)

@@ -35,7 +35,6 @@ class StateGraph:
             return self.vertices[name]
         return None
 
-
     def get_action_vertex_via_alternative_name(self, name: str) -> Union[BaseActionVertex, None]:
 
         if name in self.__alternative_vertices_name:
@@ -66,7 +65,6 @@ class StateGraph:
         for v in self.vertices:
             self.vertices[v].to_roots = alternative_names
 
-
     def get_vertices_names(self) -> List[str]:
         """
         возвращает имена вершин графа
@@ -84,7 +82,6 @@ class StateGraph:
         if not vertex_children:
             return None
 
-
         suitable_predictions = [self.get_action_vertex(x).predict_is_suitable_input(request, context)
                                 for x in vertex_children]
 
@@ -92,7 +89,6 @@ class StateGraph:
         if count_suitable == 0 or count_suitable > 2:
             return None
         return vertex_children[suitable_predictions.index(True)]
-
 
     def _vertex_exist_checker(self, vertex_name: str) -> BaseActionVertex:
         if vertex_name not in self.vertices:
