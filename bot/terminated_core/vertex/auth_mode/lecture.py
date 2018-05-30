@@ -31,7 +31,7 @@ class LectureDisplayAllVertex(BaseActionVertex):
         lectures = [str(x) for x in a.query(Lecture).filter(Lecture.conf_id == request.where_to_search).all()]
         if lectures:
             answers = [lecture_results['Success']]
-            answers = answers.extend(str(x) for x in lectures)
+            answers.extend(str(x) for x in lectures)
         else:
             answers = [lecture_results['Empty']]
         return QueryResult(StatusTypes.LEAF, answers, [None] * len(answers), [])
@@ -77,7 +77,7 @@ class LectureByNameFinishVertex(BaseActionVertex):
                                                 '\n'.join(request.question))],
                     attachments=[None],
                     extra_args=[],
-                    is_completed=False
+                    is_completed=True
                 )
             if len(request.edition) > 1:
                 return QueryResult(

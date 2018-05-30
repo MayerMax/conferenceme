@@ -16,13 +16,14 @@ def create_guest() -> StateGraph:
     g.add_action_vertex(HelloVertex('Welcome', StatusTypes.ROOT))
     g.add_action_vertex(FindMoreAboutConferenceVertex('FindMoreAboutConferences', StatusTypes.NEIGHBOUR,
                                                       emojize(':mag_right: Поиск Конференций', use_aliases=True)))
+
     g.add_action_vertex(AuthorizeVertex('Authorization', StatusTypes.NEIGHBOUR, emojize(':key: Авторизация',
                                                                                         use_aliases=True)))
     g.add_action_vertex(YourProfileVertex('Profile', StatusTypes.NEIGHBOUR, emojize(':bust_in_silhouette: Ваш Профиль',
                                                                                     use_aliases=True)))
 
-    g.add_action_vertex(AboutUsVertex('AboutUs', StatusTypes.NEIGHBOUR, emojize(':information_source: О нас',
-                                                                                use_aliases=True)))
+    g.add_action_vertex(AboutUsVertex('AboutUs', StatusTypes.LEAF, emojize(':information_source: О нас',
+                                                                           use_aliases=True)))
 
     g.add_transition_from_parent_to_child_by_names('Welcome', 'FindMoreAboutConferences')
     g.add_transition_from_parent_to_child_by_names('Welcome', 'Authorization')
